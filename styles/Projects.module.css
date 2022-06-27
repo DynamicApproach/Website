@@ -16,8 +16,7 @@
   display: flex;
   flex: 1;
   padding: 2rem 0;
-  border-top: .5px solid #eaeaea;
-  color:#adabab;
+  border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
 }
@@ -32,27 +31,47 @@
 .title a {
   color: #0070f3;
   text-decoration: none;
+  padding-bottom: 50px;
+  gap: 0.25rem;
 }
 
 .title a:hover,
 .title a:focus,
 .title a:active {
+  text-decoration: #0070f3;
   text-decoration: underline;
+}
+.title:hover {
+  background-position: 0 100%;
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+  color: white;
+  font-weight: 3;
+  transition: background-position 275ms ease;
+}
+
+.title,
+.description {
+  text-align: center;
 }
 
 .central {
   margin: 4rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
-  color: rgba(255, 255, 255, 0.568);
+  color: white;
 }
-.title {
-  color: rgb(250, 193, 193);
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
+.description {
+  color: white;
+  margin: 4rem 0;
+  line-height: 1.5;
+  font-size: 1.25rem;
+  width: 75%;
 }
-
 .descriptiondouble {
   margin: 4rem 0;
   padding-left: 20%;
@@ -60,21 +79,12 @@
   line-height: 1.5;
   font-size: 1.25rem;
 }
-.title,
-.description {
-  text-align: center;
-}
-
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
 
 .code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
+  color: darkgray;
+  background: black;
+  border-radius: 25px;
+  padding: 1.25rem;
   font-size: 1.1rem;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
@@ -89,6 +99,7 @@
 }
 
 .card {
+  color: white;
   margin: 1rem;
   padding: 1.5rem;
   text-align: left;
@@ -108,11 +119,14 @@
 }
 
 .card h2 {
+  color: #5fc25fd5;
   margin: 0 0 1rem 0;
+  color: nextgreen;
   font-size: 1.5rem;
 }
 
 .card p {
+  color: rgba(148, 148, 148, 0.952);
   margin: 0;
   font-size: 1.25rem;
   line-height: 1.5;
