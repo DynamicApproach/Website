@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+//import Image from "next/image";
 export const Nav = () => {
   return (
     <div className="sticky top-0 right-5 m-5 flex justify-end bg-backgray">
