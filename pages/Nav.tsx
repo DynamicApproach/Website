@@ -1,6 +1,7 @@
 import Link from "next/link";
 //import Image from "next/image";
 
+import styled from "styled-components";
 import tw from "tailwind-styled-components";
 const TailWindNav = tw.nav`flex justify-center sticky top-0 float-right m-2 bg-backgray p-6"`;
 const TailwindButton = tw.button`border-indigo-500  m-15 cursor-pointer  border-spacing-80 rounded-full
@@ -11,6 +12,7 @@ const TailWindMenuBG = tw.div`sticky border-spacing-80`;
 const TailwindExitButton = tw.div`hover:border-transparent hover:text-black m-2 mt-4
 inline-block rounded  border  border-white px-4 py-2 text-sm leading-none
  text-white hover:bg-nextblue lg:mt-0`;
+
 export const Nav = () => {
   return (
     <TailWindNav>
