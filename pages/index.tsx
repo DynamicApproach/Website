@@ -12,7 +12,10 @@ const addonList = [
   "TailwindCSS, ",
   "Typescript, ",
   "Prettier, ",
-  "ESlint"
+  "ESlint, ",
+  "Husky, ",
+  "LintStaged, ",
+  "Jest "
 ];
 const date = new Date();
 const minutes: number = date.getMinutes();
