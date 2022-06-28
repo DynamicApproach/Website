@@ -38,7 +38,8 @@ export const projects = () => {
           </a>
 
           <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            href="https://vercel.com/new?utm_source=create-next-app
+            &utm_medium=default-template&utm_campaign=create-next-app"
             className={styles.card}
           >
             <h2>Project4&rarr;</h2>
