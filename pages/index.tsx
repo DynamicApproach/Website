@@ -66,12 +66,18 @@ const Index: NextPage = () => (
       </div>
     </main>
 
-    <footer className={styles.footer}>
-      <div className={styles.grid}>
-        <p className="color-white left-0 m-4 max-w-xs border-spacing-4 border border-solid p-6 text-left">
-          Powered by {addonList}
-        </p>
-        <h4 className="color-white right-0 m-4 max-w-xs border-spacing-4 border border-solid p-6 text-left">
+    <footer className=" relative flex flex-1 content-center justify-center border-t-4 border-nextblue p-8 ">
+      <div className="max-w-m flex min-w-min flex-wrap content-center justify-center ">
+        <h3
+          className=" left-0 m-4 min-w-min max-w-xs border-spacing-4 
+        border border-solid border-nextblue p-6 text-left"
+        >
+          Powered by <p className="color-blue">{addonList}</p>
+        </h3>
+        <h4
+          className="color-white right-0 m-4 max-w-xs border-spacing-4 
+        content-center justify-center border border-solid border-nextblue p-6 text-left"
+        >
           Thomas Lloyd-Jones
         </h4>
       </div>
