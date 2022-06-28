@@ -6,32 +6,41 @@ import Document, {
   DocumentInitialProps,
   DocumentContext
 } from "next/document";
+import { ServerStyleSheet } from "styled-components";
 // https://nextjs.org/docs/advanced-features/custom-document -- TypeScript example + documentation
 
-class MyDocument extends Document {
-  static async getInitialProps(
-    ctx: DocumentContext
-  ): Promise<DocumentInitialProps> {
-    const originalRenderPage = ctx.renderPage;
+const withStyledComponents = async (
+  ctx: DocumentContext
+): Promise<DocumentInitialProps> => {
+  const { renderPage } = ctx;
+  const sheet = new ServerStyleSheet();
 
-    // Run the React rendering logic synchronously
+  try {
     ctx.renderPage = () =>
-      originalRenderPage({
-        // Useful for wrapping the whole react tree
-        enhanceApp: (App) => App,
-        // Useful for wrapping in a per-page basis
-        enhanceComponent: (Component) => Component
+      renderPage({
+        enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />)
       });
 
-    // Run the parent `getInitialProps`, it now includes the custom `renderPage`
-    const initialProps = await Document.getInitialProps(ctx);
+    const { styles, ...initialProps } = await Document.getInitialProps(ctx);
 
-    return initialProps;
+    return {
+      ...initialProps,
+      styles: [styles, sheet.getStyleElement()]
+    };
+  } finally {
+    sheet.seal();
+  }
+};
+export default class MyDocument extends Document {
+  public static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
+    return withStyledComponents(ctx);
   }
 
   render() {
     return (
-      <Html lang="en" className="absolute bg-backgray">
+      <Html>
         <Head />
         <body>
           <Main />
@@ -41,5 +50,3 @@ class MyDocument extends Document {
     );
   }
 }
-
-export default MyDocument;

@@ -4,6 +4,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Nav from "pages/Nav";
 //import Link from "next/link";
+import tw from "tailwind-styled-components";
 const addonList = [
   "NPM, ",
   "GIT, ",
