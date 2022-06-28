@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 export const Nav = () => {
   return (
-    <div className="m-5 bg-backgray">
+    <div className="absolute top-0 right-0 m-5 bg-backgray">
       <nav className="flex flex-wrap items-center justify-between overflow-x-auto bg-backgray p-2 text-blue ">
         <div className="inline-block w-auto flex-wrap lg:flex lg:w-auto lg:items-center">
           <div className="text-sm lg:flex-grow">

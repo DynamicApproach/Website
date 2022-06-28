@@ -10,14 +10,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+  margin-top: 10vh;
 }
 
 .footer {
   display: flex;
   flex: 1;
   padding: 2rem 0;
-  border-top: .5px solid #eaeaea;
-  color:#adabab;
+  border-top: 0.5px solid #eaeaea;
+  color: #adabab;
   justify-content: center;
   align-items: center;
 }
