@@ -16,7 +16,7 @@
     "*": [
       "prettier --write --ignore-unknown"
     ],
-    "*.{css,js,ts,tsx}": [
+    "*.{js,ts,tsx}": [
       "prettier --write",
       "eslint --fix"
     ]

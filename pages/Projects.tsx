@@ -2,7 +2,7 @@ import Nav from "pages/Nav";
 import styles from "styles/Projects.module.css";
 export const projects = () => {
   return (
-    <div className="bg-darkgray">
+    <div className="bg-backgray">
       <Nav />
 
       <main className={styles.main}>
