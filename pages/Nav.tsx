@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 export const Nav = () => {
   return (
-    <div className="absolute top-0 right-0 m-5 bg-backgray">
-      <nav className="flex flex-wrap items-center justify-between overflow-x-auto bg-backgray p-2 text-blue ">
+    <div className="sticky top-0 right-5 m-5 flex justify-end bg-backgray">
+      <nav className="sticky inline-flex flex-wrap items-center justify-between overflow-x-auto bg-backgray p-2 text-blue ">
         <div className="inline-block w-auto flex-wrap lg:flex lg:w-auto lg:items-center">
           <div className="text-sm lg:flex-grow">
             <Link href="/Projects" target="_blank">
