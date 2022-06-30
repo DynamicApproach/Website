@@ -54,12 +54,12 @@ const Index: NextPage = () => (
           <p className={styles.descriptiondouble}>
             Before persuing my love of code, I have previously worked as a
             cosmetologist. I have a passion for creating and maintaining beauty
-            in all of it&apos;s forms.
+            in all of its forms.
           </p>
           <p className={styles.descriptiondouble}>
             Before persuing my love of code, I have previously worked as a
             cosmetologist. I have a passion for creating and maintaining beauty
-            in all of it&apos;s forms.
+            in all of its forms.
           </p>
         </div>
       </div>
