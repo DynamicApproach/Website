@@ -1,10 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-//import Image from "next/image";
+import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Nav from "pages/Nav";
+
+import watermelonportal from "pages/images/watermelonportal.png";
 //import Link from "next/link";
-import tw from "tailwind-styled-components";
 const addonList = [
   "NPM, ",
   "GIT, ",
@@ -17,24 +18,7 @@ const addonList = [
   "LintStaged, ",
   "Jest "
 ];
-const date = new Date();
-const seconds: number = date.getSeconds();
-const minutes: number = date.getMinutes();
-const hours: number = date.getHours();
-const time = `${hours}:${minutes}:${seconds}`;
-let timeWelcome = `${hours}:${minutes}`;
 
-if (hours < 12 && hours > 5) {
-  timeWelcome = "Good morning!";
-} else if (hours > 5 && hours >= 12 && hours < 14) {
-  timeWelcome = "Good afternoon!";
-} else if (hours >= 14 && hours < 20) {
-  timeWelcome = "Good evening!";
-} else if (hours >= 20 && hours < 23) {
-  timeWelcome = "Welcome, I hope your evening is well.";
-} else {
-  timeWelcome = "Ah, it's late! Night is always the most peaceful. Welcome.";
-}
 const Index: NextPage = () => (
   <div className="light:bg-white mx-auto bg-backgray ">
     <Nav />
@@ -44,8 +28,10 @@ const Index: NextPage = () => (
     </Head>
 
     <main className={styles.main}>
-      <h1 className={styles.title}>{timeWelcome}</h1>
-      <h2 className={styles.central}> This is my personal portfolio</h2>
+      <h2 className="light:text-nextblue content-center items-center justify-center text-5xl">
+        My name is Thomas Lloyd-Jones. This is my personal portfolio and
+        website.
+      </h2>
       <div className={styles.description}>
         While currently studying as a senior at SUNY at Albany, I am currently
         working on my portfolio. I am a software engineer with a passion for
@@ -57,9 +43,7 @@ const Index: NextPage = () => (
             in all of its forms.
           </p>
           <p className={styles.descriptiondouble}>
-            Before persuing my love of code, I have previously worked as a
-            cosmetologist. I have a passion for creating and maintaining beauty
-            in all of its forms.
+            <Image src={watermelonportal} width={1000} height={1000} />
           </p>
         </div>
       </div>
@@ -76,13 +60,9 @@ const Index: NextPage = () => (
         <h4
           className="color-white right-0 m-4 max-w-xs border-spacing-4 
         content-center justify-center border border-solid border-nextblue p-6 text-left"
-        >
-          Thomas Lloyd-Jones
-        </h4>
+        ></h4>
       </div>
-      <p className="relative">
-        <small className=" absolute inset-x-0 bottom-0">{time}</small>
-      </p>
+      <p className="relative"></p>
     </footer>
   </div>
 );

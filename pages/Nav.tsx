@@ -1,7 +1,6 @@
 import Link from "next/link";
 //import Image from "next/image";
 
-import styled from "styled-components";
 import tw from "tailwind-styled-components";
 const TailWindNav = tw.nav` justify-center sticky top-0 min-w-max float-right    bg-backgray p-6"`;
 const TailwindButton = tw.button`border-indigo-500  cursor-pointer  rounded-full px-0.5 text-2xl
@@ -20,12 +19,17 @@ export const Nav = () => {
       <TailWindMenuBG>
         <TailWindMenu>
           <TailWindMenuBlock>
+            <Link href="/">
+              <TailwindButton>Home</TailwindButton>
+            </Link>
+          </TailWindMenuBlock>
+          <TailWindMenuBlock>
             <Link href="/Projects">
               <TailwindButton>Projects</TailwindButton>
             </Link>
           </TailWindMenuBlock>
           <TailWindMenuBlock>
-            <Link href="/printing">
+            <Link href="/threedprinting">
               <TailwindButton>3D Printing</TailwindButton>
             </Link>
           </TailWindMenuBlock>
@@ -39,11 +43,7 @@ export const Nav = () => {
               <TailwindButton>GitHub</TailwindButton>
             </Link>
           </TailWindMenuBlock>
-          <TailWindMenuBlock>
-            <Link href="/">
-              <TailwindButton>Home</TailwindButton>
-            </Link>
-          </TailWindMenuBlock>
+
           <TailWindMenuBlock>
             <Link href="mailto: tlloyd-jones@albany.edu">
               <TailwindExitButton>Email Me &rarr;</TailwindExitButton>

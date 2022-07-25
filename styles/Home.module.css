@@ -48,6 +48,9 @@
   line-height: 1.5;
   font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.568);
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 .title {
   color: rgb(250, 193, 193);
@@ -72,6 +75,10 @@
   margin: 4rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  display: block;
 }
 
 .code {
