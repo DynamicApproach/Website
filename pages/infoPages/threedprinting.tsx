@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Nav from "pages/Nav";
+import Nav from "pages/components/Nav";
 import styles from "styles/Projects.module.css";
 export const threedprinting = () => {
   return (
@@ -10,12 +10,12 @@ export const threedprinting = () => {
         <h1 className={styles.title}>Recent Projects</h1>
         <div className={styles.grid}>
           <div className={styles.card}>
-            <Link href="/threedprint/myprinter">
+            <Link href="/infoPages/threedprint/myprinter">
               <h2>My Printer &rarr;</h2>
             </Link>
           </div>
           <div className={styles.card}>
-            <Link href="/threedprint/printprojects">
+            <Link href="/infoPages/threedprint/printprojects">
               <h2>Printed Projects &rarr;</h2>
             </Link>
             <p>
@@ -25,7 +25,7 @@ export const threedprinting = () => {
           </div>
 
           <div className={styles.card}>
-            <Link href="/threedprint/favouriteprints">
+            <Link href="/infoPages/threedprint/favouriteprints">
               <h2>Favourite Prints &rarr;</h2>
             </Link>
 
@@ -37,7 +37,7 @@ export const threedprinting = () => {
 
           <div className={styles.card}>
             <h2>
-              <Link href="/threedprint/klipperconfig">
+              <Link href="/infoPages/threedprint/klipperconfig">
                 Klipper config &rarr;
               </Link>
             </h2>

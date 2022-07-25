@@ -1,16 +1,16 @@
 import Link from "next/link";
-import Nav from "pages/Nav";
+import Nav from "pages/components/Nav";
 import styles from "styles/Projects.module.css";
-export const myprinter = () => {
+export const printprojects = () => {
   return (
     <div className="bg-backgray">
       <Nav />
 
       <main className={styles.main}>
-        <h1 className={styles.title}>My Printer</h1>
+        <h1 className={styles.title}>printprojects</h1>
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <Link href="/threedprinting">
+          <div className={styles.card}>
+            <Link href="/infoPages/threedprinting">
               <h2>Back&rarr;</h2>
             </Link>
             <p>
@@ -22,10 +22,10 @@ export const myprinter = () => {
               Essentially, the only parts left the same, were the stepper
               moters, the frame and the power supply.
             </p>
-          </a>
+          </div>
         </div>
       </main>
     </div>
   );
 };
-export default myprinter;
+export default printprojects;

@@ -24,17 +24,17 @@ export const Nav = () => {
             </Link>
           </TailWindMenuBlock>
           <TailWindMenuBlock>
-            <Link href="/Projects">
+            <Link href="/infoPages/Projects">
               <TailwindButton>Projects</TailwindButton>
             </Link>
           </TailWindMenuBlock>
           <TailWindMenuBlock>
-            <Link href="/threedprinting">
+            <Link href="/infoPages/threedprinting">
               <TailwindButton>3D Printing</TailwindButton>
             </Link>
           </TailWindMenuBlock>
           <TailWindMenuBlock>
-            <Link href="/print">
+            <Link href="/infoPages/print">
               <TailwindButton>Threejs</TailwindButton>
             </Link>
           </TailWindMenuBlock>

@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Nav from "pages/Nav";
+import Nav from "pages/components/Nav";
 
 import watermelonportal from "pages/images/watermelonportal.png";
 //import Link from "next/link";
