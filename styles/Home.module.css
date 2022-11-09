@@ -59,12 +59,22 @@
   font-size: 4rem;
 }
 
-.descriptiondouble {
+.descriptiondoubleb {
   margin: 4rem 0;
+  padding-top: 10%;
   padding-left: 20%;
   width: 70%;
   line-height: 1.5;
-  font-size: 1.25rem;
+  font-size: 1rem;
+  color: #50a7d7;
+}
+.descriptiondouble {
+  margin: 4rem 0;
+  padding-top: 10%;
+  padding-left: 15%;
+  width: 100%;
+  line-height: 1.5;
+  font-size: 1rem;
 }
 .title,
 .description {

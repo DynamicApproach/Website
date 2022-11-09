@@ -21,6 +21,12 @@ module.exports = {
       nextblue: "#0070f3",
       nextjs: "#ff0000",
       nextgreen: "#00ff00",
+      lightblue: "#90cdf4",
+      albanypurp:"#46166b",
+      albanyyellow: "#ecb236",
+      albanylightpurp: "#5f1d91",
+      nextlightblueish: "#50a7d7"
+
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
