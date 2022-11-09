@@ -33,6 +33,7 @@ const Index: NextPage = () => (
         website.
       </h2>
       <div className={styles.description}>
+        My favourite things are coding, networking and playing video games.
         While currently studying as a senior at SUNY at Albany, I am currently
         working on my portfolio. I am a software engineer with a passion for
         learning and building things. Thomas Lloyd-Jones

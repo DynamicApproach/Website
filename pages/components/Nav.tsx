@@ -20,27 +20,27 @@ export const Nav = () => {
         <TailWindMenu>
           <TailWindMenuBlock>
             <Link href="/">
-              <TailwindButton>Home</TailwindButton>
+              <TailwindExitButton>Home</TailwindExitButton>
             </Link>
           </TailWindMenuBlock>
           <TailWindMenuBlock>
             <Link href="/infoPages/Projects">
-              <TailwindButton>Projects</TailwindButton>
+              <TailwindExitButton>Projects</TailwindExitButton>
             </Link>
           </TailWindMenuBlock>
           <TailWindMenuBlock>
             <Link href="/infoPages/threedprinting">
-              <TailwindButton>3D Printing</TailwindButton>
+              <TailwindExitButton>3D Printing</TailwindExitButton>
             </Link>
           </TailWindMenuBlock>
           <TailWindMenuBlock>
             <Link href="/infoPages/print">
-              <TailwindButton>Threejs</TailwindButton>
+              <TailwindExitButton>Threejs</TailwindExitButton>
             </Link>
           </TailWindMenuBlock>
           <TailWindMenuBlock>
             <Link href="https://github.com/DynamicApproach/" target={"_blank"}>
-              <TailwindButton>GitHub</TailwindButton>
+              <TailwindExitButton>GitHub</TailwindExitButton>
             </Link>
           </TailWindMenuBlock>
 
