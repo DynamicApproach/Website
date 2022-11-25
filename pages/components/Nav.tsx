@@ -25,8 +25,8 @@ export const Nav = () => {
         />
       </a>
       <button
-        className=" hover:bg-green-600 ml-auto inline-flex rounded p-3
-         text-white outline-none hover:text-white "
+        className=" hover:bg-green-600 ml-auto inline-flex rounded p-3 text-white
+         outline-none hover:text-white lg:hidden "
         onClick={clickOnNav}
       >
         <svg
@@ -47,10 +47,10 @@ export const Nav = () => {
       <div
         className={`${
           active ? "" : "hidden"
-        }   w-full lg:inline-flex lg:w-auto lg:flex-grow`}
+        }   w-full lg:inline-flex lg:w-auto lg:flex-grow  `}
       >
         <div
-          className="flex w-full flex-col items-start 
+          className="bg-indigo-600 sticky top-0 z-10 col-[1/-1] row-[1] flex min-h-[4rem] items-center justify-center 
         lg:ml-auto lg:inline-flex  lg:h-auto lg:w-auto lg:flex-row lg:items-center"
         >
           <div>
