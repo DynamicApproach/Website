@@ -10,9 +10,6 @@ export const printprojects = () => {
         <h1 className={styles.title}>printprojects</h1>
         <div className={styles.grid}>
           <div className={styles.card}>
-            <Link href="/infoPages/threedprinting">
-              <h2>Back&rarr;</h2>
-            </Link>
             <p>
               My printer was originally an Ender 3 (when they were first
               released) and consisted of the default parts. I quickly modified
@@ -21,7 +18,10 @@ export const printprojects = () => {
               <br />
               Essentially, the only parts left the same, were the stepper
               moters, the frame and the power supply.
-            </p>
+            </p>{" "}
+            <Link href="/infoPages/threedprinting">
+              <h2 className="float-right text-nextblue">Back&rarr;</h2>
+            </Link>
           </div>
         </div>
       </main>

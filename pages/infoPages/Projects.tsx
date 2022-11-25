@@ -5,7 +5,7 @@ export const projects = () => {
   return (
     <div
       className="bg-gradient-to-r
-    from-backgray to-albanypurp bg-cover bg-fixed bg-local bg-bottom bg-no-repeat"
+    from-backgray to-albanypurp bg-cover  bg-bottom bg-no-repeat"
     >
       <Nav />
 
@@ -34,7 +34,7 @@ export const projects = () => {
           </div>
 
           <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
+            href="https://github.com/DynamicApproach/AllCode"
             className={styles.card}
           >
             <h2>Random Code &rarr;</h2>
@@ -43,6 +43,9 @@ export const projects = () => {
               projects. Not organized, but it&apos;s here.
             </p>
           </a>
+          <Link className={styles.cardnoborder} href="/">
+            <h2 className="float-right text-nextblue">Back&rarr;</h2>
+          </Link>
         </div>
       </main>
     </div>

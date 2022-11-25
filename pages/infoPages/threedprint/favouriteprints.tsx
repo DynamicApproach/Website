@@ -10,10 +10,10 @@ export const favouriteprints = () => {
         <h1 className={styles.title}>My favourite prints</h1>
         <div className={styles.grid}>
           <div className={styles.card}>
-            <Link href="/infoPages/threedprinting">
-              <h2>Back&rarr;</h2>
-            </Link>
             <p></p>
+            <Link href="/infoPages/threedprinting">
+              <h2 className="float-right">Back&rarr;</h2>
+            </Link>
           </div>
         </div>
       </main>

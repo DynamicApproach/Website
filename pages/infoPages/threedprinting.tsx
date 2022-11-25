@@ -46,6 +46,9 @@ export const threedprinting = () => {
             </h2>
             <p>Full config</p>
           </div>
+          <Link className={styles.card} href="/">
+            <h2 className="float-right">Back&rarr;</h2>
+          </Link>
         </div>
       </main>
     </div>

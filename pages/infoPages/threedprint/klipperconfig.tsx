@@ -11,12 +11,14 @@ export const klipperconfig = () => {
         <h1 className={styles.title}>Klipper Config</h1>
         <div className={styles.grid}>
           <div className={styles.card}>
-            <code></code>
+            {/* Import textfile as text */}
+            <h2>Config &rarr;</h2>
+            <p className="text-nextlightblueish">To be added - Contact me!</p>
           </div>
         </div>
         <div className={styles.card}>
           <Link href="/infoPages/threedprinting">
-            <h2>Back&rarr;</h2>
+            <h2 className="text-nextblue">Back&rarr;</h2>
           </Link>
           <p></p>
         </div>
