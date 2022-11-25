@@ -53,7 +53,7 @@ export const Nav = () => {
           className="flex w-full flex-col items-start 
         lg:ml-auto lg:inline-flex  lg:h-auto lg:w-auto lg:flex-row lg:items-center"
         >
-          <TailWindMenuBlock>
+          <div>
             <Link href="/">
               <TailwindExitButton>Home</TailwindExitButton>
             </Link>
@@ -63,9 +63,10 @@ export const Nav = () => {
             <Link href="/infoPages/threedprinting">
               <TailwindExitButton>3D Printing</TailwindExitButton>
             </Link>
+            {/*
             <Link href="/infoPages/print">
               <TailwindExitButton>Threejs</TailwindExitButton>
-            </Link>
+            </Link>*/}
             <Link href="https://github.com/DynamicApproach/">
               <TailwindExitButton>GitHub</TailwindExitButton>
             </Link>
@@ -73,7 +74,7 @@ export const Nav = () => {
               <TailwindExitButton>Email Me &rarr;</TailwindExitButton>
             </Link>
             <TailwindExitButton>Resume &rarr;</TailwindExitButton>
-          </TailWindMenuBlock>
+          </div>
         </div>
       </div>
     </nav>
