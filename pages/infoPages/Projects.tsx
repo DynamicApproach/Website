@@ -37,10 +37,10 @@ export const projects = () => {
             href="https://github.com/vercel/next.js/tree/canary/examples"
             className={styles.card}
           >
-            <h2>Project3 &rarr;</h2>
+            <h2>Random Code &rarr;</h2>
             <p>
-              Some quick example text to build on the card title and make up the
-              bulk of the card&apos;s content.
+              A large list of random code snippets I&apos;ve written for various
+              projects. Not organized, but it&apos;s here.
             </p>
           </a>
         </div>

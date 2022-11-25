@@ -37,8 +37,11 @@ const Index: NextPage = () => (
       <meta name="ThomasLJ" content="Thomas LJ Website" />
       <link rel="icon" href="/images/melongray.png" className="border" />
     </Head>
+
+    <br></br>
+    <br></br>
     <main className="bg-transparent light:text-black grid content-center justify-center">
-      <div className="grid grid-cols-4 ">
+      <div className="grid grid-cols-8 ">
         <div className="flex justify-end pr-2">
           <Image
             src={mainimg}
@@ -54,6 +57,7 @@ const Index: NextPage = () => (
           <p className="text-sm">Welcome to my personal website.</p>
         </h2>
       </div>
+      <br></br>
       <div className="content-center justify-center ">
         <div
           className="grid w-auto grid-cols-4 content-center justify-center
