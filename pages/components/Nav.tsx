@@ -73,7 +73,7 @@ export const Nav = () => {
             <Link href="mailto: tlloyd-jones@albany.edu">
               <TailwindExitButton>Email Me &rarr;</TailwindExitButton>
             </Link>
-            <TailwindExitButton>Resume &rarr;</TailwindExitButton>
+            {/*<TailwindExitButton>Resume &rarr;</TailwindExitButton>*/}
           </div>
         </div>
       </div>

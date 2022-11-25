@@ -37,7 +37,7 @@ const Index: NextPage = () => (
       <meta name="ThomasLJ" content="Thomas LJ Website" />
       <link rel="icon" href="/images/melongray.png" className="border" />
     </Head>
-    <main className="bg-transparent light:text-black">
+    <main className="bg-transparent light:text-black grid content-center justify-center">
       <div className="grid grid-cols-4 ">
         <div className="flex justify-end pr-2">
           <Image
@@ -54,36 +54,41 @@ const Index: NextPage = () => (
           <p className="text-sm">Welcome to my personal website.</p>
         </h2>
       </div>
-      <div className="grid  w-auto grid-cols-4 border-solid border-albanylightpurp pl-5 pt-8">
-        <div className=" ">
+      <div className="content-center justify-center ">
+        <div
+          className="grid w-auto grid-cols-4 content-center justify-center
+       border-solid border-albanylightpurp pl-5 pt-8 align-middle"
+        >
+          <div className=" ">
+            <p className=" pr-4 text-nextlightblueish">
+              My favourite things are coding, networking and playing video
+              games. While currently studying Computer Science at SUNY at
+              Albany, I am also working on my skills, website and side projects.
+            </p>
+            <br></br>
+            <p className=" pr-4 text-nextlightblueish">
+              This is one of a few side projects currently under construction.
+            </p>
+          </div>
+          <div className=" ">
+            <p className=" pr-4 text-nextlightblueish">
+              Currently, I&apos;m working on: <br></br>
+              {internship}
+              <br></br>
+              <br></br>
+              Mean while, at school I&apos;m working on: <br></br>
+              {schoolprojects}
+            </p>
+          </div>
           <p className=" pr-4 text-nextlightblueish">
-            My favourite things are coding, networking and playing video games.
-            While currently studying Computer Science at SUNY at Albany, I am
-            also working on my skills, website and side projects.
-          </p>
-          <br></br>
-          <p className=" pr-4 text-nextlightblueish">
-            This is one of a few side projects currently under construction.
-          </p>
-        </div>
-        <div className=" ">
-          <p className=" pr-4 text-nextlightblueish">
-            Currently, I&apos;m working on: <br></br>
-            {internship}
+            I am almost finished with my Bachelors of Science in Computer
+            Science, with a planned graduation date of December 2023.
             <br></br>
             <br></br>
-            Mean while, at school I&apos;m working on: <br></br>
-            {schoolprojects}
+            In my spare time, I tend to create new things, and I am currently
+            working on a new project, and this website. <br></br>
           </p>
         </div>
-        <p className=" pr-4 text-nextlightblueish">
-          I am almost finished with my Bachelors of Science in Computer Science,
-          with a planned graduation date of December 2023.
-          <br></br>
-          <br></br>
-          In my spare time, I tend to create new things, and I am currently
-          working on a new project, and this website. <br></br>
-        </p>
       </div>
     </main>
     <br></br>
