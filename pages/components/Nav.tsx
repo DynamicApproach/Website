@@ -2,10 +2,9 @@ import Link from "next/link";
 //import Image from "next/image";
 import { useState } from "react";
 
-import mainimg from "pages/images/main.png";
 import tw from "tailwind-styled-components";
-const TailWindNav = tw.nav` justify-center sticky top-0 min-w-max float-right    bg-transparent p-6`;
-const TailWindMenuBlock = tw.div`content-center flow-root border-spacing-6   space-y-6 
+const TailWindNav = tw.nav` justify-center sticky top-0 min-w-max float-right bg-transparent p-6`;
+const TailWindMenuBlock = tw.div`content-center flow-root border-spacing-6 space-y-6 
 justify-center align-middle text-sm `;
 const TailwindExitButton = tw.div`hover:border-transparent hover:text-black m-2 mt-4
 inline-block  rounded-tl-lg rounded-bl-lg  border space-y-7  border-white px-4 py-2 text-sm leading-none
@@ -55,22 +54,22 @@ export const Nav = () => {
         lg:ml-auto lg:inline-flex  lg:h-auto lg:w-auto lg:flex-row lg:items-center"
         >
           <TailWindMenuBlock>
-            <Link href="/" target={"_blank"}>
+            <Link href="/">
               <TailwindExitButton>Home</TailwindExitButton>
             </Link>
-            <Link href="/infoPages/Projects" target={"_blank"}>
+            <Link href="/infoPages/Projects">
               <TailwindExitButton>Projects</TailwindExitButton>
             </Link>
-            <Link href="/infoPages/threedprinting" target={"_blank"}>
+            <Link href="/infoPages/threedprinting">
               <TailwindExitButton>3D Printing</TailwindExitButton>
             </Link>
-            <Link href="/infoPages/print" target={"_blank"}>
+            <Link href="/infoPages/print">
               <TailwindExitButton>Threejs</TailwindExitButton>
             </Link>
-            <Link href="https://github.com/DynamicApproach/" target={"_blank"}>
+            <Link href="https://github.com/DynamicApproach/">
               <TailwindExitButton>GitHub</TailwindExitButton>
             </Link>
-            <Link href="mailto: tlloyd-jones@albany.edu" target={"_blank"}>
+            <Link href="mailto: tlloyd-jones@albany.edu">
               <TailwindExitButton>Email Me &rarr;</TailwindExitButton>
             </Link>
             <TailwindExitButton>Resume &rarr;</TailwindExitButton>

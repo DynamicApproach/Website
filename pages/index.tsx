@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import Nav from "pages/components/Nav";
-import arrowr from "pages/images/arrowr.png";
 import { Lightmode } from "pages/components/Lightmode";
 
 import mainimg from "pages/images/main.png";
@@ -30,8 +28,9 @@ const internship = [
 
 const Index: NextPage = () => (
   <div
-    className="light:bg-white  from-slate-200 to-slate-700 min-h-screen bg-backgray
-   bg-gradient-to-r bg-cover bg-scroll "
+    className="light:bg-white 
+    min-h-screen bg-backgray bg-gradient-to-r from-backgray
+   to-albanypurp bg-cover bg-scroll "
   >
     <Nav />
     <Head>
