@@ -60,7 +60,7 @@ const Index: NextPage = () => (
         </h2>
       </div>
       <br></br>
-      <div className=" min-h-min place-items-center content-center justify-center ">
+      <div className="h-screen place-items-center content-center justify-center ">
         <div
           className=" min-h-fit w-auto  content-center justify-center
        border-solid border-albanylightpurp pl-5 pt-8 align-middle"
@@ -74,14 +74,12 @@ const Index: NextPage = () => (
                 This is one of a few side projects currently under construction.
               </p>
             </p>
-            <div className="">
-              <Image
-                src={compsetup}
-                alt="Picture of computer setup"
-                width={600}
-                height={800}
-              />
-            </div>
+            <Image
+              src={compsetup}
+              alt="Picture of computer setup"
+              width={600}
+              height={800}
+            />
           </div>
 
           <p className=" pr-4 text-nextlightblueish">
