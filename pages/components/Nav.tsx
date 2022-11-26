@@ -1,6 +1,7 @@
 import Link from "next/link";
 //import Image from "next/image";
 import { useState } from "react";
+import Cursor from "./customCursor";
 
 import tw from "tailwind-styled-components";
 const TailWindNav = tw.nav` justify-center sticky top-0 min-w-max float-right bg-transparent p-6`;
@@ -53,6 +54,7 @@ export const Nav = () => {
           className="bg-indigo-600 sticky top-0 z-10 col-[1/-1] row-[1] flex min-h-[4rem] items-center justify-center 
         lg:ml-auto lg:inline-flex  lg:h-auto lg:w-auto lg:flex-row lg:items-center"
         >
+          <Cursor />
           <div>
             <Link href="/">
               <TailwindExitButton>Home</TailwindExitButton>
@@ -63,10 +65,10 @@ export const Nav = () => {
             <Link href="/infoPages/threedprinting">
               <TailwindExitButton>3D Printing</TailwindExitButton>
             </Link>
-            <Link href="/infoPages/testpage">
+            {/*<Link href="/infoPages/testpage">
               <TailwindExitButton>testpg</TailwindExitButton>
             </Link>
-            {/*
+            
             <Link href="/infoPages/print">
               <TailwindExitButton>Threejs</TailwindExitButton>
             </Link>*/}

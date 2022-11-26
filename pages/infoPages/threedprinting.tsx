@@ -10,7 +10,7 @@ export const threedprinting = () => {
       <Nav />
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Recent Projects</h1>
+        <h1 className={styles.title}>Recent Printing Projects</h1>
         <div className={styles.grid}>
           <div className={styles.card}>
             <Link href="/infoPages/threedprint/myprinter">
@@ -22,22 +22,17 @@ export const threedprinting = () => {
               <h2>Printed Projects &rarr;</h2>
             </Link>
             <p>
-              I was only able to create a power supply via buying parts and
+              Examples include a variable powersupply. A common variable power
+              supply via buying parts as a consumer one was too expensive
               printing others.
             </p>
           </div>
-
           <div className={styles.card}>
             <Link href="/infoPages/threedprint/favouriteprints">
               <h2>Favourite Prints &rarr;</h2>
             </Link>
-
-            <p>
-              Some quick example text to build on the card title and make up the
-              bulk of the card&apos;s content.
-            </p>
+            <p>My favourite prints over time</p>
           </div>
-
           <div className={styles.card}>
             <h2>
               <Link href="/infoPages/threedprint/klipperconfig">
@@ -46,8 +41,9 @@ export const threedprinting = () => {
             </h2>
             <p>Full config</p>
           </div>
-          <Link className={styles.card} href="/">
-            <h2 className="float-right">Back&rarr;</h2>
+
+          <Link className={styles.cardnoborder} href="/">
+            <h2 className="float-right text-nextblue">Back&rarr;</h2>
           </Link>
         </div>
       </main>
