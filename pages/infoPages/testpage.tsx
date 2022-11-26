@@ -2,7 +2,6 @@ import Link from "next/link";
 import Nav from "pages/components/Nav";
 import styles from "styles/Projects.module.css";
 import Image from "next/image";
-import { useLocomotiveScroll } from "react-locomotive-scroll";
 import mainimg from "pages/images/main.png";
 
 export const testpg = () => {

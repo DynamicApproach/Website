@@ -34,7 +34,6 @@ const Index: NextPage = () => (
     min-h-screen bg-backgray bg-gradient-to-r from-backgray
    to-albanypurp bg-cover bg-scroll "
   >
-    <Cursor />
     <Nav />
     <Head>
       <meta name="ThomasLJ" content="Thomas LJ Website" />
