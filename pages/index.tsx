@@ -74,11 +74,12 @@ const Index: NextPage = () => (
                 This is one of a few side projects currently under construction.
               </p>
             </p>
+            <div className="max-h-fit min-h-fit min-w-fit max-w-fit"></div>
             <Image
               src={compsetup}
               alt="Picture of computer setup"
-              width={600}
-              height={800}
+              width={300}
+              height={400}
             />
           </div>
 
