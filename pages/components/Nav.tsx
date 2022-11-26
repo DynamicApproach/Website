@@ -17,7 +17,7 @@ export const Nav = () => {
     setActive(!active);
   };
   return (
-    <nav className="bg-green-400 flex flex-wrap items-center p-3">
+    <nav className="bg-green-400 flex min-w-fit max-w-none flex-wrap items-center p-3">
       <a href="https://github.com/DynamicApproach">
         <img
           src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&width=435&lines=DynamicApproach"
@@ -62,6 +62,9 @@ export const Nav = () => {
             </Link>
             <Link href="/infoPages/threedprinting">
               <TailwindExitButton>3D Printing</TailwindExitButton>
+            </Link>
+            <Link href="/infoPages/testpage">
+              <TailwindExitButton>testpg</TailwindExitButton>
             </Link>
             {/*
             <Link href="/infoPages/print">

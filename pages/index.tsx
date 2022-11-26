@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Nav from "pages/components/Nav";
 import { Lightmode } from "pages/components/Lightmode";
-
+import Cursor from "./components/customCursor";
 import compsetup from "pages/images/compsetup.png";
 import mainimg from "pages/images/main.png";
 
@@ -34,6 +34,7 @@ const Index: NextPage = () => (
     min-h-screen bg-backgray bg-gradient-to-r from-backgray
    to-albanypurp bg-cover bg-scroll "
   >
+    <Cursor />
     <Nav />
     <Head>
       <meta name="ThomasLJ" content="Thomas LJ Website" />
