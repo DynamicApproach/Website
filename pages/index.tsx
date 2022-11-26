@@ -4,7 +4,9 @@ import Image from "next/image";
 import Nav from "pages/components/Nav";
 import { Lightmode } from "pages/components/Lightmode";
 
+import compsetup from "pages/images/compsetup.png";
 import mainimg from "pages/images/main.png";
+
 const addonList = [
   "NPM, ",
   "GIT, ",
@@ -40,50 +42,56 @@ const Index: NextPage = () => (
 
     <br></br>
     <br></br>
-    <main className="bg-transparent light:text-black grid content-center justify-center">
-      <div className="grid grid-cols-8 ">
-        <div className="flex justify-end pr-2">
+    <main className="bg-transparent light:text-black grid  min-w-fit content-center justify-center">
+      <div className="grid min-w-fit grid-cols-4 ">
+        <div className="flex min-h-fit min-w-fit justify-end pr-2">
           <Image
             src={mainimg}
-            alt="Thomas Lloyd-Jones"
+            alt="Tiny avatar that looks like a watermellon"
             width={75}
             height={75}
             className="rounded-full"
           />
         </div>
-        <h2 className=" col-span-3 content-center text-2xl text-albanyyellow">
+        <h2 className=" col-span-3 min-w-fit content-center text-2xl text-albanyyellow">
           Thomas Lloyd-Jones
           {/* Add circulr image  */}
           <p className="text-sm">Welcome to my personal website.</p>
         </h2>
       </div>
       <br></br>
-      <div className="content-center justify-center ">
+      <div className=" min-h-min place-items-center content-center justify-center ">
         <div
-          className="grid w-auto grid-cols-4 content-center justify-center
+          className=" min-h-fit w-auto  content-center justify-center
        border-solid border-albanylightpurp pl-5 pt-8 align-middle"
         >
-          <div className=" ">
+          <div className="">
             <p className=" pr-4 text-nextlightblueish">
               My favourite things are coding, networking and playing video
               games. While currently studying Computer Science at SUNY at
               Albany, I am also working on my skills, website and side projects.
+              <p className=" pr-4 text-nextlightblueish">
+                This is one of a few side projects currently under construction.
+              </p>
             </p>
+            <div className="">
+              <Image
+                src={compsetup}
+                alt="Picture of computer setup"
+                width={600}
+                height={800}
+              />
+            </div>
+          </div>
+
+          <p className=" pr-4 text-nextlightblueish">
+            Currently, I&apos;m working on: <br></br>
+            {internship}
             <br></br>
-            <p className=" pr-4 text-nextlightblueish">
-              This is one of a few side projects currently under construction.
-            </p>
-          </div>
-          <div className=" ">
-            <p className=" pr-4 text-nextlightblueish">
-              Currently, I&apos;m working on: <br></br>
-              {internship}
-              <br></br>
-              <br></br>
-              Mean while, at school I&apos;m working on: <br></br>
-              {schoolprojects}
-            </p>
-          </div>
+            <br></br>
+            Mean while, at school I&apos;m working on: <br></br>
+            {schoolprojects}
+          </p>
           <p className=" pr-4 text-nextlightblueish">
             I am almost finished with my Bachelors of Science in Computer
             Science, with a planned graduation date of December 2023.

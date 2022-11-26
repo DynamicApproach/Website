@@ -33,8 +33,7 @@ export const print = () => {
             </Link>
 
             <p>
-              Some quick example text to build on the card title and make up the
-              bulk of the card&apos;s content.
+              Picture of my favourite prints and the reasons why I like them.
             </p>
           </div>
 
