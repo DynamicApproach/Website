@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
         initial="initialState"
         animate="animateState"
         exit="exitState"
-        transition={{ type: "linear", duration: 0.5 }}
+        transition={{ type: "linear", duration: 0.75 }}
         variants={{
           initialState: {
             opacity: 0,
