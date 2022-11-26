@@ -6,7 +6,6 @@ import { Lightmode } from "pages/components/Lightmode";
 import Cursor from "./components/customCursor";
 import compsetup from "pages/images/compsetup.png";
 import mainimg from "pages/images/main.png";
-
 const addonList = [
   "NPM, ",
   "GIT, ",
@@ -30,9 +29,9 @@ const internship = [
 
 const Index: NextPage = () => (
   <div
-    className="light:bg-white 
-    min-h-screen bg-backgray bg-gradient-to-r from-backgray
-   to-albanypurp bg-cover bg-scroll "
+    className="light:bg-darkgray 
+     min-w-screen min-h-screen bg-backgray bg-gradient-to-r from-backgray
+   to-albanypurp bg-cover bg-scroll  "
   >
     <Nav />
     <Head>
