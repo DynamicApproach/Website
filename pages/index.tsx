@@ -70,19 +70,14 @@ const Index: NextPage = () => (
               My favourite things are coding, networking and playing video
               games. While currently studying Computer Science at SUNY at
               Albany, I am also working on my skills, website and side projects.
-              <p className=" pr-4 text-nextlightblueish">
-                This is one of a few side projects currently under construction.
-              </p>
             </p>
-            <div className="max-h-fit min-h-fit min-w-fit max-w-fit"></div>
-            <Image
-              src={compsetup}
-              alt="Picture of computer setup"
-              width={300}
-              height={400}
-            />
+            <br></br>
+            <p className=" pr-4 text-nextlightblueish">
+              This is one of a few side projects currently under construction.
+            </p>
           </div>
-
+          <br></br>
+          <br></br>
           <p className=" pr-4 text-nextlightblueish">
             Currently, I&apos;m working on: <br></br>
             {internship}
