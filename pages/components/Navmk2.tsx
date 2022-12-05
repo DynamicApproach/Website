@@ -3,13 +3,12 @@ import Link from "next/link";
 import { useState } from "react";
 import Cursor from "./customCursor";
 import { motion } from "framer-motion";
-
 import tw from "tailwind-styled-components";
 const TailwindExitButton = tw.div`hover:border-transparent hover:text-black m-2 mt-4
 inline-block  rounded-tl-lg rounded-bl-lg  border space-y-7  border-white px-4 py-2 text-sm leading-none
  text-white hover:bg-nextblue lg:mt-0`;
 
-export const Nav = () => {
+export const Nav2 = () => {
   const [active, setActive] = useState(false);
 
   const clickOnNav = () => {
@@ -60,25 +59,26 @@ export const Nav = () => {
           >
             <Cursor />
             <div>
-              <Link href="/" scroll={false}>
+              <Link href="/">
                 <TailwindExitButton>Home</TailwindExitButton>
               </Link>
-              <Link href="/infoPages/Projects" scroll={false}>
+              <Link href="/infoPages/Projects">
                 <TailwindExitButton>Projects</TailwindExitButton>
               </Link>
-              <Link href="/infoPages/threedprinting" scroll={false}>
+              <Link href="/infoPages/threedprinting">
                 <TailwindExitButton>3D Printing</TailwindExitButton>
               </Link>
               {/*<Link href="/infoPages/testpage">
-                <TailwindExitButton>testpg</TailwindExitButton>
-              </Link>*/}
-              <Link href="/infoPages/threejss">
-                <TailwindExitButton>Threejs</TailwindExitButton>
-              </Link>
-              <Link href="https://github.com/DynamicApproach/" scroll={false}>
+              <TailwindExitButton>testpg</TailwindExitButton>
+            </Link>
+            
+            <Link href="/infoPages/print">
+              <TailwindExitButton>Threejs</TailwindExitButton>
+            </Link>*/}
+              <Link href="https://github.com/DynamicApproach/">
                 <TailwindExitButton>GitHub</TailwindExitButton>
               </Link>
-              <Link href="mailto: tlloyd-jones@albany.edu" scroll={false}>
+              <Link href="mailto: tlloyd-jones@albany.edu">
                 <TailwindExitButton>Email Me &rarr;</TailwindExitButton>
               </Link>
               {/*<TailwindExitButton>Resume &rarr;</TailwindExitButton>*/}
@@ -89,4 +89,4 @@ export const Nav = () => {
     </motion.div>
   );
 };
-export default Nav;
+export default Nav2;

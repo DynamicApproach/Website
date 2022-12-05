@@ -22,6 +22,8 @@
     ]
   },
   "dependencies": {
+    "@react-three/fiber": "^8.9.1",
+    "@types/three": "^0.146.0",
     "framer-motion": "^7.6.12",
     "locomotive-scroll": "^4.1.4",
     "next": "^13.0.5",

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import type { AppProps } from "next/app";
 import type { ReactElement } from "react";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
   const router = useRouter();
@@ -17,12 +17,12 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
         initial="initialState"
         animate="animateState"
         exit="exitState"
-        transition={{ type: "linear", duration: 0.75 }}
+        transition={{ type: "linear", duration: 0.65 }}
         variants={{
           initialState: {
             opacity: 0,
             x: -200,
-            y: -100,
+            y: 0,
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)"
           },
           animateState: {
@@ -33,8 +33,8 @@ function MyApp({ Component, pageProps }: AppProps): ReactElement {
           },
           exitState: {
             opacity: 0.0,
-            x: -100,
-            y: -100,
+            x: 200,
+            y: 0,
             clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)"
           }
         }}
