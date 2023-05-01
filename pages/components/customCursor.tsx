@@ -50,7 +50,7 @@ const Cursor: FC = () => {
     <div
       ref={cursorRef}
       className=" duration-25 z-60 pointer-events-none fixed hidden h-4 w-4
-      -translate-x-1/2 -translate-y-1/2 cursor-none  rounded-full border border-y-pink border-x-blue transition"
+      -translate-x-1/2 -translate-y-1/2 cursor-none  rounded-full border border-x-blue border-y-pink transition"
     ></div>
   );
 };

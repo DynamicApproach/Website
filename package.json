@@ -25,7 +25,7 @@
     "@react-three/drei": "^9.46.2",
     "@react-three/fiber": "^8.9.1",
     "@types/three": "^0.146.0",
-    "framer-motion": "^7.6.12",
+    "framer-motion": "^7.10.3",
     "locomotive-scroll": "^4.1.4",
     "next": "^13.0.5",
     "react": "^18.2.0",
@@ -34,6 +34,7 @@
     "three": "^0.146.0"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.3.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@types/jest": "^28.1.3",
@@ -54,7 +55,7 @@
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-tailwindcss": "^3.5.2",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
     "lint-staged": "^13.0.3",
@@ -62,7 +63,7 @@
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.11",
     "styled-components": "^5.3.5",
-    "tailwind-styled-components": "^2.1.8",
+    "tailwind-styled-components": "^2.2.0",
     "tailwindcss": "^3.1.4",
     "typescript": "4.7.4"
   },
