@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 
-export const usePlayerMovement = (camera: THREE.Camera) => {
+export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
   const [moveState, setMoveState] = useState({
     forward: false,
     backward: false,
@@ -10,6 +10,8 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
     right: false,
     jump: false
   });
+
+  const raycaster = new THREE.Raycaster();
 
   const [boostState, setBoostState] = useState(false);
   const [jumpState, setJumpState] = useState(false);
@@ -26,12 +28,14 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
     if (!jumpState) {
       setJumpState(true);
       setJumpStart(camera.position.y);
-      setBoostState(false);
     }
   };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code === "Space") {
+        event.preventDefault();
+      }
       setMoveState((prevState) => ({
         ...prevState,
         forward:
@@ -89,47 +93,64 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
 
     window.addEventListener("keydown", handleKeyDown as EventListener);
     window.addEventListener("keyup", handleKeyUp as EventListener);
+
+    const handleTouchMove = (event: TouchEvent) => {
+      event.preventDefault();
+      const touch = event.touches[0];
+      const xDiff = touch.clientX - touch.clientX;
+      const yDiff = touch.clientY - touch.clientY;
+      const threshold = 10;
+      setMoveState((prevState) => ({
+        ...prevState,
+        forward: yDiff > threshold || prevState.forward,
+        backward: yDiff < -threshold || prevState.backward,
+        left: xDiff < -threshold || prevState.left,
+        right: xDiff > threshold || prevState.right
+      }));
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const handleTouchEnd = (event: TouchEvent) => {
+      setMoveState((prevState) => ({
+        ...prevState,
+        forward: false,
+        backward: false,
+        left: false,
+        right: false
+      }));
+    };
+
+    window.addEventListener(
+      "touchmove",
+      handleTouchMove as EventListenerOrEventListenerObject
+    );
+    window.addEventListener(
+      "touchend",
+      handleTouchEnd as EventListenerOrEventListenerObject
+    );
+
     return () => {
-      window.removeEventListener("keydown", handleKeyDown as EventListener);
-      window.removeEventListener("keyup", handleKeyUp as EventListener);
+      window.removeEventListener(
+        "touchmove",
+        handleTouchMove as EventListenerOrEventListenerObject
+      );
+      window.removeEventListener(
+        "touchend",
+        handleTouchEnd as EventListenerOrEventListenerObject
+      );
     };
   }, []);
 
   useFrame((state, delta) => {
     const speed = boostState ? 20 : 5;
     const direction = new THREE.Vector3();
-    camera.getWorldDirection(direction);
+    camera.getWorldDirection(direction); // Ground check
+    raycaster.set(camera.position, new THREE.Vector3(0, -1, 0));
+    const intersects = raycaster.intersectObjects(scene.children, true);
+    const isOnGround =
+      intersects.length > 0 && camera.position.y <= intersects[0].point.y + 2;
 
-    if (moveState.jump && !jumpState) {
-      handleJump();
-    }
-
-    if (jumpState) {
-      const jumpTime = Date.now() - jumpStart;
-      const jumpHeight = 4;
-      const jumpDuration = 1000;
-      const jumpProgress = (jumpTime / jumpDuration) * Math.PI;
-      const jumpDelta = Math.sin(jumpProgress) * jumpHeight;
-
-      const isFalling = velocity < 0 && camera.position.y <= jumpHeight;
-      camera.position.y = jumpHeight + jumpDelta;
-      if (isFalling) {
-        setJumpState(false);
-        setVelocity(0);
-      } else {
-        setVelocity((prevVelocity) => prevVelocity - 9.8 * delta);
-        camera.position.y += velocity * delta;
-      }
-    } else {
-      const isOnGround = camera.position.y <= 2;
-      if (isOnGround) {
-        camera.position.y = 2;
-        setVelocity(0);
-      } else {
-        setVelocity((prevVelocity) => prevVelocity - 9.8 * delta);
-        camera.position.y += velocity * delta;
-      }
-    }
+    // Update position based on moveState
     if (moveState.forward) {
       camera.position.addScaledVector(direction, speed * delta);
     }
@@ -148,7 +169,38 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
         speed * delta
       );
     }
-  });
 
+    // Jump logic
+    if (moveState.jump && !jumpState) {
+      handleJump();
+    }
+
+    if (jumpState) {
+      const jumpTime = Date.now() - jumpStart;
+      const jumpHeight = 4;
+      const jumpDuration = 1000;
+      const jumpProgress = (jumpTime / jumpDuration) * Math.PI;
+      const jumpDelta = Math.sin(jumpProgress) * jumpHeight;
+
+      const isFalling = velocity < 0 && camera.position.y <= jumpHeight;
+      camera.position.y = jumpHeight + jumpDelta;
+
+      if (isFalling) {
+        setJumpState(false);
+        setVelocity(0);
+      } else {
+        setVelocity((prevVelocity) => prevVelocity - 9.8 * delta);
+        camera.position.y += velocity * delta;
+      }
+    } else {
+      if (isOnGround) {
+        camera.position.y = intersects[0].point.y + 2;
+        setVelocity(0);
+      } else {
+        setVelocity((prevVelocity) => prevVelocity - 9.8 * delta);
+        camera.position.y += velocity * delta;
+      }
+    }
+  });
   return moveState;
 };

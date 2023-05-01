@@ -4,10 +4,9 @@ import React from "react";
 import { usePlayerMovement } from "../hooks/usePlayerMovement"; // Import the custom hook
 
 const Player = () => {
-  const { camera } = useThree();
+  const { camera, scene } = useThree();
 
-  usePlayerMovement(camera); // Pass the camera as an argument
-
+  usePlayerMovement(camera, scene);
   return <PointerLockControls />;
 };
 
