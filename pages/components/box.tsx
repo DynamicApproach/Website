@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import React, { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { MeshProps } from "@react-three/fiber";
@@ -16,8 +15,8 @@ const Box = (props: MeshProps) => {
 
   return (
     <mesh {...props} ref={mesh} castShadow receiveShadow>
-      <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-      <meshStandardMaterial attach="material" color="orange" />
+      <boxBufferGeometry />
+      <meshStandardMaterial color="orange" />
     </mesh>
   );
 };

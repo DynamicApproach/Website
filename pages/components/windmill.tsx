@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react/no-unknown-property */
 import * as React from "react";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Box, Cylinder } from "@react-three/drei";
-import { Group } from "three";
+import { Group, Vector3 } from "three";
 
 type WindmillProps = JSX.IntrinsicElements["group"];
 
@@ -13,45 +11,47 @@ const Windmill = (props: WindmillProps) => {
 
   useFrame((state, delta) => {
     if (bladesRef.current) {
-      bladesRef.current.rotation.z += 0.01;
+      const deltaRotation = delta * 0.01;
+      bladesRef.current.rotation.z += deltaRotation;
     }
   });
 
   return (
     <group {...props}>
-      <Cylinder
-        args={[1, 1, 6, 12]}
-        position={[0, 3, 0]}
-        getObjectsByProperty={undefined}
-        getVertexPosition={undefined}
-      />
-      <group ref={bladesRef} position={[0, 6, 0]}>
-        <Box
-          args={[0.2, 4, 0.2]}
-          position={[-2, 0, 0]}
+      <group position={[0, 3, 0]}>
+        <Cylinder
+          args={[1, 1, 6, 12]}
           getObjectsByProperty={undefined}
           getVertexPosition={undefined}
         />
-        <Box
-          args={[0.2, 4, 0.2]}
-          position={[2, 0, 0]}
-          getObjectsByProperty={undefined}
-          getVertexPosition={undefined}
-        />
-        <Box
-          args={[0.2, 4, 0.2]}
-          position={[0, -2, 0]}
-          rotation={[0, 0, Math.PI / 2]}
-          getObjectsByProperty={undefined}
-          getVertexPosition={undefined}
-        />
-        <Box
-          args={[0.2, 4, 0.2]}
-          position={[0, 2, 0]}
-          rotation={[0, 0, Math.PI / 2]}
-          getObjectsByProperty={undefined}
-          getVertexPosition={undefined}
-        />
+        <group ref={bladesRef}>
+          <Box
+            args={[0.2, 4, 0.2]}
+            position={new Vector3(-2, 0, 0)}
+            getObjectsByProperty={undefined}
+            getVertexPosition={undefined}
+          />
+          <Box
+            args={[0.2, 4, 0.2]}
+            position={new Vector3(2, 0, 0)}
+            getObjectsByProperty={undefined}
+            getVertexPosition={undefined}
+          />
+          <Box
+            args={[0.2, 4, 0.2]}
+            position={new Vector3(0, -2, 0)}
+            rotation={[0, 0, Math.PI / 2]}
+            getObjectsByProperty={undefined}
+            getVertexPosition={undefined}
+          />
+          <Box
+            args={[0.2, 4, 0.2]}
+            position={new Vector3(0, 2, 0)}
+            rotation={[0, 0, Math.PI / 2]}
+            getObjectsByProperty={undefined}
+            getVertexPosition={undefined}
+          />
+        </group>
       </group>
     </group>
   );

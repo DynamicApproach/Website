@@ -42,5 +42,18 @@
     "semi": ["error", "always"],
     "comma-dangle": "off",
     "max-len": ["error", { "code": 120 }]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.tsx", "*.ts", "*.jsx", "*.js"],
+      "rules": {
+        "react/no-unknown-property": [
+          "error",
+          {
+            "ignore": ["castShadow", "receiveShadow", "position"]
+          }
+        ]
+      }
+    }
+  ]
 }
