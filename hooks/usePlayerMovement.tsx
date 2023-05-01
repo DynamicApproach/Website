@@ -8,9 +8,27 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
     backward: false,
     left: false,
     right: false,
-    up: false,
-    down: false
+    jump: false
   });
+
+  const [boostState, setBoostState] = useState(false);
+  const [jumpState, setJumpState] = useState(false);
+  const [jumpStart, setJumpStart] = useState(0);
+  const [velocity, setVelocity] = useState(0);
+
+  const handleBoost = () => {
+    if (!jumpState) {
+      setBoostState(true);
+    }
+  };
+
+  const handleJump = () => {
+    if (!jumpState) {
+      setJumpState(true);
+      setJumpStart(camera.position.y);
+      setBoostState(false);
+    }
+  };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -30,9 +48,12 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
           event.code === "KeyD" ||
           event.code === "ArrowRight" ||
           prevState.right,
-        up: event.code === "Space" || prevState.up,
-        down: event.code === "KeyC" || prevState.down
+        jump: event.code === "Space" || prevState.jump
       }));
+
+      if (event.code === "ShiftLeft" || event.code === "ShiftRight") {
+        handleBoost();
+      }
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
@@ -54,9 +75,16 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
           event.code === "KeyD" || event.code === "ArrowRight"
             ? false
             : prevState.right,
-        up: event.code === "Space" ? false : prevState.up,
-        down: event.code === "KeyC" ? false : prevState.down
+        jump: event.code === "Space" ? false : prevState.jump
       }));
+
+      if (
+        event.code === "ShiftLeft" ||
+        event.code === "ShiftRight" ||
+        event.code === "Space"
+      ) {
+        setBoostState(false);
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown as EventListener);
@@ -68,15 +96,39 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
   }, []);
 
   useFrame((state, delta) => {
-    const speed = 5;
+    const speed = boostState ? 20 : 5;
     const direction = new THREE.Vector3();
     camera.getWorldDirection(direction);
 
-    if (moveState.up) {
-      camera.position.addScaledVector(camera.up, speed * delta);
+    if (moveState.jump && !jumpState) {
+      handleJump();
     }
-    if (moveState.down) {
-      camera.position.addScaledVector(camera.up, -speed * delta);
+
+    if (jumpState) {
+      const jumpTime = Date.now() - jumpStart;
+      const jumpHeight = 4;
+      const jumpDuration = 1000;
+      const jumpProgress = (jumpTime / jumpDuration) * Math.PI;
+      const jumpDelta = Math.sin(jumpProgress) * jumpHeight;
+
+      const isFalling = velocity < 0 && camera.position.y <= jumpHeight;
+      camera.position.y = jumpHeight + jumpDelta;
+      if (isFalling) {
+        setJumpState(false);
+        setVelocity(0);
+      } else {
+        setVelocity((prevVelocity) => prevVelocity - 9.8 * delta);
+        camera.position.y += velocity * delta;
+      }
+    } else {
+      const isOnGround = camera.position.y <= 2;
+      if (isOnGround) {
+        camera.position.y = 2;
+        setVelocity(0);
+      } else {
+        setVelocity((prevVelocity) => prevVelocity - 9.8 * delta);
+        camera.position.y += velocity * delta;
+      }
     }
     if (moveState.forward) {
       camera.position.addScaledVector(direction, speed * delta);
