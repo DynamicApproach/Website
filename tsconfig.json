@@ -15,8 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "allowImportingTsExtensions": true
+    "esModuleInterop": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

@@ -1,30 +1,24 @@
 import "@testing-library/jest-dom/extend-expect";
 beforeAll(() => {
+  Object.defineProperty(window, "matchMedia", {
+    writable: true,
 
-    Object.defineProperty(window, "matchMedia", {
+    value: jest.fn().mockImplementation((query) => ({
+      matches: false,
 
-        writable: true,
+      media: query,
 
-        value: jest.fn().mockImplementation(query => ({
+      onchange: null,
 
-            matches: false,
+      addListener: jest.fn(), // Deprecated
 
-            media: query,
+      removeListener: jest.fn(), // Deprecated
 
-            onchange: null,
+      addEventListener: jest.fn(),
 
-            addListener: jest.fn(), // Deprecated
+      removeEventListener: jest.fn(),
 
-            removeListener: jest.fn(), // Deprecated
-
-            addEventListener: jest.fn(),
-
-            removeEventListener: jest.fn(),
-
-            dispatchEvent: jest.fn(),
-
-        }))
-
-    });
-
+      dispatchEvent: jest.fn()
+    }))
+  });
 });

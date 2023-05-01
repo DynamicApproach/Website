@@ -8,10 +8,9 @@ Learning ThreeJS useage with Next
 Deployment automations
 Learning new packages
 
-
 ### Deployed on DigitalOcean
-Currently using Github Actions to redeploy on new pushes.
 
+Currently using Github Actions to redeploy on new pushes.
 
 ### Learn More
 
@@ -23,5 +22,3 @@ To learn more about this site, take a look at the following resources:
 - [TailWind CSS](https://tailwindcss.com/docs)
 - [Digital Ocean](https://cloud.digitalocean.com)
 - [Prettier](https://prettier.io/docs/en/install.html)
-
-
