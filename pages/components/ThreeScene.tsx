@@ -1,8 +1,6 @@
 // ThreeScene.tsx
-/* eslint-disable react/no-unknown-property */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Sky, Plane, Box } from "@react-three/drei";
 import Player from "./Player"; // Import the Player component
@@ -10,17 +8,20 @@ import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import Windmill from "./windmill";
 
+// ShibaModel component
 const ShibaModel = () => {
   const gltf = useLoader(GLTFLoader, "/shiba/scene.gltf");
   console.log(gltf);
-  return (
-    <primitive object={gltf.scene} scale={[5, 5, 5]} position={[0, 0, -10]} />
-  );
+  return React.createElement("primitive", {
+    object: gltf.scene,
+    scale: [5, 5, 5],
+    position: [0, 0, -10]
+  });
 };
 
 const ThreeScene = () => {
-  const [cursorRef, setCursorRef] = useState(null);
-  const [cursorPos, setCursorPos] = useState({
+  const [cursorRef] = useState(null);
+  const [, setCursorPos] = useState({
     x: 0,
     y: 0
   });
@@ -52,9 +53,9 @@ const ThreeScene = () => {
         <Player />
         <ambientLight />
         <Sky sunPosition={[100, 20, 100]} />
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-        <pointLight castShadow intensity={0.8} position={[100, 100, 100]} />
-        <ambientLight intensity={0.1} />
+        <spotLight position={[10, 10, 10]} />
+        <pointLight castShadow position={[100, 100, 100]} />
+        <ambientLight />
         <directionalLight color="red" position={[0, 0, 5]} />
         <Plane
           args={[100, 100]}
@@ -75,7 +76,6 @@ const ThreeScene = () => {
         <Windmill position={[-10, 0, -10]} />
         <ShibaModel />
       </Canvas>
-      {/* ... (previous code) */}
     </div>
   );
 };

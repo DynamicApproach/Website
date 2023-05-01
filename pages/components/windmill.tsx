@@ -1,20 +1,13 @@
+// Windmill.tsx
 import * as React from "react";
-import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
 import { Box, Cylinder } from "@react-three/drei";
-import { Group, Vector3 } from "three";
+import { Vector3 } from "three";
+import { useWindmillRotation } from "./files/useWindmillRotation"; // Import the custom hook
 
 type WindmillProps = JSX.IntrinsicElements["group"];
 
 const Windmill = (props: WindmillProps) => {
-  const bladesRef = useRef<Group>(null);
-
-  useFrame((state, delta) => {
-    if (bladesRef.current) {
-      const deltaRotation = delta * 0.01;
-      bladesRef.current.rotation.z += deltaRotation;
-    }
-  });
+  const bladesRef = useWindmillRotation(); // Use the custom hook
 
   return (
     <group {...props}>
