@@ -4,6 +4,9 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
+  images: {
+    domains: ["readme-typing-svg.demolab.com"],
+  },
 };
 
 module.exports = nextConfig;

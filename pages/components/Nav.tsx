@@ -18,11 +18,9 @@ export const Nav = () => {
   return (
     <nav className="bg-green-400 flex min-w-fit max-w-none flex-wrap items-center p-3">
       <a href="https://github.com/DynamicApproach">
-        <Image
+        <img
           src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&width=435&lines=DynamicApproach"
           alt="Typing SVG"
-          width={435}
-          height={70}
         />
       </a>
       <button
