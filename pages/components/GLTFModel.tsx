@@ -27,8 +27,8 @@ const GLTFModel: React.FC<GLTFModelProps> = ({
   // const { nodes, materials } = useGLTF(url) as GLTFResult;
 
   return (
-    <group scale={scale} position={(0, 0, 0)}>
-      {/* Add your model's structure here, referring to nodes and materials */}
+    <group scale={scale} position={[0, 0, 0]}>
+      {" "}
     </group>
   );
 };
