@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 
@@ -31,7 +31,61 @@ export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
     }
   };
 
+  const intersectedObject = useRef<THREE.Object3D | null>(null);
+  const objectOffset = useRef(new THREE.Vector3());
   useEffect(() => {
+    const handleMouseDown = (event: MouseEvent) => {
+      event.preventDefault();
+
+      const mouse = new THREE.Vector2(
+        (event.clientX / window.innerWidth) * 2 - 1,
+        -(event.clientY / window.innerHeight) * 2 + 1
+      );
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(scene.children, true);
+
+      if (intersects.length > 0) {
+        let object = intersects[0].object;
+
+        // Find the root object (model)
+        while (object.parent && object.parent.type !== "Scene") {
+          object = object.parent;
+        }
+
+        intersectedObject.current = object;
+        objectOffset.current = new THREE.Vector3().subVectors(
+          object.position,
+          camera.position
+        );
+      }
+    };
+
+    const handleMouseUp = () => {
+      intersectedObject.current = null;
+    };
+
+    const handleMouseMove = (event: MouseEvent) => {
+      if (intersectedObject.current) {
+        const mouse = new THREE.Vector2(
+          (event.clientX / window.innerWidth) * 2 - 1,
+          -(event.clientY / window.innerHeight) * 2 + 1
+        );
+
+        raycaster.setFromCamera(mouse, camera);
+        const newPosition = new THREE.Vector3();
+        raycaster.ray.at(
+          objectOffset.current.length() / raycaster.ray.direction.length(),
+          newPosition
+        );
+
+        intersectedObject.current.position.copy(newPosition);
+      }
+    };
+
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mousemove", handleMouseMove);
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === "Space") {
         event.preventDefault();
@@ -138,6 +192,10 @@ export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
         "touchend",
         handleTouchEnd as EventListenerOrEventListenerObject
       );
+
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
