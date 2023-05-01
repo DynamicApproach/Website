@@ -4,12 +4,11 @@
 import * as React from "react";
 import { useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Sky, Plane } from "@react-three/drei";
-import Box from "pages/components/box.tsx";
+import { Sky, Plane, Box } from "@react-three/drei";
 import Player from "./Player"; // Import the Player component
-import Windmill from "./Windmill"; // Import the Windmill component
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import Windmill from "./windmill";
 
 const ShibaModel = () => {
   const gltf = useLoader(GLTFLoader, "/shiba/scene.gltf");
@@ -57,9 +56,22 @@ const ThreeScene = () => {
         <pointLight castShadow intensity={0.8} position={[100, 100, 100]} />
         <ambientLight intensity={0.1} />
         <directionalLight color="red" position={[0, 0, 5]} />
-        <Plane args={[100, 100]} rotation={[-Math.PI / 2, 0, 0]} />
-        <Box position={[-6.2, 0, 0]} />
-        <Box position={[6.2, 0, 0]} />
+        <Plane
+          args={[100, 100]}
+          rotation={[-Math.PI / 2, 0, 0]}
+          getObjectsByProperty={undefined}
+          getVertexPosition={undefined}
+        />
+        <Box
+          position={[-6.2, 0, 0]}
+          getObjectsByProperty={undefined}
+          getVertexPosition={undefined}
+        />
+        <Box
+          position={[6.2, 0, 0]}
+          getObjectsByProperty={undefined}
+          getVertexPosition={undefined}
+        />
         <Windmill position={[-10, 0, -10]} />
         <ShibaModel />
       </Canvas>
