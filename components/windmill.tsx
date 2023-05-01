@@ -2,7 +2,7 @@
 import * as React from "react";
 import { Box, Cylinder } from "@react-three/drei";
 import { Vector3 } from "three";
-import { useWindmillRotation } from "./files/useWindmillRotation"; // Import the custom hook
+import { useWindmillRotation } from "../hooks/useWindmillRotation"; // Import the custom hook
 
 type WindmillProps = JSX.IntrinsicElements["group"];
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Nav from "pages/components/Nav";
+import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
 export const favouriteprints = () => {
   return (

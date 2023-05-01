@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Nav from "pages/components/Nav";
+import Nav from "components/Nav";
 import mainimg from "pages/images/main.png";
 const addonList = [
   "NPM, ",

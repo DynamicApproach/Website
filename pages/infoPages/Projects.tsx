@@ -1,4 +1,4 @@
-import Nav from "pages/components/Nav";
+import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
 import Link from "next/link";
 export const projects = () => {

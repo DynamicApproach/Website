@@ -1,5 +1,5 @@
-import Nav from "pages/components/Nav";
-import ThreeScene from "pages/components/ThreeScene";
+import Nav from "components/Nav";
+import ThreeScene from "components/ThreeScene";
 export const threejss = () => {
   return (
     <div
