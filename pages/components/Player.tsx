@@ -1,9 +1,9 @@
 // Player.tsx
-import * as React from "react";
-import * as THREE from "three";
 import { useState, useEffect } from "react";
+import * as THREE from "three";
 import { useThree, useFrame } from "@react-three/fiber";
 import { PointerLockControls } from "@react-three/drei";
+import React from "react";
 
 const Player = () => {
   const { camera } = useThree();
@@ -15,7 +15,7 @@ const Player = () => {
   });
 
   useEffect(() => {
-    const handleKeyDown = (event: React.KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       setMoveState((prevState) => ({
         ...prevState,
         forward:
@@ -35,7 +35,7 @@ const Player = () => {
       }));
     };
 
-    const handleKeyUp = (event: React.KeyboardEvent) => {
+    const handleKeyUp = (event: KeyboardEvent) => {
       setMoveState((prevState) => ({
         ...prevState,
         forward:
@@ -57,12 +57,11 @@ const Player = () => {
       }));
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("keyup", handleKeyUp);
-
+    window.addEventListener("keydown", handleKeyDown as EventListener);
+    window.addEventListener("keyup", handleKeyUp as EventListener);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("keyup", handleKeyUp);
+      window.removeEventListener("keydown", handleKeyDown as EventListener);
+      window.removeEventListener("keyup", handleKeyUp as EventListener);
     };
   }, []);
 
