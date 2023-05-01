@@ -1,5 +1,8 @@
+/* eslint-disable @next/next/no-document-import-in-page */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { DocumentContext, DocumentInitialProps } from "next/document";
-import Document from "next/document";
+// eslint-disable-next-line @next/next/no-document-import-in-page
+import NextDocument, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
 const withServerStyleSheet = async (
@@ -14,7 +17,7 @@ const withServerStyleSheet = async (
         enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />)
       });
 
-    const { styles, ...initialProps } = await Document.getInitialProps(ctx);
+    const { styles, ...initialProps } = await NextDocument.getInitialProps(ctx);
 
     return {
       ...initialProps,

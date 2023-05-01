@@ -1,9 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 //import Image from "next/image";
 import { useState } from "react";
 import Cursor from "./customCursor";
 import tw from "tailwind-styled-components";
-import Image from "next/image";
 
 const TailwindExitButton = tw.div`hover:border-transparent hover:text-black m-2 mt-4
 inline-block  rounded-tl-lg rounded-bl-lg  border space-y-7  border-white px-4 py-2 text-sm leading-none

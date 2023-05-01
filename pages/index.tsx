@@ -2,9 +2,6 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Nav from "pages/components/Nav";
-import { Lightmode } from "pages/components/Lightmode";
-import Cursor from "./components/customCursor";
-import compsetup from "pages/images/compsetup.png";
 import mainimg from "pages/images/main.png";
 const addonList = [
   "NPM, ",

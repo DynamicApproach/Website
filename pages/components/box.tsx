@@ -1,9 +1,11 @@
-// Box.ts
+/* eslint-disable react/no-unknown-property */
 import React, { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { MeshProps } from "@react-three/fiber";
+import { Mesh } from "three";
 
-const Box = (props) => {
-  const mesh = useRef();
+const Box = (props: MeshProps) => {
+  const mesh = useRef<Mesh>(null);
 
   useFrame(() => {
     if (mesh.current) {

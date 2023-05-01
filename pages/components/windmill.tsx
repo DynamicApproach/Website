@@ -1,14 +1,20 @@
-// Windmill.tsx
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/no-unknown-property */
 import * as React from "react";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Box, Cylinder } from "@react-three/drei";
+import { Group } from "three";
 
-const Windmill = (props) => {
-  const bladesRef = useRef();
+type WindmillProps = JSX.IntrinsicElements["group"];
+
+const Windmill = (props: WindmillProps) => {
+  const bladesRef = useRef<Group>(null);
 
   useFrame((state, delta) => {
-    bladesRef.current.rotation.z += 0.01;
+    if (bladesRef.current) {
+      bladesRef.current.rotation.z += 0.01;
+    }
   });
 
   return (
