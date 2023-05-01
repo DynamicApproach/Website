@@ -34,6 +34,7 @@
     "three": "^0.146.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.5",
     "@next/eslint-plugin-next": "^13.3.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
