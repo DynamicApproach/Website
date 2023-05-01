@@ -1,4 +1,3 @@
-// usePlayerMovement.ts
 import { useState, useEffect } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
@@ -8,7 +7,9 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
     forward: false,
     backward: false,
     left: false,
-    right: false
+    right: false,
+    up: false,
+    down: false
   });
 
   useEffect(() => {
@@ -28,7 +29,9 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
         right:
           event.code === "KeyD" ||
           event.code === "ArrowRight" ||
-          prevState.right
+          prevState.right,
+        up: event.code === "Space" || prevState.up,
+        down: event.code === "KeyC" || prevState.down
       }));
     };
 
@@ -50,7 +53,9 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
         right:
           event.code === "KeyD" || event.code === "ArrowRight"
             ? false
-            : prevState.right
+            : prevState.right,
+        up: event.code === "Space" ? false : prevState.up,
+        down: event.code === "KeyC" ? false : prevState.down
       }));
     };
 
@@ -67,6 +72,12 @@ export const usePlayerMovement = (camera: THREE.Camera) => {
     const direction = new THREE.Vector3();
     camera.getWorldDirection(direction);
 
+    if (moveState.up) {
+      camera.position.addScaledVector(camera.up, speed * delta);
+    }
+    if (moveState.down) {
+      camera.position.addScaledVector(camera.up, -speed * delta);
+    }
     if (moveState.forward) {
       camera.position.addScaledVector(direction, speed * delta);
     }
