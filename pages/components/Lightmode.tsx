@@ -1,7 +1,5 @@
-import Link from "next/link";
 //import Image from "next/image";
 
-import tw from "tailwind-styled-components";
 export const Lightmode = () => {
   return (
     <div className="dark:bg-slate-800 ring-slate-900/5 rounded-lg px-1 py-2 shadow-xl ring-1">

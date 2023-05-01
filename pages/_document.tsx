@@ -6,7 +6,6 @@ import Document, {
   DocumentInitialProps,
   DocumentContext
 } from "next/document";
-import { ServerStyleSheet } from "styled-components";
 import withServerStyleSheet from "../utils/withServerStyleSheet";
 // https://nextjs.org/docs/advanced-features/custom-document -- TypeScript example + documentation
 

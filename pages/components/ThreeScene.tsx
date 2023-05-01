@@ -1,13 +1,13 @@
 // ThreeScene.tsx
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import { useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Sky, Plane } from "@react-three/drei";
-import GLTFModel from "./GLTFModel";
 import Box from "pages/components/box.tsx";
 import Player from "./Player"; // Import the Player component
 import Windmill from "./Windmill"; // Import the Windmill component
-import { useGLTF } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
