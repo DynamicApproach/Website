@@ -19,19 +19,38 @@ const Windmill = (props: WindmillProps) => {
 
   return (
     <group {...props}>
-      <Cylinder args={[1, 1, 6, 12]} position={[0, 3, 0]} />
+      <Cylinder
+        args={[1, 1, 6, 12]}
+        position={[0, 3, 0]}
+        getObjectsByProperty={undefined}
+        getVertexPosition={undefined}
+      />
       <group ref={bladesRef} position={[0, 6, 0]}>
-        <Box args={[0.2, 4, 0.2]} position={[-2, 0, 0]} />
-        <Box args={[0.2, 4, 0.2]} position={[2, 0, 0]} />
+        <Box
+          args={[0.2, 4, 0.2]}
+          position={[-2, 0, 0]}
+          getObjectsByProperty={undefined}
+          getVertexPosition={undefined}
+        />
+        <Box
+          args={[0.2, 4, 0.2]}
+          position={[2, 0, 0]}
+          getObjectsByProperty={undefined}
+          getVertexPosition={undefined}
+        />
         <Box
           args={[0.2, 4, 0.2]}
           position={[0, -2, 0]}
           rotation={[0, 0, Math.PI / 2]}
+          getObjectsByProperty={undefined}
+          getVertexPosition={undefined}
         />
         <Box
           args={[0.2, 4, 0.2]}
           position={[0, 2, 0]}
           rotation={[0, 0, Math.PI / 2]}
+          getObjectsByProperty={undefined}
+          getVertexPosition={undefined}
         />
       </group>
     </group>
