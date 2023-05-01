@@ -13,7 +13,13 @@ const ShibaModel = () => {
   return React.createElement("primitive", {
     object: gltf.scene,
     scale: [5, 5, 5],
-    position: [0, 0, -10]
+    _position: [0, 5, -20],
+    get position() {
+      return this._position;
+    },
+    set position(value) {
+      this._position = value;
+    }
   });
 };
 
