@@ -15,7 +15,7 @@ const Player = () => {
   });
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: React.KeyboardEvent) => {
       setMoveState((prevState) => ({
         ...prevState,
         forward:
@@ -35,7 +35,7 @@ const Player = () => {
       }));
     };
 
-    const handleKeyUp = (event) => {
+    const handleKeyUp = (event: React.KeyboardEvent) => {
       setMoveState((prevState) => ({
         ...prevState,
         forward:
