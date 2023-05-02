@@ -8,10 +8,21 @@ export const projects = () => {
     from-backgray to-albanypurp bg-cover  bg-bottom bg-no-repeat"
     >
       <Nav />
-
       <main className={styles.main}>
         <h1 className={styles.title}>Recent Projects</h1>
         <div className={styles.grid}>
+          <div className={styles.card}>
+            <Link href="https://github.com/DynamicApproach/Website">
+              <h2>Upcoming Project...&rarr;</h2>
+            </Link>
+            <p>A suprise secret! Just links to this sites repo for now. </p>
+          </div>
+          <div className={styles.card}>
+            <Link href="https://github.com/DynamicApproach/Shank-Project-311">
+              <h2>Shank Programming Language &rarr;</h2>
+            </Link>
+            <p>A programming language made in Java.</p>
+          </div>
           <div className={styles.card}>
             <Link href="https://github.com/DynamicApproach/DiscordPager">
               <h2>Discord Pager &rarr;</h2>
