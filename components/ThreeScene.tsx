@@ -1,11 +1,13 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Sky, Plane, Box } from "@react-three/drei";
 import Player from "./Player";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import Windmill from "./windmill";
+import Resume from "./Resume";
+import { PerspectiveCamera, OrthographicCamera } from "three";
 
 const ShibaModel = () => {
   const gltf = useLoader(GLTFLoader, "/shiba/scene.gltf");
@@ -58,6 +60,15 @@ const ThreeScene = () => {
     };
   }, []);
 
+  const [camera, setCamera] = useState<PerspectiveCamera | null>(null);
+  const onCreated = useCallback(
+    (obj: { camera: PerspectiveCamera | OrthographicCamera | null }) => {
+      if (obj.camera instanceof PerspectiveCamera) {
+        setCamera(obj.camera);
+      }
+    },
+    []
+  );
   return (
     <>
       {showBanner && (
@@ -80,7 +91,7 @@ const ThreeScene = () => {
         </div>
       )}
       <div className="h-screen w-screen">
-        <Canvas camera={{ position: [0, 1.5, 15] }}>
+        <Canvas camera={{ position: [0, 1.5, 15] }} onCreated={onCreated}>
           <Player />
           <ambientLight />
           <Sky sunPosition={[100, 20, 100]} />
@@ -106,6 +117,7 @@ const ThreeScene = () => {
           />
           <Windmill position={[-10, 0, -10]} />
           <ShibaModel />
+          {camera && <Resume camera={camera} />}
         </Canvas>
       </div>
     </>

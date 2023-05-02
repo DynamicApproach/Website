@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "eslint": "eslint .",
+    "fix": "eslint --fix . && prettier --write .",
     "prettier": "prettier --write .",
     "prepare": "husky install",
     "test": "jest"
