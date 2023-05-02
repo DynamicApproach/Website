@@ -87,7 +87,8 @@ const ThreeScene = () => {
           }}
         >
           Use arrow keys to move around, and mouse to look around. You can fly
-          by pressing spacebar. Go down with C. Esc to exit.
+          by pressing spacebar. Go down with C. Esc to exit. You can drag things
+          around from where the colored circle is pointed.
         </div>
       )}
       <div className="h-screen w-screen">

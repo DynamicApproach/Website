@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
+import { handleBoost, handleJump } from "./playerMovementUtils";
 
 export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
   const [moveState, setMoveState] = useState({
@@ -10,26 +11,18 @@ export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
     right: false,
     jump: false
   });
-
+  const handleJumpWrapper = () => {
+    handleJump(jumpState, setJumpState, setJumpStart, camera);
+  };
+  const handleBoostWrapper = () => {
+    handleBoost(jumpState, setBoostState);
+  };
   const raycaster = new THREE.Raycaster();
 
   const [boostState, setBoostState] = useState(false);
   const [jumpState, setJumpState] = useState(false);
   const [jumpStart, setJumpStart] = useState(0);
   const [velocity, setVelocity] = useState(0);
-
-  const handleBoost = () => {
-    if (!jumpState) {
-      setBoostState(true);
-    }
-  };
-
-  const handleJump = () => {
-    if (!jumpState) {
-      setJumpState(true);
-      setJumpStart(camera.position.y);
-    }
-  };
 
   const intersectedObject = useRef<THREE.Object3D | null>(null);
   const objectOffset = useRef(new THREE.Vector3());
@@ -110,7 +103,7 @@ export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
       }));
 
       if (event.code === "ShiftLeft" || event.code === "ShiftRight") {
-        handleBoost();
+        handleBoostWrapper();
       }
     };
 
@@ -230,7 +223,7 @@ export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
 
     // Jump logic
     if (moveState.jump && !jumpState) {
-      handleJump();
+      handleJumpWrapper();
     }
 
     if (jumpState) {

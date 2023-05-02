@@ -1,15 +1,17 @@
 /* eslint-disable react/no-unknown-property */
-import React, { useRef } from "react";
-import PropTypes from "prop-types";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { FC, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import { Mesh, PerspectiveCamera } from "three";
+import PropTypes, { Validator } from "prop-types";
 
 interface ResumeProps {
   camera: PerspectiveCamera;
+  cursorRef?: React.RefObject<HTMLDivElement>;
 }
 
-const Resume: React.FC<ResumeProps> = ({ camera }) => {
+const Resume: React.FC<ResumeProps> = ({ camera, cursorRef }) => {
   const mesh = useRef<Mesh | null>(null);
 
   useFrame(() => {
@@ -28,11 +30,21 @@ const Resume: React.FC<ResumeProps> = ({ camera }) => {
     return Math.min(Math.max(value, min), max);
   }
 
+  const handleResumeClick = () => {
+    if (cursorRef.current) {
+      cursorRef.current.requestPointerLock();
+    }
+  };
+
   return (
-    <mesh ref={mesh}>
-      <boxBufferGeometry args={[2, 1, 0.02]} />
-      <meshStandardMaterial color="lightblue" />
-      <Html>
+    <>
+      <mesh ref={mesh}>
+        <boxBufferGeometry args={[2, 1, 0.02]} />
+        <meshStandardMaterial color="lightblue" />
+      </mesh>
+      <Html onClick={handleResumeClick} className="resume text-center">
+        <h1 className="text-4xl font-bold">Click to Resume</h1>
+        <p className="text-xl">Escape to Exit</p>
         <div
           style={{
             transform: "scale(1.05)",
@@ -52,12 +64,13 @@ const Resume: React.FC<ResumeProps> = ({ camera }) => {
           />
         </div>
       </Html>
-    </mesh>
+    </>
   );
 };
 
 Resume.propTypes = {
-  camera: PropTypes.instanceOf(PerspectiveCamera).isRequired
+  camera: PropTypes.instanceOf(PerspectiveCamera).isRequired,
+  cursorRef: PropTypes.object as Validator<React.RefObject<HTMLDivElement>>
 };
 
 export default Resume;
