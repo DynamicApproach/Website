@@ -3,6 +3,9 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { handleBoost, handleJump } from "./playerMovementUtils";
 
+const excludedLayer = new THREE.Layers();
+excludedLayer.set(1); // Use layer 1 for objects that should be excluded from raycasts
+
 export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
   const [moveState, setMoveState] = useState({
     forward: false,
@@ -18,6 +21,7 @@ export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
     handleBoost(jumpState, setBoostState);
   };
   const raycaster = new THREE.Raycaster();
+  raycaster.layers.set(0); // Only intersect objects on the default layer (layer 0)
 
   const [boostState, setBoostState] = useState(false);
   const [jumpState, setJumpState] = useState(false);
@@ -64,7 +68,11 @@ export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
           (event.clientX / window.innerWidth) * 2 - 1,
           -(event.clientY / window.innerHeight) * 2 + 1
         );
-
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const intersects = raycaster.intersectObjects(
+          scene.children.filter((child) => !child.layers.test(excludedLayer)),
+          true
+        );
         raycaster.setFromCamera(mouse, camera);
         const newPosition = new THREE.Vector3();
         raycaster.ray.at(
@@ -197,7 +205,10 @@ export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
     const direction = new THREE.Vector3();
     camera.getWorldDirection(direction); // Ground check
     raycaster.set(camera.position, new THREE.Vector3(0, -1, 0));
-    const intersects = raycaster.intersectObjects(scene.children, true);
+    const intersects = raycaster.intersectObjects(
+      scene.children.filter((child) => !child.layers.test(excludedLayer)),
+      true
+    );
     const isOnGround =
       intersects.length > 0 && camera.position.y <= intersects[0].point.y + 2;
 

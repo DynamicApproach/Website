@@ -1,4 +1,4 @@
-// playerMovementUtils.ts
+// playerMovementUtils.tsx
 import * as THREE from "three";
 
 export const handleBoost = (

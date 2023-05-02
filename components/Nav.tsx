@@ -59,6 +59,9 @@ export const Nav = () => {
             <Link href="/" scroll={false}>
               <TailwindExitButton>Home</TailwindExitButton>
             </Link>
+            <Link href="/infoPages/threejss">
+              <TailwindExitButton>Threejs</TailwindExitButton>
+            </Link>
             <Link href="/infoPages/Projects" scroll={false}>
               <TailwindExitButton>Projects</TailwindExitButton>
             </Link>
@@ -68,9 +71,6 @@ export const Nav = () => {
             {/*<Link href="/infoPages/testpage">
                 <TailwindExitButton>testpg</TailwindExitButton>
               </Link>*/}
-            <Link href="/infoPages/threejss">
-              <TailwindExitButton>Threejs</TailwindExitButton>
-            </Link>
             <Link href="https://github.com/DynamicApproach/" scroll={false}>
               <TailwindExitButton>GitHub</TailwindExitButton>
             </Link>
