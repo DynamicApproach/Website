@@ -14,7 +14,23 @@ const ShibaModel = () => {
   console.log(gltf);
   return React.createElement("primitive", {
     object: gltf.scene,
-    scale: [5, 5, 5],
+    scale: [1, 1, 1],
+    _position: [1, 1.4, -20],
+    get position() {
+      return this._position;
+    },
+    set position(value) {
+      this._position = value;
+    }
+  });
+};
+// https://skfb.ly/oFNDG Made by Alan woodhead
+const Cathedral = () => {
+  const gltf = useLoader(GLTFLoader, "/house/scene.gltf", () => GLTFLoader);
+  console.log(gltf);
+  return React.createElement("primitive", {
+    object: gltf.scene,
+    scale: [25, 25, 25],
     _position: [0, 5, -20],
     get position() {
       return this._position;
@@ -118,6 +134,7 @@ const ThreeScene = () => {
           />
           <Windmill position={[-10, 0, -10]} />
           <ShibaModel />
+          <Cathedral />
           {camera && <Resume camera={camera} />}
         </Canvas>
       </div>
