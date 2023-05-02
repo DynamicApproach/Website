@@ -31,7 +31,7 @@ const Resume: React.FC<ResumeProps> = ({ camera, cursorRef }) => {
   }
 
   const handleResumeClick = () => {
-    if (cursorRef.current) {
+    if (cursorRef && cursorRef.current) {
       cursorRef.current.requestPointerLock();
     }
   };
