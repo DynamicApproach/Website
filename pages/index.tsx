@@ -16,12 +16,12 @@ const addonList = [
   "Jest "
 ];
 const schoolprojects = [
-  "Computer Security, Databases, Algorithms, and Programming Languages"
+  "Software engineering, Automata and languages, Numerical Methods, and Cryptography. "
 ];
 const internship = [
-  "Data analysis, ",
-  "and data visualization ",
-  " for a local company to gather sales data and visualize it in a way that is easy to understand. "
+  "An internship at NYS ITS ",
+  "doing Drupal development. ",
+  ""
 ];
 
 const Index: NextPage = () => (
@@ -63,9 +63,17 @@ const Index: NextPage = () => (
         >
           <div className="">
             <p className=" pr-4 text-nextlightblueish">
-              My favourite things are coding, networking and playing video
-              games. While currently studying Computer Science at SUNY at
-              Albany, I am also working on my skills, website and side projects.
+              My favourite things are
+              <span className=" text-albanyyellow">
+                {" "}
+                coding, networking
+              </span>{" "}
+              and{" "}
+              <span className=" text-albanyyellow">
+                playing video games.
+              </span>{" "}
+              While currently studying Computer Science at SUNY at Albany, I am
+              also working on my skills, website and side projects.
             </p>
             <br></br>
             <p className=" pr-4 text-nextlightblueish">
@@ -76,21 +84,25 @@ const Index: NextPage = () => (
           <br></br>
           <p className=" pr-4 text-nextlightblueish">
             Currently, I&apos;m working on: <br></br>
-            {internship}
+            <span className="text-albanyyellow">{internship}</span>
             <br></br>
             <br></br>
             Mean while, at school I&apos;m working on: <br></br>
-            {schoolprojects}
+            <span className="text-albanyyellow">{schoolprojects}</span>
           </p>
           <p className=" pr-4 text-nextlightblueish">
             I am almost finished with my Bachelors of Science in Computer
-            Science, with a planned graduation date of December 2023.
-            <br></br>
+            Science, with a planned graduation date of{" "}
+            <span className="text-albanyyellow">December 2023</span>!<br></br>
             <br></br>
             In my spare time, I tend to create new things, and I am currently
             working on a new project, and this website. <br></br>
           </p>
         </div>
+        <p className="pl-4 pr-4 pt-14 text-nextlightblueish">
+          Take a look at my Github to get an idea of what my current projects
+          are.
+        </p>
       </div>
     </main>
     <br></br>
