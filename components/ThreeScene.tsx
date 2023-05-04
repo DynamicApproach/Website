@@ -3,43 +3,11 @@ import { useState, useEffect, useCallback } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Sky } from "@react-three/drei";
 import Player from "./Player";
-import { useLoader } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import Resume from "./Resume";
 import { PerspectiveCamera, OrthographicCamera } from "three";
 import WorldPhysics from "./worldphysics";
-
-const ShibaModel = () => {
-  const gltf = useLoader(GLTFLoader, "/shiba/scene.gltf");
-  console.log(gltf);
-  return React.createElement("primitive", {
-    object: gltf.scene,
-    scale: [1, 1, 1],
-    _position: [1, 1.4, -20],
-    get position() {
-      return this._position;
-    },
-    set position(value) {
-      this._position = value;
-    }
-  });
-};
-// https://skfb.ly/oFNDG Made by Alan woodhead
-const Cathedral = () => {
-  const gltf = useLoader(GLTFLoader, "/house/scene.gltf", () => GLTFLoader);
-  console.log(gltf);
-  return React.createElement("primitive", {
-    object: gltf.scene,
-    scale: [25, 25, 25],
-    _position: [0, 5, -20],
-    get position() {
-      return this._position;
-    },
-    set position(value) {
-      this._position = value;
-    }
-  });
-};
+import Cathedral from "./Cathedral";
+import ShibaModel from "./Shiba";
 
 const ThreeScene = () => {
   const [cursorRef] = useState(null);
