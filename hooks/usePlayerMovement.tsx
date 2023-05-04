@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { handleBoost, handleJump } from "./playerMovementUtils";
-
 const excludedLayer = new THREE.Layers();
 excludedLayer.set(1); // Use layer 1 for objects that should be excluded from raycasts
 
@@ -149,51 +148,7 @@ export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
     window.addEventListener("keydown", handleKeyDown as EventListener);
     window.addEventListener("keyup", handleKeyUp as EventListener);
 
-    const handleTouchMove = (event: TouchEvent) => {
-      event.preventDefault();
-      const touch = event.touches[0];
-      const xDiff = touch.clientX - touch.clientX;
-      const yDiff = touch.clientY - touch.clientY;
-      const threshold = 10;
-      setMoveState((prevState) => ({
-        ...prevState,
-        forward: yDiff > threshold || prevState.forward,
-        backward: yDiff < -threshold || prevState.backward,
-        left: xDiff < -threshold || prevState.left,
-        right: xDiff > threshold || prevState.right
-      }));
-    };
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const handleTouchEnd = (event: TouchEvent) => {
-      setMoveState((prevState) => ({
-        ...prevState,
-        forward: false,
-        backward: false,
-        left: false,
-        right: false
-      }));
-    };
-
-    window.addEventListener(
-      "touchmove",
-      handleTouchMove as EventListenerOrEventListenerObject
-    );
-    window.addEventListener(
-      "touchend",
-      handleTouchEnd as EventListenerOrEventListenerObject
-    );
-
     return () => {
-      window.removeEventListener(
-        "touchmove",
-        handleTouchMove as EventListenerOrEventListenerObject
-      );
-      window.removeEventListener(
-        "touchend",
-        handleTouchEnd as EventListenerOrEventListenerObject
-      );
-
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       window.removeEventListener("mousemove", handleMouseMove);
@@ -231,12 +186,10 @@ export const usePlayerMovement = (camera: THREE.Camera, scene: THREE.Scene) => {
         speed * delta
       );
     }
-
     // Jump logic
     if (moveState.jump && !jumpState) {
       handleJumpWrapper();
     }
-
     if (jumpState) {
       const jumpTime = Date.now() - jumpStart;
       const jumpHeight = 4;

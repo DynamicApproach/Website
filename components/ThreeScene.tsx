@@ -83,7 +83,6 @@ const ThreeScene = () => {
           <pointLight castShadow position={[100, 100, 100]} />
           <ambientLight />
           <WorldPhysics receiveShadow />
-
           <ShibaModel />
           <Cathedral />
           {camera && <Resume camera={camera} />}
