@@ -6,8 +6,8 @@ interface OpenAIInputProps {
   onResponse: (response: string) => void;
 }
 
-const deploymentKey = process.env.DEPLOYMENT_KEY;
-console.log(deploymentKey);
+const NEXT_PUBLIC_deploymentKey = process.env.DEPLOYMENT_KEY;
+console.log(NEXT_PUBLIC_deploymentKey);
 const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
   const [input, setInput] = useState("");
   const [response, setResponse] = useState("");
@@ -22,7 +22,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
     setIsLoading(true); // set loading state
     try {
       const configuration = new Configuration({
-        apiKey: deploymentKey
+        apiKey: NEXT_PUBLIC_deploymentKey
       });
       const openai = new OpenAIApi(configuration);
       const result = await openai.createCompletion({
