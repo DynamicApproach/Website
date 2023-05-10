@@ -22,7 +22,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
     setIsLoading(true); // set loading state
     try {
       const configuration = new Configuration({
-        apiKey: NEXT_PUBLIC_deploymentKey
+        apiKey: process.env.DEPLOYMENT_KEY
       });
       const openai = new OpenAIApi(configuration);
       const result = await openai.createCompletion({
