@@ -68,6 +68,9 @@ export const Nav = () => {
             <Link href="/infoPages/threedprinting" scroll={false}>
               <TailwindExitButton>3D Printing</TailwindExitButton>
             </Link>
+            <Link href="/infoPages/mindmapper" scroll={false}>
+              <TailwindExitButton>Mindmapper</TailwindExitButton>
+            </Link>
             {/*<Link href="/infoPages/testpage">
                 <TailwindExitButton>testpg</TailwindExitButton>
               </Link>*/}
