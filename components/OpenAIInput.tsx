@@ -45,7 +45,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
 
   return (
     <div className="">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="top-0">
         <label className="min-w-fit" htmlFor="input">
           I would like a mindmap of a(n):
         </label>
@@ -58,7 +58,11 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
         />
         <button type="submit">Submit</button>
       </form>
-      {isLoading ? <div>Loading...</div> : response}
+      {isLoading ? (
+        <h2>Loading your answer.... Copyable text will be here.</h2>
+      ) : (
+        response
+      )}
     </div>
   );
 };
