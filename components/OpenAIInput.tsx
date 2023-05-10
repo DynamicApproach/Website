@@ -27,7 +27,10 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
       const openai = new OpenAIApi(configuration);
       const result = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: "A detailed mind map of a " + input + " in markdown format",
+        prompt:
+          "An extremely detailed mind map of a " +
+          input +
+          " in Markdown format. Go deep not wide please.",
         temperature: 0.5,
         max_tokens: 4000,
         n: 1,
@@ -44,9 +47,9 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
   };
 
   return (
-    <div className="">
-      <form onSubmit={handleSubmit} className="top-0">
-        <label className="min-w-fit" htmlFor="input">
+    <div>
+      <form onSubmit={handleSubmit} className="space-y-2">
+        <label htmlFor="input" className="block">
           I would like a mindmap of a(n):
         </label>
         <input
@@ -55,18 +58,25 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
           name="input"
           value={input}
           onChange={handleChange}
+          className="w-full"
         />
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 rounded px-4 py-2 font-bold text-white"
+        >
+          Submit
+        </button>
       </form>
       {isLoading ? (
-        <h2>Loading your answer.... Copyable text will be here.</h2>
+        <h2 className="mt-4">
+          Loading your answer.... Copyable text will be here.
+        </h2>
       ) : (
-        response
+        <pre className="mt-4 whitespace-pre-wrap">{response}</pre>
       )}
     </div>
   );
 };
-
 OpenAIInput.propTypes = {
   onResponse: PropTypes.func.isRequired
 };
