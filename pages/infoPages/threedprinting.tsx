@@ -3,10 +3,7 @@ import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
 export const threedprinting = () => {
   return (
-    <div
-      className="bg-backgray bg-gradient-to-r
-    from-backgray to-albanypurp bg-local"
-    >
+    <div className="">
       <Nav />
 
       <main className={styles.main}>

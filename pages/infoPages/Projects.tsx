@@ -3,10 +3,7 @@ import styles from "styles/Projects.module.css";
 import Link from "next/link";
 export const projects = () => {
   return (
-    <div
-      className="bg-gradient-to-r
-    from-backgray to-albanypurp bg-cover  bg-bottom bg-no-repeat"
-    >
+    <div className="">
       <Nav />
       <main className={styles.main}>
         <h1 className={styles.title}>Recent Projects</h1>

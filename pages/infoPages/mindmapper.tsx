@@ -2,6 +2,7 @@ import { useState } from "react";
 import OpenAIInput from "../../components/OpenAIInput";
 import MarkmapOutput from "../../components/MarkmapOutput";
 import Nav from "components/Nav";
+import styles from "styles/Mindmap.module.css";
 
 const MindMapper = () => {
   const [openAIResponse, setOpenAIResponse] = useState<any | null>(null);
@@ -20,8 +21,11 @@ const MindMapper = () => {
   return (
     <div>
       <Nav />
-      <div className="flex h-screen bg-backgray bg-gradient-to-r">
-        <div className="h-full w-full max-w-md flex-1 p-4">
+      <div
+        className="from- flex  h-screen bg-gradient-to-r
+   to-albanypurp bg-cover bg-scroll"
+      >
+        <div className={styles.card}>
           <h1 className="mb-4 text-center text-2xl font-semibold">
             Welcome To The Mindmap Creator.
           </h1>{" "}

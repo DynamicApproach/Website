@@ -4,16 +4,21 @@ import styles from "styles/Projects.module.css";
 
 export const klipperconfig = () => {
   return (
-    <div className="bg-backgray">
+    <div className="">
       <Nav />
 
       <main className={styles.main}>
         <h1 className={styles.title}>Klipper Config</h1>
         <div className={styles.grid}>
           <div className={styles.card}>
-            {/* Import textfile as text */}
             <h2>Config &rarr;</h2>
-            <p className="text-nextlightblueish">To be added - Contact me!</p>
+            <a
+              href="/klipper config.txt"
+              download="klipperconf.txt"
+              className="text-nextlightblueish"
+            >
+              Download Klipper Config
+            </a>
           </div>
         </div>
         <div className={styles.card}>

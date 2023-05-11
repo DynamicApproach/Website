@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Nav from "components/Nav";
 import mainimg from "pages/images/main.png";
+import styles from "styles/index.module.css";
 const addonList = [
   "NPM, ",
   "GIT, ",
@@ -25,11 +26,7 @@ const internship = [
 ];
 
 const Index: NextPage = () => (
-  <div
-    className="light:bg-darkgray 
-     min-w-screen min-h-screen bg-backgray bg-gradient-to-r from-backgray
-   to-albanypurp bg-cover bg-scroll  "
-  >
+  <div className={styles.light}>
     <Nav />
     <Head>
       <meta name="ThomasLJ" content="Thomas LJ Website" />
@@ -38,8 +35,9 @@ const Index: NextPage = () => (
 
     <br></br>
     <br></br>
-    <main className="bg-transparent light:text-black grid  min-w-fit content-center justify-center">
-      <div className="grid min-w-fit grid-cols-4 ">
+
+    <main className={styles.main}>
+      <div className={styles.mainImage}>
         <div className="flex min-h-fit min-w-fit justify-end pr-2">
           <Image
             src={mainimg}
@@ -49,9 +47,8 @@ const Index: NextPage = () => (
             className="rounded-full"
           />
         </div>
-        <h2 className=" col-span-3 min-w-fit content-center text-2xl text-albanyyellow">
+        <h2 className={styles.mainTitle}>
           Thomas Lloyd-Jones
-          {/* Add circulr image  */}
           <p className="text-sm">Welcome to my personal website.</p>
         </h2>
       </div>
@@ -112,14 +109,10 @@ const Index: NextPage = () => (
     >
       <div></div>
       <footer className=" ">
-        <div className=" max-w-m bg-transparent flex min-w-min  flex-wrap content-center justify-center  ">
-          <div
-            className="color-gray left-0 m-4 min-w-min max-w-xs  border-spacing-4 border 
-        border-solid border-albanylightpurp 
-         p-6 text-left text-albanyyellow"
-          >
-            <h3 className="underline">Powered by</h3>{" "}
-            <p className="text-xs text-nextlightblueish">{addonList}</p>
+        <div className={styles.footer}>
+          <div className={styles.footerPowered}>
+            <h3 className=" underline">Powered by</h3>{" "}
+            <p className="text-nextlightblueish">{addonList}</p>
           </div>
         </div>
         <p className="relative"></p>
