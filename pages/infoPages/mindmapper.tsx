@@ -6,10 +6,14 @@ import Nav from "components/Nav";
 const MindMapper = () => {
   const [openAIResponse, setOpenAIResponse] = useState<any | null>(null);
   const [hasResponse, setHasResponse] = useState(false);
+  const [requestKey, setRequestKey] = useState(0);
 
   const handleOpenAIResponse = (response: any) => {
+    // Check if the response is an object and not a JSON string
+
     setOpenAIResponse(response);
     setHasResponse(true);
+    setRequestKey((requestKey) => requestKey + 1);
   };
 
   return (
@@ -31,7 +35,8 @@ const MindMapper = () => {
         </div>
         {hasResponse && (
           <div className="flex-2 h-full w-full">
-            <MarkmapOutput content={openAIResponse} />
+            <MarkmapOutput content={openAIResponse} key={requestKey} />{" "}
+            {/* Add the key prop here */}
           </div>
         )}
       </div>
