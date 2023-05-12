@@ -3,7 +3,10 @@ import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
 export const favouriteprints = () => {
   return (
-    <div className="bg-backgray">
+    <div
+      className="min-w-screen bg-grad  min-h-screen bg-gradient-to-br
+    from-backgray to-albanypurp bg-cover bg-scroll"
+    >
       <Nav />
 
       <main className={styles.main}>

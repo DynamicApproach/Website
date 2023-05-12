@@ -26,7 +26,10 @@ const internship = [
 ];
 
 const Index: NextPage = () => (
-  <div className={styles.light}>
+  <div
+    className=" min-w-screen bg-grad  min-h-screen bg-gradient-to-br
+  from-backgray to-albanypurp bg-cover bg-scroll"
+  >
     <Nav />
     <Head>
       <meta name="ThomasLJ" content="Thomas LJ Website" />

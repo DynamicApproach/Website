@@ -18,7 +18,10 @@ const MindMapper = () => {
   };
 
   return (
-    <div>
+    <div
+      className="min-w-screen bg-grad  min-h-screen bg-gradient-to-br
+    from-backgray to-albanypurp bg-cover bg-scroll"
+    >
       <Nav />
       <div className=" flex  h-screen bg-cover  bg-scroll">
         <div
