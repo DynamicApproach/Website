@@ -26,7 +26,7 @@ const MindMapper = () => {
       <div className=" flex  h-screen bg-cover  bg-scroll">
         <div
           className="border-gray-300 m-4 max-w-xs rounded-lg border-l 
-        border-r border-t p-6 text-left text-white transition-colors duration-150 ease-in-out"
+        border-r border-t p-6 text-left  transition-colors duration-150 ease-in-out"
         >
           <h1 className="text-green-600 mb-4 text-center  text-lg  font-semibold text-nextblue">
             Welcome To The Mindmap Creator.
