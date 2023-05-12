@@ -49,7 +49,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
   return (
     <div>
       <form onSubmit={handleSubmit} className="space-y-2">
-        <label htmlFor="input" className="block">
+        <label htmlFor="input" className="block text-white">
           I would like a mindmap of a(n):
         </label>
         <input
@@ -68,7 +68,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
         </button>
       </form>
       {isLoading ? (
-        <h2 className="mt-4">
+        <h2 className="mt-4 text-white">
           Loading your answer.... Copyable text will be here.
         </h2>
       ) : (

@@ -20,10 +20,10 @@ const MindMapper = () => {
   return (
     <div
       className="min-w-screen bg-grad  min-h-screen bg-gradient-to-br
-    from-backgray to-albanypurp bg-cover bg-scroll"
+    from-backgray to-albanypurp bg-cover bg-scroll bg-blend-difference"
     >
       <Nav />
-      <div className=" flex  h-screen bg-cover  bg-scroll">
+      <div className=" flex  min-h-screen bg-cover  bg-scroll">
         <div
           className="border-gray-300 m-4 max-w-xs rounded-lg border-l 
         border-r border-t p-6 text-left  transition-colors duration-150 ease-in-out"
@@ -43,7 +43,10 @@ const MindMapper = () => {
           <OpenAIInput onResponse={handleOpenAIResponse} />
         </div>
         {hasResponse && (
-          <div className="flex-2 h-screen w-full text-sm">
+          <div
+            className="bg-grad  h-full min-h-screen
+          w-full bg-gradient-to-br from-backgray to-albanypurp bg-cover bg-scroll text-sm bg-blend-difference"
+          >
             <MarkmapOutput content={openAIResponse} key={requestKey} />{" "}
           </div>
         )}
