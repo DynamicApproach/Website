@@ -113,7 +113,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           Loading your answer.... Copyable text will be here.
         </h2>
       ) : (
-        <pre className="mt-4 whitespace-pre-wrap">{response}</pre>
+        <pre className="mt-4 whitespace-pre-wrap text-white">{response}</pre>
       )}
     </div>
   );
