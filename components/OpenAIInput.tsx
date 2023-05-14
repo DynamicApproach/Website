@@ -106,24 +106,40 @@ OpenAIInput.propTypes = {
   nodeData: PropTypes.string,
   existingMarkdown: PropTypes.string.isRequired // Add this prop type
 };
+
 function modifyMarkdown(
   markdown: string,
   node: string,
   newData: string
 ): string {
-  // if no exsiting markdown, return the new data
+  // if no existing markdown, return the new data
   if (!markdown) {
+    console.log("No existing markdown. Returning new data.");
     return newData;
   }
+
+  // remove the first line starting with "# " (the title)
+  newData = newData.replace(/^\s*# .*\n?/, "");
+  // convert all - to * (for markdown lists)
+  newData = newData.replace(/-/g, "*");
+  console.log("New data:", newData);
   const lines = markdown.split("\n");
   const nodeLineIndex = lines.findIndex((line) => line.includes(node));
 
   // If the node was found
   if (nodeLineIndex >= 0) {
+    // get the indentation of the current line (number of leading spaces)
+    const match = lines[nodeLineIndex].match(/^ */);
+    const currentIndentation = match ? match[0].length : 0;
+    // define the indentation for the new lines (current indentation + 2 spaces)
+    const newIndentation = " ".repeat(currentIndentation + 2);
+
     const newNodeData = newData
       .split("\n")
-      .map((line) => "  " + line)
+      // add the calculated indentation at the beginning of each line
+      .map((line) => newIndentation + line)
       .join("\n");
+
     lines.splice(nodeLineIndex + 1, 0, newNodeData);
   }
 
