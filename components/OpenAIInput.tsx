@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 interface OpenAIInputProps {
   onResponse: (response: string) => void;
   nodeData: string | null;
-  existingMarkdown: string; // Add this prop
+  existingMarkdown: string;
+  onClear?: () => void;
 }
 
 const NEXT_PUBLIC_deploymentKey = process.env.DEPLOYMENT_KEY;
@@ -14,18 +15,66 @@ console.log(NEXT_PUBLIC_deploymentKey);
 const OpenAIInput: React.FC<OpenAIInputProps> = ({
   onResponse,
   nodeData,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onClear = () => {}, // Default value to avoid calling undefined
   existingMarkdown
 }) => {
   const [input, setInput] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [newMapInput, setNewMapInput] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [newMap, setNewMap] = useState("");
 
   const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
     setInput(e.target.value);
   };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleNewMapChange = (e: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setNewMapInput(e.target.value);
+  };
+  const fetchAndAppendData = async (inputData: string) => {
+    setIsLoading(true); // set loading state
+    let updatedResponse = "";
+    try {
+      const configuration = new Configuration({
+        apiKey: process.env.NEXT_PUBLIC_deploymentKey
+      });
+
+      const openai = new OpenAIApi(configuration);
+      const prompt =
+        "Please give me an extremely detailed mind map of " +
+        inputData +
+        " in Markdown format, using * for list. Go deep rather than wide please but please" +
+        " Only give me responses in this format.  \n";
+
+      const result = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: prompt,
+        temperature: 0.5,
+        max_tokens: 4000,
+        n: 1,
+        stop: null
+      });
+      console.log(result);
+      const choices = result.data.choices;
+      const text = choices[0].text ?? "";
+      updatedResponse = appendMarkdown(existingMarkdown, inputData, text);
+      setResponse(updatedResponse);
+      onResponse(updatedResponse);
+    } catch (error) {
+      console.error("Error calling OpenAI API:", error);
+    }
+    setIsLoading(false); // unset loading state
+    return updatedResponse;
+  };
 
   const fetchData = async (inputData: string) => {
     setIsLoading(true); // set loading state
+    let updatedResponse = "";
     try {
       const configuration = new Configuration({
         apiKey: process.env.NEXT_PUBLIC_deploymentKey
@@ -63,18 +112,32 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
       console.log(result);
       const choices = result.data.choices;
       const text = choices[0].text ?? "";
-      const updatedResponse = modifyMarkdown(existingMarkdown, inputData, text);
+      updatedResponse = modifyMarkdown(existingMarkdown, inputData, text);
       setResponse(updatedResponse);
       onResponse(updatedResponse);
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
     }
     setIsLoading(false); // unset loading state
+    return updatedResponse;
+  };
+
+  const handleNewMapSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    fetchAndAppendData(input).then((newMapData) => setNewMap(newMapData));
   };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    fetchData(input);
+    fetchData(input).then((data) => setResponse(data));
+  };
+
+  const clearMap = () => {
+    console.log("attempt clear map");
+    setInput("");
+    setResponse("");
+    onResponse("");
+    onClear();
   };
 
   useEffect(() => {
@@ -91,7 +154,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
     <div>
       <form onSubmit={handleSubmit} className="space-y-2">
         <label htmlFor="input" className="block text-white">
-          I would like a mindmap of a(n):
+          Enter a topic:
         </label>
         <input
           type="text"
@@ -101,12 +164,28 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           onChange={handleChange}
           className="w-full"
         />
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 rounded px-4 py-2 font-bold text-white"
-        >
-          Submit
-        </button>
+        <div className="space-x-2">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 rounded px-4 py-2 font-bold text-white"
+          >
+            Create A Map
+          </button>
+          <button
+            type="button"
+            onClick={handleNewMapSubmit}
+            className="bg-green-500 hover:bg-green-700 rounded px-4 py-2 font-bold text-white"
+          >
+            Add To Current Map
+          </button>
+          <button
+            type="button"
+            onClick={clearMap}
+            className="bg-red-500 hover:bg-red-700 rounded px-4 py-2 font-bold text-white"
+          >
+            Clear Map
+          </button>
+        </div>
       </form>
       {isLoading ? (
         <h2 className="mt-4 text-white">
@@ -122,7 +201,8 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
 OpenAIInput.propTypes = {
   onResponse: PropTypes.func.isRequired,
   nodeData: PropTypes.string,
-  existingMarkdown: PropTypes.string.isRequired
+  existingMarkdown: PropTypes.string.isRequired,
+  onClear: PropTypes.func
 };
 
 function modifyMarkdown(
@@ -258,6 +338,28 @@ function getNodePath(markdown: string, node: string): string {
   path = path.replace(/\*/g, "");
   console.log("Node path:", path);
   return path;
+}
+function appendMarkdown(
+  markdown: string,
+  node: string,
+  newData: string
+): string {
+  // If no existing markdown, return the new data
+  if (!markdown) {
+    console.log("No existing markdown. Returning new data.");
+    return newData;
+  }
+
+  // Remove the first line starting with "# " (the title)
+  newData = newData.replace(/^\s*# .*\n?/, "");
+  // Convert all - to * (for markdown lists)
+  newData = newData.replace(/-/g, "*");
+
+  // Format new data
+  console.log("New data:", newData);
+
+  // Add the new node to the end of the existing markdown
+  return markdown + "\n\n" + newData;
 }
 
 export default OpenAIInput;

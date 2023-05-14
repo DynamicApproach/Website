@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 
 interface MarkmapOutputProps {
   content: string;
-  onNodeClick: (nodeData: string) => void;
+  key: number;
+  onNodeClick: (clickedNodeTitle: string) => void;
 }
 
 const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
@@ -32,7 +33,6 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
 
   useEffect(() => {
     if (!markmapRef.current) return;
-
     const transformer = new Transformer();
     let root;
 
@@ -67,11 +67,11 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
     document.head.appendChild(style);
 
     if (svgElement) {
-      if (markmapInstanceRef.current) {
+      if (!content && !uploadedContent && markmapInstanceRef.current) {
         markmapInstanceRef.current.destroy();
+      } else {
+        markmapInstanceRef.current = Markmap.create(svgElement, {}, root);
       }
-
-      markmapInstanceRef.current = Markmap.create(svgElement, {}, root);
       svgElement.addEventListener("click", handleClick, false);
     }
 
@@ -96,7 +96,6 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
     a.click();
     URL.revokeObjectURL(url);
   };
-
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     if (!file) {
@@ -115,7 +114,6 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
     reader.readAsText(file);
   };
 
-  // MarkmapOutput.tsx
   return (
     <div className="relative flex h-full flex-col">
       <div ref={markmapRef} className="absolute z-0 h-auto w-full" />
@@ -126,23 +124,21 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
         >
           Download
         </button>
-        {
-          <div>
-            <input
-              type="file"
-              accept=".json"
-              onChange={handleFileUpload}
-              style={{ display: "none" }}
-              id="uploadInput"
-            />
-            <label
-              htmlFor="uploadInput"
-              className="bg-blue-500 hover:bg-blue-700 cursor-pointer rounded px-4 py-2 font-bold text-white"
-            >
-              Choose file
-            </label>
-          </div>
-        }
+        <div>
+          <input
+            type="file"
+            accept=".json"
+            onChange={handleFileUpload}
+            style={{ display: "none" }}
+            id="uploadInput"
+          />
+          <label
+            htmlFor="uploadInput"
+            className="bg-blue-500 hover:bg-blue-700 cursor-pointer rounded px-4 py-2 font-bold text-white"
+          >
+            Choose file
+          </label>
+        </div>
       </div>
     </div>
   );
