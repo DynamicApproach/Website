@@ -17,8 +17,10 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
   const [uploadedContent, setUploadedContent] = useState<string | null>(null);
 
   const handleClick = useCallback(
-    (event) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (event: { target: any }) => {
       if (event.target) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const targetData = (event.target as any).__data__;
         if (targetData && targetData.data) {
           onNodeClick(targetData.data); // sending the whole data object instead of just the title
