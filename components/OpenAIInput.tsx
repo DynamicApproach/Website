@@ -1,14 +1,21 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useState, useEffect } from "react";
 import { Configuration, OpenAIApi } from "openai";
 import PropTypes from "prop-types";
 
 interface OpenAIInputProps {
   onResponse: (response: string) => void;
+  nodeData: string | null;
+  existingMarkdown: string; // Add this prop
 }
 
 const NEXT_PUBLIC_deploymentKey = process.env.DEPLOYMENT_KEY;
 console.log(NEXT_PUBLIC_deploymentKey);
-const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
+
+const OpenAIInput: React.FC<OpenAIInputProps> = ({
+  onResponse,
+  nodeData,
+  existingMarkdown
+}) => {
   const [input, setInput] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -17,19 +24,19 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
     setInput(e.target.value);
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const fetchData = async (inputData: string) => {
     setIsLoading(true); // set loading state
     try {
       const configuration = new Configuration({
         apiKey: process.env.NEXT_PUBLIC_deploymentKey
       });
+
       const openai = new OpenAIApi(configuration);
       const result = await openai.createCompletion({
         model: "text-davinci-003",
         prompt:
           "An extremely detailed mind map of a " +
-          input +
+          inputData +
           " in Markdown format. Go deep not wide please.",
         temperature: 0.5,
         max_tokens: 4000,
@@ -38,13 +45,29 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
       });
       const choices = result.data.choices;
       const text = choices[0].text ?? "";
-      setResponse(text);
-      onResponse(text);
+      const updatedResponse = modifyMarkdown(existingMarkdown, inputData, text);
+      setResponse(updatedResponse);
+      onResponse(updatedResponse);
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
     }
     setIsLoading(false); // unset loading state
   };
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    fetchData(input);
+  };
+
+  useEffect(() => {
+    console.log(nodeData);
+    if (nodeData) {
+      const nodeDataObj =
+        typeof nodeData === "string" ? JSON.parse(nodeData) : nodeData;
+      // parse the JSON string to an object if nodeData is a string
+      fetchData(nodeDataObj.content);
+    }
+  }, [nodeData]);
 
   return (
     <div>
@@ -77,8 +100,34 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({ onResponse }) => {
     </div>
   );
 };
+
 OpenAIInput.propTypes = {
-  onResponse: PropTypes.func.isRequired
+  onResponse: PropTypes.func.isRequired,
+  nodeData: PropTypes.string,
+  existingMarkdown: PropTypes.string.isRequired // Add this prop type
 };
+function modifyMarkdown(
+  markdown: string,
+  node: string,
+  newData: string
+): string {
+  // if no exsiting markdown, return the new data
+  if (!markdown) {
+    return newData;
+  }
+  const lines = markdown.split("\n");
+  const nodeLineIndex = lines.findIndex((line) => line.includes(node));
+
+  // If the node was found
+  if (nodeLineIndex >= 0) {
+    const newNodeData = newData
+      .split("\n")
+      .map((line) => "  " + line)
+      .join("\n");
+    lines.splice(nodeLineIndex + 1, 0, newNodeData);
+  }
+
+  return lines.join("\n");
+}
 
 export default OpenAIInput;

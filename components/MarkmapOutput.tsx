@@ -1,16 +1,32 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Markmap } from "markmap-view";
 import { Transformer } from "markmap-lib";
-import "markmap-view/";
 import PropTypes from "prop-types";
 
 interface MarkmapOutputProps {
   content: string;
+  onNodeClick: (nodeData: string) => void;
 }
-const MarkmapOutput: React.FC<MarkmapOutputProps> = ({ content }) => {
+
+const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
+  content,
+  onNodeClick
+}) => {
   const markmapRef = useRef<HTMLDivElement>(null);
   const markmapInstanceRef = useRef<Markmap>();
   const [uploadedContent, setUploadedContent] = useState<string | null>(null);
+
+  const handleClick = useCallback(
+    (event) => {
+      if (event.target) {
+        const targetData = (event.target as any).__data__;
+        if (targetData && targetData.data) {
+          onNodeClick(targetData.data); // sending the whole data object instead of just the title
+        }
+      }
+    },
+    [onNodeClick]
+  );
 
   useEffect(() => {
     if (!markmapRef.current) return;
@@ -34,7 +50,9 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({ content }) => {
         "http://www.w3.org/2000/svg",
         "svg"
       );
-      markmapRef.current.appendChild(svgElement);
+      if (markmapRef.current) {
+        markmapRef.current.appendChild(svgElement);
+      }
 
       svgElement.setAttribute("width", "100%");
       svgElement.setAttribute("height", "100%");
@@ -42,18 +60,24 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({ content }) => {
       svgElement.setAttribute("viewBox", "0 0 1000 1000");
     }
 
-    if (markmapInstanceRef.current) {
-      markmapInstanceRef.current.destroy();
-    }
-
-    markmapInstanceRef.current = Markmap.create(svgElement, {}, root);
-
-    return () => {
+    if (svgElement) {
       if (markmapInstanceRef.current) {
         markmapInstanceRef.current.destroy();
       }
+
+      markmapInstanceRef.current = Markmap.create(svgElement, {}, root);
+      svgElement.addEventListener("click", handleClick, false);
+    }
+
+    return () => {
+      if (svgElement) {
+        if (markmapInstanceRef.current) {
+          markmapInstanceRef.current.destroy();
+        }
+        svgElement.removeEventListener("click", handleClick, false);
+      }
     };
-  }, [content, uploadedContent]);
+  }, [content, uploadedContent, handleClick]);
 
   const handleDownload = () => {
     const blob = new Blob([uploadedContent || content], {
@@ -119,7 +143,8 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({ content }) => {
 };
 
 MarkmapOutput.propTypes = {
-  content: PropTypes.string.isRequired
+  content: PropTypes.string.isRequired,
+  onNodeClick: PropTypes.func.isRequired
 };
 
 export default MarkmapOutput;
