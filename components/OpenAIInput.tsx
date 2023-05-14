@@ -40,17 +40,17 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           "Given the existing mind map of " +
           nodePath + // Use the complete path to the node
           " in Markdown format, using * for list. Go deeper into the last node. Please" +
-          " include as many categories as possible. Only give me responses in this format.+";
-        (" Act like you're continuing the list.   \n");
+          " include as many categories as possible. Only give me responses in this format." +
+          " Focus only on the last few. Act like you're continuing the list of related topics\n";
       } else {
         // If no existing markdown, generate the whole mind map
         prompt =
-          "An extremely detailed mind map of a " +
+          "Please give me an extremely detailed mind map of  " +
           nodePath + // Use the complete path to the node
           " in Markdown format, using * for list. Go deep rather than wide please but please" +
           " Only give me responses in this format.  \n";
       }
-      console.log("Prompt:", prompt);
+      //console.log("Prompt:", prompt);
 
       const result = await openai.createCompletion({
         model: "text-davinci-003",
