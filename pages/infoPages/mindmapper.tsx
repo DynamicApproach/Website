@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import OpenAIInput from "../../components/OpenAIInput";
 import MarkmapOutput from "../../components/MarkmapOutput";
 import Nav from "components/Nav";
@@ -9,6 +9,7 @@ const MindMapper = () => {
   const [hasResponse, setHasResponse] = useState(false);
   const [clickedNode, setClickedNode] = useState<string | null>(null);
   const [requestKey, setRequestKey] = useState(0);
+  const [showMessage, setShowMessage] = useState(false);
 
   const handleOpenAIResponse = (response: any) => {
     if (typeof response === "object") {
@@ -19,8 +20,16 @@ const MindMapper = () => {
     setRequestKey((requestKey) => requestKey + 1);
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowMessage(true);
+    }, 3000); // Show the message after 3 seconds
+
+    return () => clearTimeout(timer); // This will clear the timer if the component unmounts before the time expires
+  }, []);
+
   const handleNodeClick = useCallback((clickedNodeTitle: string) => {
-    console.log("handleNodeClick called with:", clickedNodeTitle); // Add this line
+    console.log("handleNodeClick called with:", clickedNodeTitle);
     setClickedNode(clickedNodeTitle);
   }, []);
 
@@ -49,7 +58,7 @@ const MindMapper = () => {
           <OpenAIInput
             onResponse={handleOpenAIResponse}
             nodeData={clickedNode}
-            existingMarkdown={openAIResponse || ""} // Add this prop
+            existingMarkdown={openAIResponse || ""}
           />
         </div>
         {hasResponse && (
@@ -57,6 +66,8 @@ const MindMapper = () => {
             className="bg-grad  h-full min-h-screen w-full
            bg-gradient-to-br from-backgray to-albanypurp bg-cover bg-scroll text-sm bg-blend-difference"
           >
+            {showMessage && <p>You can click on nodes to expand them!</p>}
+
             <MarkmapOutput
               content={openAIResponse}
               key={requestKey}
