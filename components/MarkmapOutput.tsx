@@ -62,6 +62,10 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
       svgElement.setAttribute("viewBox", "0 0 1000 1000");
     }
 
+    const style = document.createElement("style");
+    style.textContent = ".markmap-foreign div { color: white !important; }";
+    document.head.appendChild(style);
+
     if (svgElement) {
       if (markmapInstanceRef.current) {
         markmapInstanceRef.current.destroy();
