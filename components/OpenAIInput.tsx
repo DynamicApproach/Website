@@ -21,11 +21,17 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
 }) => {
   const [input, setInput] = useState("");
   const [response, setResponse] = useState("");
+  const [selectedAPI, setSelectedAPI] = useState("openai");
+
   const [isLoading, setIsLoading] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [newMapInput, setNewMapInput] = useState("");
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [newMap, setNewMap] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleApiChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedAPI(e.target.value);
+  };
 
   const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
     setInput(e.target.value);
@@ -73,6 +79,12 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
   };
 
   const fetchData = async (inputData: string) => {
+    if (selectedAPI === "openai") {
+      console.log("openai");
+    } else if (selectedAPI === "alternativeAPI") {
+      console.log("alternativeAPI");
+    }
+
     setIsLoading(true); // set loading state
     let updatedResponse = "";
     try {
@@ -185,6 +197,13 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           >
             Clear Map
           </button>
+          {/*<label htmlFor="api" className="block text-white">
+            Choose API:
+          </label>
+          <select id="api" value={selectedAPI} onChange={handleApiChange}>
+            <option value="openai">OpenAI</option>
+            <option value="alternativeAPI">Alternative API</option>
+          </select> */}
         </div>
       </form>
       {isLoading ? (
