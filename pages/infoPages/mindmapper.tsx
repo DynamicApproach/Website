@@ -40,7 +40,10 @@ const MindMapper = () => {
       from-backgray to-albanypurp bg-cover bg-scroll bg-blend-difference"
     >
       <Nav />
-      <div className="flex min-h-screen flex-col bg-cover bg-scroll md:flex-row">
+      <div
+        className="flex 
+      min-h-screen flex-col bg-gradient-to-br from-backgray to-albanypurp bg-cover bg-scroll md:flex-row"
+      >
         <div
           className="border-gray-300 m-4 rounded-lg 
     border-l border-r border-t p-6 text-left transition-colors duration-150 ease-in-out 
