@@ -6,7 +6,6 @@ export const Lightmode = () => {
       <div>
         <span className="bg-indigo-500 inline-flex items-center justify-center rounded-md p-2 shadow-lg"></span>
       </div>
-
       <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm">Swap </p>
     </div>
   );
