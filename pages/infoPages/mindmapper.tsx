@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from "react";
 import OpenAIInput from "../../components/OpenAIInput";
 import MarkmapOutput from "../../components/MarkmapOutput";
 import Nav from "components/Nav";
+import { logEvent, logException } from "utils/ana"; // adjust the path as needed
 
 const MindMapper = () => {
   const [openAIResponse, setOpenAIResponse] = useState<any | null>(null);
@@ -13,12 +14,20 @@ const MindMapper = () => {
   const [showMarkdown, setShowMarkdown] = useState(true);
 
   const handleOpenAIResponse = (response: any) => {
-    if (typeof response === "object") {
-      response = JSON.stringify(response);
+    try {
+      if (typeof response === "object") {
+        response = JSON.stringify(response);
+      }
+      setOpenAIResponse(response);
+      setHasResponse(true);
+      setRequestKey((requestKey) => requestKey + 1);
+    } catch (err) {
+      if (err instanceof Error) {
+        logException(err.message);
+      } else {
+        logException("An unexpected error occurred in handleOpenAIResponse");
+      }
     }
-    setOpenAIResponse(response);
-    setHasResponse(true);
-    setRequestKey((requestKey) => requestKey + 1);
   };
 
   useEffect(() => {
@@ -31,6 +40,7 @@ const MindMapper = () => {
 
   const handleNodeClick = useCallback((clickedNodeTitle: string) => {
     console.log("handleNodeClick called with:", clickedNodeTitle);
+    logEvent("Node Expanded", "Click");
     setClickedNode(clickedNodeTitle);
   }, []);
 
