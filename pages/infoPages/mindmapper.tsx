@@ -19,15 +19,45 @@ const MindMapper = () => {
   const handleSvgContentUpdate = useCallback((newSvgContent: string) => {
     return setSvgContent(newSvgContent);
   }, []);
-
   const exportHTML = () => {
     console.log("exporting html");
     if (markmapRef.current) {
       const svgElem = markmapRef.current.querySelector("svg");
       if (svgElem) {
-        const svgString = new XMLSerializer().serializeToString(svgElem);
         const doc = document.implementation.createHTMLDocument("New Document");
-        doc.body.innerHTML = svgString;
+        doc.body.innerHTML = `
+          <div class="markmap">
+            <script type="text/template">
+              ---
+              markmap:
+                maxWidth: 100%
+                maxHeight: 100%
+                colorFreezeLevel: 2
+              ---
+  
+              ${openAIResponse}
+            </script>
+          </div>
+        `;
+        doc.head.innerHTML = `
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mindmap</title>
+  <style>
+    html, body, div.markmap svg.markmap {
+      position: absolute;
+      font: 300 16px/20px sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/markmap-autoloader@0.14.4"></script>
+`;
+
         const docString = `<!DOCTYPE html>\n${doc.documentElement.outerHTML}`;
         const blob = new Blob([docString], { type: "text/html" });
         const url = URL.createObjectURL(blob);
