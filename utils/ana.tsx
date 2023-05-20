@@ -17,6 +17,16 @@ export const logEvent = (category = "", action = "") => {
   }
 };
 
+export const logUserTiming = (name = "", value = 0, label = "") => {
+  if (name && value) {
+    ReactGA.gtag("event", "timing_complete", {
+      name,
+      value, // in milliseconds
+      label
+    });
+  }
+};
+
 export const logException = (description = "", fatal = false) => {
   if (description) {
     ReactGA.gtag("event", "exception", {
