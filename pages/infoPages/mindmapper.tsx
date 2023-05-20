@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import OpenAIInput from "../../components/OpenAIInput";
 import MarkmapOutput from "../../components/MarkmapOutput";
 import Nav from "components/Nav";
@@ -12,6 +12,35 @@ const MindMapper = () => {
   const [requestKey, setRequestKey] = useState(0);
   const [showMessage, setShowMessage] = useState(false);
   const [showMarkdown, setShowMarkdown] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [svgContent, setSvgContent] = useState<string | null>(null);
+  const markmapRef = useRef<HTMLDivElement>(null);
+
+  const handleSvgContentUpdate = useCallback((newSvgContent: string) => {
+    return setSvgContent(newSvgContent);
+  }, []);
+
+  const exportHTML = () => {
+    console.log("exporting html");
+    if (markmapRef.current) {
+      const svgElem = markmapRef.current.querySelector("svg");
+      if (svgElem) {
+        const svgString = new XMLSerializer().serializeToString(svgElem);
+        const doc = document.implementation.createHTMLDocument("New Document");
+        doc.body.innerHTML = svgString;
+        const docString = `<!DOCTYPE html>\n${doc.documentElement.outerHTML}`;
+        const blob = new Blob([docString], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "mindmap.html";
+        link.click();
+
+        // revoke the Object URL
+        URL.revokeObjectURL(url);
+      }
+    }
+  };
 
   const handleOpenAIResponse = (response: any) => {
     try {
@@ -93,21 +122,36 @@ const MindMapper = () => {
 
         {hasResponse && (
           <div
-            className="bg-grad h-full min-h-screen w-full
+            ref={markmapRef}
+            className="relative h-full min-h-screen w-full
     bg-gradient-to-br from-backgray to-albanypurp bg-cover
-    bg-scroll text-sm bg-blend-difference sm:w-full md:w-1/2 lg:w-2/3"
+    bg-scroll text-sm sm:w-full md:w-1/2 lg:w-2/3"
           >
-            {showMessage && (
-              <p className="text-sm sm:text-base md:text-lg">
-                You can click on nodes to expand them!
-              </p>
-            )}
-
-            <MarkmapOutput
-              content={openAIResponse}
-              key={requestKey}
-              onNodeClick={handleNodeClick}
-            />
+            <div className="absolute left-0 top-0 h-full w-full">
+              <MarkmapOutput
+                content={openAIResponse}
+                key={requestKey}
+                onNodeClick={handleNodeClick}
+                onSvgContentUpdate={handleSvgContentUpdate}
+              />
+            </div>
+            <div
+              className="bg-black absolute right-4 top-4 
+            flex flex-col items-start rounded bg-opacity-50 p-2 backdrop-opacity-75"
+            >
+              {showMessage && (
+                <div className="mb-2 h-fit w-fit text-sm backdrop-opacity-100 sm:text-base md:text-lg">
+                  <p> You can click on nodes to expand them!</p>
+                </div>
+              )}
+              <button
+                className="bg-blue-500 hover:bg-blue-700 mt-2 
+        cursor-pointer rounded px-4 py-2 font-bold text-white backdrop-opacity-100"
+                onClick={exportHTML}
+              >
+                Download HTML Version
+              </button>
+            </div>
           </div>
         )}
       </div>

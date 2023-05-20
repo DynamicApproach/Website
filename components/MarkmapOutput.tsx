@@ -1,17 +1,19 @@
-import { useEffect, useRef, useState, useCallback } from "react";
-import { Markmap } from "markmap-view";
 import { Transformer } from "markmap-lib";
+import { Markmap } from "markmap-view";
 import PropTypes from "prop-types";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface MarkmapOutputProps {
   content: string;
   key: number;
   onNodeClick: (clickedNodeTitle: string) => void;
+  onSvgContentUpdate: (svgContent: string) => void;
 }
 
 const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
   content,
-  onNodeClick
+  onNodeClick,
+  onSvgContentUpdate
 }) => {
   const markmapRef = useRef<HTMLDivElement>(null);
   const markmapInstanceRef = useRef<Markmap>();
@@ -46,7 +48,6 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
 
     let svgElement = markmapRef.current.querySelector("svg");
 
-    // Create svg element only if it doesn't exist
     if (!svgElement) {
       svgElement = document.createElementNS(
         "http://www.w3.org/2000/svg",
@@ -72,7 +73,11 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
       } else {
         markmapInstanceRef.current = Markmap.create(svgElement, {}, root);
       }
+
       svgElement.addEventListener("click", handleClick, false);
+
+      const svgString = new XMLSerializer().serializeToString(svgElement);
+      onSvgContentUpdate(svgString);
     }
 
     return () => {
@@ -83,7 +88,7 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
         svgElement.removeEventListener("click", handleClick, false);
       }
     };
-  }, [content, uploadedContent, handleClick]);
+  }, [content, uploadedContent, handleClick, onSvgContentUpdate]);
 
   const handleDownload = () => {
     const blob = new Blob([uploadedContent || content], {
@@ -99,54 +104,58 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     if (!file) {
-      // If no file, reset uploadedContent to null
       setUploadedContent(null);
       return;
     }
-
     const reader = new FileReader();
     reader.onload = (e) => {
-      const text = e.target?.result?.toString();
-      if (text) {
-        setUploadedContent(text);
+      const contents = e.target?.result;
+      if (typeof contents === "string") {
+        setUploadedContent(contents);
       }
     };
     reader.readAsText(file);
   };
 
   return (
-    <div className="relative flex h-full flex-col">
-      <div ref={markmapRef} className="absolute z-0 h-auto w-full" />
-      <div className="z-10 mt-4 flex items-center justify-start space-x-2">
-        <button
-          onClick={handleDownload}
-          className="bg-blue-500 hover:bg-blue-700 rounded px-4 py-2 font-bold text-white"
-        >
-          Download
-        </button>
+    <div className="backdrop-opacity-100">
+      <div style={{ display: "inline-block" }}>
         <div>
+          <label
+            htmlFor="fileUpload"
+            className="hover:bg-blue-700 w-min cursor-pointer 
+            rounded px-4 py-2 font-bold text-white backdrop-opacity-100"
+          >
+            Upload Json Version
+          </label>
           <input
+            id="fileUpload"
+            style={{ display: "none" }}
+            onChange={handleFileUpload}
+            title="Upload"
             type="file"
             accept=".json"
-            onChange={handleFileUpload}
-            style={{ display: "none" }}
-            id="uploadInput"
           />
-          <label
-            htmlFor="uploadInput"
-            className="bg-blue-500 hover:bg-blue-700 cursor-pointer rounded px-4 py-2 font-bold text-white"
-          >
-            Choose file
-          </label>
         </div>
+        <button
+          className="hover:bg-blue-700 w-min cursor-pointer rounded px-4 py-2 font-bold text-white backdrop-opacity-100"
+          onClick={handleDownload}
+        >
+          Download Json Version
+        </button>
       </div>
+      <div
+        ref={markmapRef}
+        className="relative z-0 mt-4 flex h-full w-full 
+        flex-col items-center justify-start space-x-2 backdrop-opacity-100"
+      ></div>
     </div>
   );
 };
 
 MarkmapOutput.propTypes = {
   content: PropTypes.string.isRequired,
-  onNodeClick: PropTypes.func.isRequired
+  onNodeClick: PropTypes.func.isRequired,
+  onSvgContentUpdate: PropTypes.func.isRequired
 };
-
 export default MarkmapOutput;
