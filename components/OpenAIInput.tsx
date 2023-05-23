@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { SetStateAction, useState, useEffect } from "react";
 import { Configuration, OpenAIApi } from "openai";
 import PropTypes from "prop-types";
@@ -7,14 +8,15 @@ interface OpenAIInputProps {
   nodeData: string | null;
   existingMarkdown: string;
   onClear?: () => void;
+  onInputSubmit: (input: string) => void; // Add the prop for input submit
 }
 
 const NEXT_PUBLIC_deploymentKey = process.env.DEPLOYMENT_KEY;
-console.log(NEXT_PUBLIC_deploymentKey);
-
 const OpenAIInput: React.FC<OpenAIInputProps> = ({
   onResponse,
   nodeData,
+  onInputSubmit,
+
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onClear = () => {}, // Default value to avoid calling undefined
   existingMarkdown
@@ -22,13 +24,10 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
   const [input, setInput] = useState("");
   const [response, setResponse] = useState("");
   const [selectedAPI, setSelectedAPI] = useState("openai");
-
   const [isLoading, setIsLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [newMapInput, setNewMapInput] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [newMap, setNewMap] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const handleApiChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedAPI(e.target.value);
   };
@@ -36,14 +35,15 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
   const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
     setInput(e.target.value);
   };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const handleNewMapChange = (e: {
     target: { value: SetStateAction<string> };
   }) => {
     setNewMapInput(e.target.value);
   };
+
   const fetchAndAppendData = async (inputData: string) => {
-    setIsLoading(true); // set loading state
+    setIsLoading(true);
     let updatedResponse = "";
     try {
       const configuration = new Configuration({
@@ -74,7 +74,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
     }
-    setIsLoading(false); // unset loading state
+    setIsLoading(false);
     return updatedResponse;
   };
 
@@ -85,7 +85,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
       console.log("alternativeAPI");
     }
 
-    setIsLoading(true); // set loading state
+    setIsLoading(true);
     let updatedResponse = "";
     try {
       const configuration = new Configuration({
@@ -93,25 +93,22 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
       });
 
       const openai = new OpenAIApi(configuration);
-      const nodePath = getNodePath(existingMarkdown, inputData); // Get the complete path to the node
+      const nodePath = getNodePath(existingMarkdown, inputData);
       let prompt = "";
       if (existingMarkdown) {
-        // If existing markdown has data, we focus on the final part.
         prompt =
           "Given the existing mind map of " +
-          nodePath + // Use the complete path to the node
+          nodePath +
           " in Markdown format, using * for list. Go deeper into the last node. Please" +
           " include as many categories as possible. Only give me responses in this format." +
           " Focus only on the last few. Act like you're continuing the list of related topics\n";
       } else {
-        // If no existing markdown, generate the whole mind map
         prompt =
           "Please give me an extremely detailed mind map of  " +
-          nodePath + // Use the complete path to the node
+          nodePath +
           " in Markdown format, using * for list. Go deep rather than wide please but please" +
           " Only give me responses in this format.  \n";
       }
-      //console.log("Prompt:", prompt);
 
       const result = await openai.createCompletion({
         model: "text-davinci-003",
@@ -130,7 +127,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
     }
-    setIsLoading(false); // unset loading state
+    setIsLoading(false);
     return updatedResponse;
   };
 
@@ -141,7 +138,10 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    fetchData(input).then((data) => setResponse(data));
+    fetchData(input).then((data) => {
+      setResponse(data);
+      onInputSubmit(input); // Call the callback function to update lastInput
+    });
   };
 
   const clearMap = () => {
@@ -157,7 +157,6 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
     if (nodeData) {
       const nodeDataObj =
         typeof nodeData === "string" ? JSON.parse(nodeData) : nodeData;
-      // parse the JSON string to an object if nodeData is a string
       fetchData(nodeDataObj.content);
     }
   }, [nodeData]);
@@ -221,7 +220,8 @@ OpenAIInput.propTypes = {
   onResponse: PropTypes.func.isRequired,
   nodeData: PropTypes.string,
   existingMarkdown: PropTypes.string.isRequired,
-  onClear: PropTypes.func
+  onClear: PropTypes.func,
+  onInputSubmit: PropTypes.func.isRequired // Add the prop type for onInputSubmit
 };
 
 function modifyMarkdown(

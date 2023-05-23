@@ -8,12 +8,14 @@ interface MarkmapOutputProps {
   key: number;
   onNodeClick: (clickedNodeTitle: string) => void;
   onSvgContentUpdate: (svgContent: string) => void;
+  lastInput?: string;
 }
 
 const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
   content,
   onNodeClick,
-  onSvgContentUpdate
+  onSvgContentUpdate,
+  lastInput
 }) => {
   const markmapRef = useRef<HTMLDivElement>(null);
   const markmapInstanceRef = useRef<Markmap>();
@@ -97,10 +99,12 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "markmap.json";
+    const filename = lastInput ? `${lastInput}.json` : "markmap.json";
+    a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
   };
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     if (!file) {
@@ -156,6 +160,7 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
 MarkmapOutput.propTypes = {
   content: PropTypes.string.isRequired,
   onNodeClick: PropTypes.func.isRequired,
-  onSvgContentUpdate: PropTypes.func.isRequired
+  onSvgContentUpdate: PropTypes.func.isRequired,
+  lastInput: PropTypes.string
 };
 export default MarkmapOutput;

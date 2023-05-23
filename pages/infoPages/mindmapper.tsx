@@ -15,6 +15,18 @@ const MindMapper = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [svgContent, setSvgContent] = useState<string | null>(null);
   const markmapRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [lastInput, setLastInput] = useState("");
+
+  const sanitizeFilename = (filename: string) => {
+    return filename.replace(/[^a-z0-9_.-]/gi, "_");
+  };
+  const handleInputSubmit = (input: string) => {
+    setLastSuccessfulInput(input);
+  };
+  const setLastSuccessfulInput = (inputData: string) => {
+    setLastInput(inputData); // This is the correct function to use
+  };
 
   const handleSvgContentUpdate = useCallback((newSvgContent: string) => {
     return setSvgContent(newSvgContent);
@@ -58,12 +70,16 @@ const MindMapper = () => {
   <script src="https://cdn.jsdelivr.net/npm/markmap-autoloader@0.14.4"></script>
 `;
 
+        const filename = sanitizeFilename(
+          lastInput ? `markmap-${lastInput}.html` : "mindmap.html"
+        );
+
         const docString = `<!DOCTYPE html>\n${doc.documentElement.outerHTML}`;
         const blob = new Blob([docString], { type: "text/html" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = "mindmap.html";
+        link.download = filename;
         link.click();
 
         // revoke the Object URL
@@ -146,6 +162,7 @@ const MindMapper = () => {
               onResponse={handleOpenAIResponse}
               nodeData={clickedNode}
               existingMarkdown={openAIResponse || ""}
+              onInputSubmit={handleInputSubmit}
             />
           )}
         </div>
@@ -163,6 +180,7 @@ const MindMapper = () => {
                 key={requestKey}
                 onNodeClick={handleNodeClick}
                 onSvgContentUpdate={handleSvgContentUpdate}
+                lastInput={lastInput}
               />
             </div>
             <div
