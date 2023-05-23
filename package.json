@@ -29,7 +29,7 @@
     "@types/three": "^0.152.0",
     "d3": "^7.8.4",
     "dotenv": "^16.0.3",
-    "framer-motion": "^10.12.12",
+    "framer-motion": "^10.12.13",
     "locomotive-scroll": "^4.1.4",
     "markmap-lib": "^0.14.4",
     "markmap-view": "^0.14.4",
