@@ -10,6 +10,9 @@ interface MarkmapOutputProps {
   onSvgContentUpdate: (svgContent: string) => void;
   lastInput?: string;
 }
+const sanitizeFilename = (input: string) => {
+  return input.replace(/[/\\?%*: |"<>]/g, "-");
+};
 
 const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
   content,
@@ -99,7 +102,8 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    const filename = lastInput ? `${lastInput}.json` : "markmap.json";
+    const sanitizedLastInput = sanitizeFilename(lastInput || "markmap");
+    const filename = `${sanitizedLastInput}.json`;
     a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
