@@ -70,7 +70,7 @@ const ThreeScene = () => {
             zIndex: 9999
           }}
         >
-          Use arrow keys to move around, and mouse to look around. You can fly
+          Use arrow keys to move around, and mouse to look around. You can jump
           by pressing spacebar. Go down with C. Esc to exit. You can drag things
           around from where the colored circle is pointed.
         </div>
