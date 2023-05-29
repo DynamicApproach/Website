@@ -44,7 +44,6 @@ export const Nav = () => {
           />
         </svg>
       </button>
-
       <div
         className={`${
           active ? "" : "hidden"
@@ -59,7 +58,6 @@ export const Nav = () => {
             <Link href="/" scroll={false}>
               <TailwindExitButton>Home</TailwindExitButton>
             </Link>
-
             <Link href="/infoPages/Projects" scroll={false}>
               <TailwindExitButton>Projects</TailwindExitButton>
             </Link>
