@@ -25,7 +25,7 @@ export const myprinter = () => {
             </p>
 
             <Image
-              src="/images/20230604_010719.jpg"
+              src="/images/ender3.jpg"
               width={600}
               height={600}
               alt={"Image of a FDM Printer"}
@@ -43,18 +43,17 @@ export const myprinter = () => {
             </p>
             <div className="justify-center">
               <Image
-                src="/images/20230604_010709.jpg"
+                src="/images/resin.jpg"
                 width={600}
                 height={600}
                 alt={"Image of a Resin Printer"}
               />
-              <div className="">
-                <Link href="/infoPages/threedprinting">
-                  <h2 className="float-right">Back&rarr;</h2>
-                </Link>
-              </div>
+              <div className=""></div>
             </div>
-          </div>
+          </div>{" "}
+          <Link href="/infoPages/threedprinting">
+            <h2 className="float-right  text-nextgreen">Back&rarr;</h2>
+          </Link>
         </div>
       </main>
     </div>

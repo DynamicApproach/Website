@@ -17,10 +17,10 @@ const addonList = [
   "Jest "
 ];
 const schoolprojects = [
-  "Software engineering, Automata and languages, Numerical Methods, and Cryptography. "
+  "Artificial Intelligence, Capstone Project and Computer Communications and Networks. "
 ];
 const internship = [
-  "An internship at NYS ITS ",
+  "an internship at NYS ITS ",
   "doing Drupal development. ",
   ""
 ];
@@ -41,7 +41,7 @@ const Index: NextPage = () => (
 
     <main className={styles.main}>
       <div className={styles.mainImage}>
-        <h2 className="text-4xl text-white">
+        <h2 className="text-3xl text-white">
           Thomas Lloyd-Jones
           <p className="text-sm">Welcome to my personal website.</p>
           <div className="flex min-h-fit min-w-fit justify-end pr-2">
@@ -83,16 +83,20 @@ const Index: NextPage = () => (
           <br></br>
           <br></br>
           <p className=" pr-4 text-nextlightblueish">
-            Currently, I&apos;m working on: <br></br>
+            Currently, I&apos;m about to start my final semester! During this,
+            I&apos;m working at <br></br>
             <span className="text-albanyyellow">{internship}</span>
             <br></br>
             <br></br>
-            Mean while, at school I&apos;m working on: <br></br>
+            <br></br>
+            My final classes will be: <br></br>
+            <br></br>
             <span className="text-albanyyellow">{schoolprojects}</span>
           </p>
           <p className=" pr-4 text-nextlightblueish">
-            I am almost finished with my Bachelors of Science in Computer
-            Science, with a planned graduation date of{" "}
+            I am almost finished with my Bachelors of Science in{" "}
+            <span className=" text-albanyyellow">Computer Science</span>, with a
+            planned graduation date of{" "}
             <span className="text-albanyyellow">December 2023</span>!<br></br>
             <br></br>
             In my spare time, I tend to create new things, and I am currently

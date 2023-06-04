@@ -43,10 +43,11 @@ export const threedprinting = () => {
           </div>
         </div>{" "}
         <div className={styles.supercard}>
+          <h2> My soldering station</h2>
           <p>
             {" "}
-            My soldering station. Currently with two temperature sensors, one
-            for outside and one for inside.{" "}
+            Currently with two temperature sensors, one for outside and one for
+            inside.{" "}
           </p>
           <Image
             src="/images/soldering.jpg"

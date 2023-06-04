@@ -1,6 +1,7 @@
 import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
 import Image from "next/image";
+import Link from "next/link";
 export const printprojects = () => {
   return (
     <div
@@ -35,7 +36,7 @@ export const printprojects = () => {
               src="/images/variablepower.jpg"
               width={300}
               height={300}
-              alt={"Image of a 3D Printed Rook"}
+              alt={"Image of a variable powersupply"}
             />
           </div>
           <div className={styles.card}>
@@ -53,7 +54,7 @@ export const printprojects = () => {
               src="/images/first.jpg"
               width={300}
               height={300}
-              alt={"Image of a Resin Printer"}
+              alt={"Image of a LCD screen + circuit board"}
             />
           </div>
           <div className={styles.card}>
@@ -66,6 +67,9 @@ export const printprojects = () => {
             />
           </div>
         </div>
+        <Link className={styles.cardnoborder} href="/infoPages/threedprinting">
+          <h2 className="float-right text-nextgreen">Back&rarr;</h2>
+        </Link>
       </main>
     </div>
   );

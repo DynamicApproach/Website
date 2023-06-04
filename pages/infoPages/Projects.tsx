@@ -34,7 +34,6 @@ export const projects = () => {
               LCD attached to an Arduino Nano.
             </p>
           </div>
-
           <div className={styles.card}>
             <Link href="https://github.com/DynamicApproach/SchoolThings/blob/main/calcmain.asm">
               <h2>MIPS Calc &rarr;</h2>
@@ -44,7 +43,6 @@ export const projects = () => {
               the result, prefix, and the postfix of a parenthesized expression
             </p>
           </div>
-
           <a
             href="https://github.com/DynamicApproach/AllCode"
             className={styles.card}
@@ -63,15 +61,15 @@ export const projects = () => {
             </p>
             <Image
               src="/images/pitower.jpg"
-              width={300}
-              height={300}
+              width={250}
+              height={250}
               alt={"Image of a 3D Printed Rook"}
             />
-          </div>
-        </div>{" "}
-        <Link className={styles.cardnoborder} href="/">
-          <h2 className="float-right text-nextgreen">Back&rarr;</h2>
-        </Link>
+          </div>{" "}
+          <Link className={styles.cardnoborder} href="/">
+            <h2 className="float-right text-nextgreen">Back&rarr;</h2>
+          </Link>
+        </div>
       </main>
     </div>
   );
