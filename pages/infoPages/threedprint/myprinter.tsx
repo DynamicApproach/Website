@@ -17,7 +17,7 @@ export const myprinter = () => {
             <p>
               My printer was originally an Ender 3 (when they were first
               released) and consisted of the default parts. I quickly modified
-              it to be able to print faster with and increased range of
+              it to be able to print faster with an increased range of
               materials. This led to an increasing amount of modifications.
               <br />
               Essentially, the only parts left the same, were the stepper

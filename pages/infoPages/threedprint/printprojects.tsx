@@ -60,9 +60,9 @@ export const printprojects = () => {
           <div className={styles.card}>
             <p> TPU Benchy </p>
             <Image
-              src="/images/Benchy.jpg"
-              width={300}
-              height={300}
+              src="/images/benchy.jpg"
+              width={250}
+              height={250}
               alt={"Image of a TPU Benchy"}
             />
           </div>
