@@ -41,18 +41,18 @@ const Index: NextPage = () => (
 
     <main className={styles.main}>
       <div className={styles.mainImage}>
-        <div className="flex min-h-fit min-w-fit justify-end pr-2">
-          <Image
-            src={mainimg}
-            alt="Tiny avatar that looks like a watermellon"
-            width={75}
-            height={75}
-            className="rounded-full"
-          />
-        </div>
-        <h2 className={styles.mainTitle}>
+        <h2 className="text-4xl text-white">
           Thomas Lloyd-Jones
           <p className="text-sm">Welcome to my personal website.</p>
+          <div className="flex min-h-fit min-w-fit justify-end pr-2">
+            <Image
+              src={mainimg}
+              alt="Tiny avatar that looks like a watermellon"
+              width={75}
+              height={75}
+              className="rounded-full"
+            />
+          </div>
         </h2>
       </div>
       <br></br>

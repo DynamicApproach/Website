@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
+import Image from "next/image";
 export const threedprinting = () => {
   return (
     <div
@@ -15,6 +16,10 @@ export const threedprinting = () => {
           <div className={styles.card}>
             <Link href="/infoPages/threedprint/myprinter">
               <h2>My Printer &rarr;</h2>
+              <p>
+                I currently own two printers, a heavily modified Ender 3 and an
+                Elegoo Saturn 2. Take a look!
+              </p>
             </Link>
           </div>
           <div className={styles.card}>
@@ -27,25 +32,32 @@ export const threedprinting = () => {
               printing others.
             </p>
           </div>
-          <div className={styles.card}>
-            <Link href="/infoPages/threedprint/favouriteprints">
-              <h2>Favourite Prints &rarr;</h2>
-            </Link>
-            <p>My favourite prints over time</p>
-          </div>
+
           <div className={styles.card}>
             <h2>
               <Link href="/infoPages/threedprint/klipperconfig">
                 Klipper config &rarr;
               </Link>
             </h2>
-            <p>Full config</p>
+            <p>Full config for Klipper</p>
           </div>
-
-          <Link className={styles.cardnoborder} href="/">
-            <h2 className="float-right text-nextblue">Back&rarr;</h2>
-          </Link>
+        </div>{" "}
+        <div className={styles.supercard}>
+          <p>
+            {" "}
+            My soldering station. Currently with two temperature sensors, one
+            for outside and one for inside.{" "}
+          </p>
+          <Image
+            src="/images/soldering.jpg"
+            width={600}
+            height={600}
+            alt={"Image of a 3D Printed Rook"}
+          />
         </div>
+        <Link className={styles.cardnoborder} href="/">
+          <h2 className="float-right text-nextgreen">Back&rarr;</h2>
+        </Link>
       </main>
     </div>
   );

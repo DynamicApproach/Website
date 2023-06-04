@@ -1,6 +1,6 @@
-import Link from "next/link";
 import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
+import Image from "next/image";
 export const printprojects = () => {
   return (
     <div
@@ -10,21 +10,60 @@ export const printprojects = () => {
       <Nav />
 
       <main className={styles.main}>
-        <h1 className={styles.title}>printprojects</h1>
+        <h1 className={styles.title}>Printed Projects</h1>
+        <h2 className={styles.subtitle}>
+          Some examples of previous projects include a variable powersupply.
+        </h2>{" "}
         <div className={styles.grid}>
           <div className={styles.card}>
             <p>
-              My printer was originally an Ender 3 (when they were first
-              released) and consisted of the default parts. I quickly modified
-              it to be able to print faster with and increased range of
-              materials. This led to an increasing amount of modifications.
-              <br />
-              Essentially, the only parts left the same, were the stepper
-              moters, the frame and the power supply.
-            </p>{" "}
-            <Link href="/infoPages/threedprinting">
-              <h2 className="float-right text-nextblue">Back&rarr;</h2>
-            </Link>
+              {" "}
+              One of my first prints for the Saturn was a vent to use to pump
+              out fumes. Small in-line hvac booster fan used.{" "}
+            </p>
+            <Image
+              src="/images/vent.jpg"
+              width={300}
+              height={300}
+              alt={"Image of a 3D Printed Rook"}
+            />
+          </div>
+
+          <div className={styles.card}>
+            <p> A Variable Powersupply </p>
+            <Image
+              src="/images/variablepower.jpg"
+              width={300}
+              height={300}
+              alt={"Image of a 3D Printed Rook"}
+            />
+          </div>
+          <div className={styles.card}>
+            <p> Initial Print for Saturn</p>
+            <Image
+              src="/images/rook.jpg"
+              width={300}
+              height={300}
+              alt={"Image of a Resin Printer"}
+            />
+          </div>
+          <div className={styles.card}>
+            <p> My first hardware/software mix project </p>
+            <Image
+              src="/images/first.jpg"
+              width={300}
+              height={300}
+              alt={"Image of a Resin Printer"}
+            />
+          </div>
+          <div className={styles.card}>
+            <p> TPU Benchy </p>
+            <Image
+              src="/images/Benchy.jpg"
+              width={300}
+              height={300}
+              alt={"Image of a TPU Benchy"}
+            />
           </div>
         </div>
       </main>

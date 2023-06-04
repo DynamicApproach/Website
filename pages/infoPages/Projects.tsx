@@ -1,6 +1,7 @@
 import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
 import Link from "next/link";
+import Image from "next/image";
 export const projects = () => {
   return (
     <div
@@ -54,10 +55,23 @@ export const projects = () => {
               projects. Not organized, but it&apos;s here.
             </p>
           </a>
-          <Link className={styles.cardnoborder} href="/">
-            <h2 className="float-right text-nextblue">Back&rarr;</h2>
-          </Link>
-        </div>
+          <div className={styles.card}>
+            <p>
+              {" "}
+              My tower of PI! 36GB of ram in total. Typically running in a K3S
+              cluster
+            </p>
+            <Image
+              src="/images/pitower.jpg"
+              width={300}
+              height={300}
+              alt={"Image of a 3D Printed Rook"}
+            />
+          </div>
+        </div>{" "}
+        <Link className={styles.cardnoborder} href="/">
+          <h2 className="float-right text-nextgreen">Back&rarr;</h2>
+        </Link>
       </main>
     </div>
   );
