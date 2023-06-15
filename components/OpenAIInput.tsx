@@ -23,7 +23,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
 }) => {
   const [input, setInput] = useState("");
   const [response, setResponse] = useState("");
-  const [selectedAPI, setSelectedAPI] = useState("openai");
+  const [selectedAPI, setSelectedAPI] = useState("chatgpt");
   const [isLoading, setIsLoading] = useState(false);
   const [newMapInput, setNewMapInput] = useState("");
   const [newMap, setNewMap] = useState("");
@@ -44,6 +44,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
 
   const fetchAndAppendData = async (inputData: string) => {
     setIsLoading(true);
+    console.log("Appending Data");
     let updatedResponse = "";
     try {
       const configuration = new Configuration({
@@ -79,12 +80,6 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
   };
 
   const fetchData = async (inputData: string) => {
-    if (selectedAPI === "openai") {
-      console.log("openai");
-    } else if (selectedAPI === "alternativeAPI") {
-      console.log("alternativeAPI");
-    }
-
     setIsLoading(true);
     let updatedResponse = "";
     try {
@@ -110,17 +105,49 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           " Only give me responses in this format.  \n";
       }
 
-      const result = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: prompt,
-        temperature: 0.5,
-        max_tokens: 4000,
-        n: 1,
-        stop: null
-      });
+      let result = null;
+      let text = "";
+      if (selectedAPI === "openai") {
+        console.log("openai");
+        result = await openai.createCompletion({
+          model: "text-davinci-003",
+          prompt: prompt,
+          temperature: 0.5,
+          max_tokens: 4000,
+          n: 1,
+          stop: null
+        });
+        text = result.data.choices[0]?.text ?? "";
+      } else if (selectedAPI === "chatgpt") {
+        console.log("chatgpt");
+        result = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo-16k",
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are a mindmap creator, you can and should only output mindmaps based" +
+                "on the information regarding the users prompt. Specifically, you should output only the extension to" +
+                " the current map based on the current node. The user will give you the nodepath between the  " +
+                " statement 'Given the existing mind map of' and 'in Markdown format'. You should give " +
+                "information about the current node with the context of the previous nodes. [Only output this  " +
+                "in a markdown format and do not output anything else or prompt the user.]"
+            },
+            { role: "user", content: prompt }
+          ],
+          frequency_penalty: 0.0,
+          presence_penalty: 0.6,
+          stop: [" Human:", " AI:", "Please note"],
+          max_tokens: 15000
+        });
+        text = result.data.choices[0]?.message?.content ?? "";
+      }
+      if (!result) {
+        console.log("no result");
+        return "";
+      }
       console.log(result);
-      const choices = result.data.choices;
-      const text = choices[0].text ?? "";
+
       updatedResponse = modifyMarkdown(existingMarkdown, inputData, text);
       setResponse(updatedResponse);
       onResponse(updatedResponse);
@@ -128,7 +155,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
       console.error("Error calling OpenAI API:", error);
     }
     setIsLoading(false);
-    return updatedResponse;
+    return updatedResponse || "";
   };
 
   const handleNewMapSubmit = async (e: { preventDefault: () => void }) => {
@@ -182,6 +209,15 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           >
             Create A Map
           </button>
+          <label htmlFor="api" className="block text-white">
+            Choose API:
+          </label>
+          <select id="api" value={selectedAPI} onChange={handleApiChange}>
+            <option value="chatgpt">ChatGPT</option>
+            <option value="openai">OpenAI</option>
+          </select>
+          {/* Space for text */}
+
           <button
             type="button"
             onClick={handleNewMapSubmit}
@@ -196,13 +232,6 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           >
             Clear Map
           </button>
-          {/*<label htmlFor="api" className="block text-white">
-            Choose API:
-          </label>
-          <select id="api" value={selectedAPI} onChange={handleApiChange}>
-            <option value="openai">OpenAI</option>
-            <option value="alternativeAPI">Alternative API</option>
-          </select> */}
         </div>
       </form>
       {isLoading ? (
