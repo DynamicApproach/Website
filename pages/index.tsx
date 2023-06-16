@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Nav from "components/Nav";
-import mainimg from "pages/images/main.png";
+import mainimg from "pages/images/smallprofilepic.jpg";
 import styles from "styles/index.module.css";
 const addonList = [
   "NPM, ",
@@ -42,16 +42,15 @@ const Index: NextPage = () => (
     <main className={styles.main}>
       <div className={styles.mainImage}>
         <h2 className="text-3xl text-white">
-          Thomas Lloyd-Jones
-          <p className="text-sm">Welcome to my personal website.</p>
-          <div className="flex min-h-fit min-w-fit justify-end pr-2">
+          <div className="flex min-h-fit min-w-fit content-center justify-center pr-2">
             <Image
               src={mainimg}
               alt="Tiny avatar that looks like a watermellon"
               width={75}
               height={75}
-              className="rounded-full"
+              className="flex rounded-full pb-7 pt-7 "
             />
+            Thomas Lloyd-Jones
           </div>
         </h2>
       </div>
