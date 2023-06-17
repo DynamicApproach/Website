@@ -159,7 +159,8 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
                   // eslint-disable-next-line max-len
                   "on the information regarding the users prompt. Specifically, you should output only the extension to" +
                   " the current map based on the current node." +
-                  " Make an exhaustive list of related items. [this markdown list should be large] " +
+                  " Make an exhaustive list of related items as deep as possible." +
+                  " [this markdown list should be deep] " +
                   " The input will be in the format of 'Current Mindmap:' follow by the current tree and" +
                   " 'ADD CONTEXT:' " +
                   "followed by the items context to add to the map" +
@@ -280,16 +281,16 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           >
             Clear Map
           </button>
+          <div className="text-ellipsis text-xs text-nextlightblueish">
+            HINT: YOU CAN CLICK NODES!
+            <br />
+            If another node is clicked, that request will be made in parallel
+            and added to the map when complete.
+          </div>
           {isLoading ? (
             <div>
-              <h2 className="mt-4 text-lightblue">
+              <h2 className="mt-4 overflow-auto text-lightblue">
                 Loading your answer.... Copyable text will be here.
-                <div className="text-ellipsis text-sm text-nextlightblueish">
-                  HINT: YOU CAN CLICK NODES!
-                </div>
-                <br />
-                If another node is clicked, that request will be made in
-                parallel and added to the map when complete.
               </h2>
               <div
                 className="loader relative mb-4 h-12 w-12 animate-spin-slow
