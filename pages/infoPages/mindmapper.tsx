@@ -188,7 +188,7 @@ const MindMapper = () => {
             flex flex-col items-start rounded bg-opacity-50 p-2 backdrop-opacity-75"
             >
               {showMessage && (
-                <div className="mb-2 h-fit w-fit text-sm backdrop-opacity-100 sm:text-base md:text-lg">
+                <div className="mb-2 h-fit w-fit text-sm text-albanypurp backdrop-opacity-100 sm:text-base md:text-lg">
                   <p> You can click on nodes to expand them!</p>
                 </div>
               )}

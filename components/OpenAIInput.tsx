@@ -20,7 +20,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
 }) => {
   const [input, setInput] = useState("");
   const [response, setResponse] = useState("");
-  const [selectedAPI, setSelectedAPI] = useState("chatgpt");
+  const [selectedAPI, setSelectedAPI] = useState("GPT4");
   const [isLoading, setIsLoading] = useState(false);
   const [newMapInput, setNewMapInput] = useState("");
   const [newMap, setNewMap] = useState("");
@@ -87,6 +87,8 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
       const openai = new OpenAIApi(configuration);
       const nodePath = getNodePath(existingMarkdown, inputData);
       let prompt = "";
+      const gpt3Prompt = "";
+      let gpt4Prompt = "";
       if (existingMarkdown) {
         prompt =
           "Given the existing mind map of " +
@@ -94,12 +96,18 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           " in Markdown format, using * for list. Go deeper into the last node. Please" +
           " include as many categories as possible. Only give me responses in this format." +
           " Focus only on the last few. Act like you're continuing the list of related topics\n";
+        gpt4Prompt =
+          "Current Mindmap:" +
+          existingMarkdown +
+          "\n \n ADD CONTEXT: " +
+          prompt;
       } else {
         prompt =
           "Please give me an extremely detailed mind map of  " +
           nodePath +
           " in Markdown format, using * for list. Go deep rather than wide please but please" +
           " Only give me responses in this format.  \n";
+        gpt4Prompt = "ADD CONTEXT: " + nodePath;
       }
 
       let result = null;
@@ -137,6 +145,47 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           stop: [" Human:", " AI:", "Please note"],
           max_tokens: 15000
         });
+        text = result.data.choices[0]?.message?.content ?? "";
+      } else if (selectedAPI === "GPT4") {
+        console.log("GPT4");
+        result = await openai.createChatCompletion(
+          {
+            model: "gpt-4",
+            messages: [
+              {
+                role: "system",
+                content:
+                  "You are a mindmap creator, you can and should only output mindmaps based" +
+                  // eslint-disable-next-line max-len
+                  "on the information regarding the users prompt. Specifically, you should output only the extension to" +
+                  " the current map based on the current node." +
+                  " Make an exhaustive list of related items. [this markdown list should be large] " +
+                  " The input will be in the format of 'Current Mindmap:' follow by the current tree and" +
+                  " 'ADD CONTEXT:' " +
+                  "followed by the items context to add to the map" +
+                  // eslint-disable-next-line max-len
+                  " You should give " +
+                  "information about the itme with the context of the previous nodes. [Only output this  " +
+                  // eslint-disable-next-line max-len
+                  "in a markdown format][do not output anything else or prompt the user][do not include the prompt][do not include the current map]" +
+                  +"[include a minimum of 30 nodes in the list]" +
+                  // eslint-disable-next-line max-len
+                  "If you are given 'Java' as the current node, you should output a mindmap of Java with the context of the previous nodes in a markdown format."
+              },
+              { role: "user", content: gpt4Prompt }
+            ],
+            frequency_penalty: 0.0,
+            presence_penalty: 0.6,
+            stop: [" Human:", " AI:", "Please note"],
+            max_tokens: 7000
+          },
+          {
+            timeout: 60000,
+            headers: {
+              "Make-Mindmap": "Make-Mindmap"
+            }
+          }
+        );
         text = result.data.choices[0]?.message?.content ?? "";
       }
       if (!result) {
@@ -200,21 +249,23 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           className="w-full"
         />
         <div className="space-x-2">
+          <label htmlFor="api" className="block text-white">
+            Choose API:
+            <br />
+            (Time / Quality tradeoff - GPT4 is best)
+          </label>
+          <select id="api" value={selectedAPI} onChange={handleApiChange}>
+            <option value="GPT4">GPT4</option>
+            <option value="chatgpt">ChatGPT</option>
+            <option value="openai">OpenAI</option>
+          </select>
+          {/* Space for text */}
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 rounded px-4 py-2 font-bold text-white"
           >
             Create A Map
           </button>
-          <label htmlFor="api" className="block text-white">
-            Choose API:
-          </label>
-          <select id="api" value={selectedAPI} onChange={handleApiChange}>
-            <option value="chatgpt">ChatGPT</option>
-            <option value="openai">OpenAI</option>
-          </select>
-          {/* Space for text */}
-
           <button
             type="button"
             onClick={handleNewMapSubmit}
@@ -229,6 +280,10 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           >
             Clear Map
           </button>
+          {}
+          <div className="text-white">
+            Note: GPT4s token limit will be upped to 32k on the 27th of June!
+          </div>
         </div>
       </form>
       {isLoading ? (
