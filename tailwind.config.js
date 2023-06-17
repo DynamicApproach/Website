@@ -7,6 +7,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    extend: {
+      animation: {
+        "spin-slow": "spin 3s linear infinite",
+      }
+    },
     colors: {
       blue: "#1fb6ff",
       purple: "#7e5bef",

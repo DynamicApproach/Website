@@ -280,22 +280,33 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           >
             Clear Map
           </button>
+          {isLoading ? (
+            <div>
+              <h2 className="mt-4 text-lightblue">
+                Loading your answer.... Copyable text will be here.
+                <div className="text-ellipsis text-sm text-nextlightblueish">
+                  HINT: YOU CAN CLICK NODES!
+                </div>
+                <br />
+                If another node is clicked, that request will be made in
+                parallel and added to the map when complete.
+              </h2>
+              <div
+                className="loader relative mb-4 h-12 w-12 animate-spin-slow
+           rounded-full border-8 border-t-8 border-b-blue bg-albanypurp ease-linear"
+              ></div>
+            </div>
+          ) : (
+            <pre className="mt-4 whitespace-pre-wrap text-white">
+              {response}
+            </pre>
+          )}
           {}
           <div className="text-white">
             Note: GPT4s token limit will be upped to 32k on the 27th of June!
           </div>
         </div>
       </form>
-      {isLoading ? (
-        <h2 className="mt-4 text-lightblue">
-          Loading your answer.... Copyable text will be here.
-          <br />
-          If another node is clicked, that request will be made in parallel and
-          added to the map when complete.
-        </h2>
-      ) : (
-        <pre className="mt-4 whitespace-pre-wrap text-white">{response}</pre>
-      )}
     </div>
   );
 };
