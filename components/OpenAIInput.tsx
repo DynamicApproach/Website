@@ -287,8 +287,11 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
         </div>
       </form>
       {isLoading ? (
-        <h2 className="mt-4 text-white">
+        <h2 className="mt-4 text-lightblue">
           Loading your answer.... Copyable text will be here.
+          <br />
+          If another node is clicked, that request will be made in parallel and
+          added to the map when complete.
         </h2>
       ) : (
         <pre className="mt-4 whitespace-pre-wrap text-white">{response}</pre>
