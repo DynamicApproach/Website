@@ -97,10 +97,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           " include as many categories as possible. Only give me responses in this format." +
           " Focus only on the last few. Act like you're continuing the list of related topics\n";
         gpt4Prompt =
-          "Current Mindmap:" +
-          existingMarkdown +
-          "\n \n ADD CONTEXT: " +
-          prompt;
+          "Current Mindmap:" + nodePath + "\n \n ADD CONTEXT: " + prompt;
       } else {
         prompt =
           "Please give me an extremely detailed mind map of  " +
@@ -189,12 +186,11 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
         );
         text = result.data.choices[0]?.message?.content ?? "";
       }
+      console.log(gpt4Prompt);
       if (!result) {
         console.log("no result");
         return "";
       }
-      console.log(result);
-
       updatedResponse = modifyMarkdown(existingMarkdown, inputData, text);
       setResponse(updatedResponse);
       onResponse(updatedResponse);
