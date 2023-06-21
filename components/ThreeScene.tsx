@@ -9,7 +9,7 @@ import WorldPhysics from "./worldphysics";
 import Cathedral from "./Cathedral";
 import ShibaModel from "./Shiba";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import ThreeCardComponent from "pages/infoPages/threedprint/card";
+//import ThreeCardComponent from "components/card";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const data = [
