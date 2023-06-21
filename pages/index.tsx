@@ -1,64 +1,105 @@
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Nav from "components/Nav";
 import mainimg from "pages/images/smallprofilepic.jpg";
 import styles from "styles/index.module.css";
+
+// The data
 const addonList = [
-  "NPM, ",
-  "GIT, ",
-  "NextJs, ",
-  "TailwindCSS, ",
-  "Typescript, ",
-  "Prettier, ",
-  "ESlint, ",
-  "Husky, ",
-  "LintStaged, ",
-  "Jest "
+  "NPM",
+  "GIT",
+  "NextJs",
+  "TailwindCSS",
+  "Typescript",
+  "Prettier",
+  "ESlint",
+  "Husky",
+  "LintStaged",
+  "Jest"
 ];
 const schoolprojects = [
-  "Artificial Intelligence, Capstone Project and Computer Communications and Networks. "
+  "Artificial Intelligence",
+  "Capstone Project",
+  "Computer Communications and Networks"
 ];
-const internship = [
-  "an internship at NYS ITS ",
-  "doing Drupal development. ",
-  ""
-];
+const internship = ["an internship at NYS ITS ", "doing Drupal development."];
 
-const Index: NextPage = () => (
-  <div
-    className=" min-w-screen bg-grad  min-h-screen bg-gradient-to-br
-  from-backgray to-albanypurp bg-cover bg-scroll"
-  >
-    <Nav />
-    <Head>
-      <meta name="ThomasLJ" content="Thomas LJ Website" />
-      <link rel="icon" href="/images/melongray.png" className="border" />
-    </Head>
+const Index: NextPage = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
 
-    <br></br>
-    <br></br>
+  // Listen to scroll events and update the scroll position state
+  useEffect(() => {
+    const updateScroll = () => {
+      setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+    };
 
-    <main className={styles.main}>
-      <div className={styles.mainImage}>
-        <h2 className="text-3xl text-white">
-          <div className="flex min-h-fit min-w-fit content-center justify-center pr-2">
-            <Image
-              src={mainimg}
-              alt="Tiny avatar that looks like a watermellon"
-              width={75}
-              height={75}
-              className="flex rounded-full pb-7 pt-7 "
-            />
-            Thomas Lloyd-Jones
-          </div>
-        </h2>
-      </div>
-      <br></br>
-      <div className="h-screen place-items-center content-center justify-center ">
-        <div
-          className=" min-h-fit w-auto  content-center justify-center
-       border-solid border-albanylightpurp pl-5 pt-8 align-middle"
+    window.addEventListener("scroll", updateScroll);
+
+    return () => window.removeEventListener("scroll", updateScroll);
+  }, []);
+
+  // Animation variants for Framer Motion
+  const variants = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.5 } },
+    exit: { opacity: 0, transition: { duration: 0.5 } }
+  };
+
+  return (
+    <div
+      className=" min-w-screen bg-grad  min-h-screen bg-gradient-to-br
+     from-backgray to-albanypurp bg-cover bg-scroll"
+    >
+      <motion.div
+        initial={{ opacity: 1, scale: 1.5, zIndex: 1 }}
+        animate={{ opacity: 0, scale: 1, zIndex: 1 }}
+        transition={{ duration: 1 }}
+        className="fixed h-full w-full bg-gradient-to-br from-backgray to-albanypurp"
+      />
+
+      <Nav />
+      <Head>
+        <meta name="ThomasLJ" content="Thomas LJ Website" />
+        <link rel="icon" href="/images/melongray.png" className="border" />
+      </Head>
+
+      {/* Use Framer Motion for page transitions */}
+      <motion.main
+        className={styles.main}
+        initial="hidden"
+        animate="show"
+        exit="exit"
+        variants={variants}
+      >
+        <div className={styles.mainImage}>
+          <h2 className="text-3xl text-white">
+            <div className="flex min-h-fit min-w-fit content-center justify-center pr-2">
+              <Image
+                src={mainimg}
+                alt="Tiny avatar that looks like a watermelon"
+                width={75}
+                height={75}
+                className="flex rounded-full pb-7 pt-7 "
+              />
+              Thomas Lloyd-Jones
+            </div>
+          </h2>
+        </div>
+
+        {/* Animate content based on scroll position */}
+        <motion.div
+          className="h-screen place-items-center content-center justify-center "
+          animate={{
+            opacity: scrollPosition < 50 ? 1 : 0,
+            y: scrollPosition < 50 ? 0 : 100,
+            zIndex: 1,
+            transition: { duration: 0.5 },
+            scale: scrollPosition < 50 ? 1 : 0.5
+          }}
+          transition={{ duration: 0.5 }}
         >
           <div className="">
             <p className=" pr-4 text-nextlightblueish">
@@ -84,13 +125,15 @@ const Index: NextPage = () => (
           <p className=" pr-4 text-nextlightblueish">
             Currently, I&apos;m about to start my final semester! During this,
             I&apos;m working at <br></br>
-            <span className="text-albanyyellow">{internship}</span>
+            <span className="text-albanyyellow">{internship.join(", ")}</span>
             <br></br>
             <br></br>
             <br></br>
             My final classes will be: <br></br>
             <br></br>
-            <span className="text-albanyyellow">{schoolprojects}</span>
+            <span className="text-albanyyellow">
+              {schoolprojects.join(", ")}
+            </span>
           </p>
           <p className=" pr-4 text-nextlightblueish">
             I am almost finished with my Bachelors of Science in{" "}
@@ -101,30 +144,50 @@ const Index: NextPage = () => (
             In my spare time, I tend to create new things, and I am currently
             working on a new project, and this website. <br></br>
           </p>
-        </div>
-        <p className="pl-4 pr-4 pt-14 text-nextlightblueish">
-          Take a look at my Github to get an idea of what my current projects
-          are.
-        </p>
-      </div>
-    </main>
-    <br></br>
-    <div
-      className="bg-transparent  relative  grid grid-cols-3 
-    content-center justify-center border-t-4 border-albanylightpurp p-8 "
-    >
-      <div></div>
-      <footer className=" ">
-        <div className={styles.footer}>
-          <div className={styles.footerPowered}>
-            <h3 className=" underline">Powered by</h3>{" "}
-            <p className="text-nextlightblueish">{addonList}</p>
+        </motion.div>
+
+        <br></br>
+        <motion.div
+          className="relative flex flex-wrap  content-center justify-center "
+          animate={{
+            opacity: scrollPosition > 80 ? 1 : 0,
+            y: scrollPosition > 80 ? 0 : 100,
+            zIndex: 2,
+            transition: { duration: 0.5 },
+            scale: scrollPosition > 80 ? 1 : 0.5
+          }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="relative pl-4 pr-4 pt-14 text-nextlightblueish">
+            Take a look at my Github to get an idea of what my current projects
+            are.
+          </p>
+          <div
+            className="bg-transparent  
+      content-center justify-center border-t-4 border-albanylightpurp p-8 "
+          >
+            <footer
+              className=" bg-transparent grid grid-cols-3 
+      content-center justify-center p-8  "
+            >
+              <div></div>
+              <div className={styles.footer}>
+                <div className={styles.footerPowered}>
+                  <h3 className=" relative content-center justify-center object-center underline">
+                    Powered by
+                  </h3>{" "}
+                  <p className=" relative text-nextlightblueish">
+                    {addonList.join(", ")}
+                  </p>
+                </div>
+              </div>
+              <p className="relative"></p>
+            </footer>
           </div>
-        </div>
-        <p className="relative"></p>
-      </footer>
+        </motion.div>
+      </motion.main>
     </div>
-  </div>
-);
+  );
+};
 
 export default Index;

@@ -8,6 +8,14 @@ import { PerspectiveCamera, OrthographicCamera } from "three";
 import WorldPhysics from "./worldphysics";
 import Cathedral from "./Cathedral";
 import ShibaModel from "./Shiba";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import ThreeCardComponent from "pages/infoPages/threedprint/card";
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const data = [
+  { img: "public/images/benchy.jpg", content: "This is card 1" },
+  { img: "public/images/benchy.jpg", content: "Testing Rotation" }
+];
 
 const ThreeScene = () => {
   const [cursorRef] = useState(null);
@@ -81,6 +89,8 @@ const ThreeScene = () => {
           <ambientLight />
           <Sky sunPosition={[100, 20, 100]} />
           <pointLight castShadow position={[100, 100, 100]} />
+          {/*          <ThreeCardComponent data={data} />
+           */}{" "}
           <ambientLight />
           <WorldPhysics receiveShadow />
           <ShibaModel />
