@@ -4,6 +4,7 @@ import OpenAIInput from "../../components/OpenAIInput";
 import MarkmapOutput from "../../components/MarkmapOutput";
 import Nav from "components/Nav";
 import { logEvent, logException } from "utils/ana"; // adjust the path as needed
+import Head from "next/head";
 
 const MindMapper = () => {
   const [openAIResponse, setOpenAIResponse] = useState<any | null>(null);
@@ -124,6 +125,10 @@ const MindMapper = () => {
       className="min-w-screen bg-grad min-h-screen bg-gradient-to-br 
       from-backgray to-albanypurp bg-cover bg-scroll bg-blend-difference"
     >
+      {" "}
+      <Head>
+        <title>🎆DynamicApproach-MindMap</title>
+      </Head>
       <Nav />
       <div
         className="flex 

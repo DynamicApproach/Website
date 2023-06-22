@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
+import Head from "next/head";
 
 export const klipperconfig = () => {
   return (
@@ -8,6 +9,9 @@ export const klipperconfig = () => {
       className="min-w-screen bg-grad  min-h-screen bg-gradient-to-br
     from-backgray to-albanypurp bg-cover bg-scroll"
     >
+      <Head>
+        <title>🎆DynamicApproach-Klipper Config</title>
+      </Head>
       <Nav />
 
       <main className={styles.main}>

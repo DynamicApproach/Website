@@ -53,6 +53,9 @@ const Index: NextPage = () => {
       className=" min-w-screen bg-grad  min-h-screen bg-gradient-to-br
      from-backgray to-albanypurp bg-cover bg-scroll"
     >
+      <Head>
+        <title>🎆DynamicApproach</title>
+      </Head>
       <motion.div
         initial={{ opacity: 1, scale: 1.5, zIndex: 1 }}
         animate={{ opacity: 0, scale: 1, zIndex: 1 }}

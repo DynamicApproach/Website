@@ -2,12 +2,16 @@ import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import Head from "next/head";
 export const projects = () => {
   return (
     <div
       className="min-w-screen bg-grad  min-h-screen bg-gradient-to-br
     from-backgray to-albanypurp bg-cover bg-scroll"
     >
+      <Head>
+        <title>🎆DynamicApproach-Projects</title>
+      </Head>
       <Nav />
       <main className={styles.main}>
         <h1 className={styles.title}>Recent Projects</h1>

@@ -1,12 +1,16 @@
 import Link from "next/link";
 import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
+import Head from "next/head";
 export const favouriteprints = () => {
   return (
     <div
       className="min-w-screen bg-grad  min-h-screen bg-gradient-to-br
     from-backgray to-albanypurp bg-cover bg-scroll"
     >
+      <Head>
+        <title>🎆DynamicApproach-DynamicApproach</title>
+      </Head>
       <Nav />
 
       <main className={styles.main}>
