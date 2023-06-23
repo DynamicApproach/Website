@@ -55,6 +55,7 @@ const Index: NextPage = () => {
     >
       <Head>
         <title>🎆DynamicApproach</title>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
       <motion.div
         initial={{ opacity: 1, scale: 1.5, zIndex: 1 }}
