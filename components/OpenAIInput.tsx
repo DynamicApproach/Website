@@ -7,6 +7,9 @@ import formatData from "components/openai/formatData";
 import getNodePath from "components/openai/getNodePath";
 import appendMarkdown from "components/openai/appendMarkdown";
 import modifyMarkdown from "./openai/modifyMarkdown";
+import { HfInference } from "@huggingface/inference";
+
+const NEXT_PUBLIC_Hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
 
 const NEXT_PUBLIC_deploymentKey = process.env.DEPLOYMENT_KEY;
 const OpenAIInput: React.FC<OpenAIInputProps> = ({
@@ -96,32 +99,15 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           " in Markdown format, using * for list. Go deeper into the last node. Please" +
           " include as many categories as possible. Only give me responses in this format." +
           " Focus only on the last few. Act like you're continuing the list of related topics\n";
-        if (nodePath === "") {
-          gpt4Prompt =
-            "Please give me an extremely detailed mind map of " +
-            inputData +
-            " in Markdown format, using * for list. Go deep rather than wide please but please" +
-            " Only give me responses in this format.  \n";
-        } else {
-          gpt4Prompt =
-            "Current Mindmap:" + nodePath + "\n \n ADD CONTEXT: " + prompt;
-        }
+        gpt4Prompt =
+          "Current Mindmap:" + nodePath + "\n ADD CONTEXT: " + inputData;
       } else {
         prompt =
           "Please give me an extremely detailed mind map of  " +
           nodePath +
           " in Markdown format, using * for list. Go deep rather than wide please but please" +
           " Only give me responses in this format.  \n";
-        // if nodeprompt is empty
-        if (nodePath === "") {
-          gpt4Prompt =
-            "Please give me an extremely detailed mind map of " +
-            inputData +
-            " in Markdown format, using * for list. Go deep rather than wide please but please" +
-            " Only give me responses in this format.  \n";
-        } else {
-          gpt4Prompt = "ADD CONTEXT: " + nodePath;
-        }
+        gpt4Prompt = "ADD CONTEXT: " + nodePath;
       }
 
       let result = null;
@@ -160,6 +146,20 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           max_tokens: 15000
         });
         text = result.data.choices[0]?.message?.content ?? "";
+      } else if (selectedAPI === "HuggingFace") {
+        let text = "";
+        for await (const output of NEXT_PUBLIC_Hf.textGenerationStream({
+          model: "OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5",
+          inputs: gpt4Prompt,
+          parameters: {
+            max_new_tokens: 200,
+            repetition_penalty: 1,
+            truncate: 1000,
+            return_full_text: false
+          }
+        })) {
+          text += output.generated_text;
+        }
       } else if (selectedAPI === "GPT4") {
         console.log("GPT4");
         result = await openai.createChatCompletion(
@@ -174,7 +174,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
                   "on the information regarding the users prompt. Specifically, you should output only the extension to" +
                   " the current map based on the current node." +
                   " Make an exhaustive list of related items as deep as possible." +
-                  " [this markdown list should be deep] " +
+                  " [this markdown list should be deep][use * for each item] " +
                   " The input will be in the format of 'Current Mindmap:' follow by the current tree and" +
                   " 'ADD CONTEXT:' " +
                   "followed by the items context to add to the map" +
@@ -272,6 +272,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
             <option value="GPT4">GPT4</option>
             <option value="chatgpt">ChatGPT</option>
             <option value="openai">OpenAI</option>
+            {/*<option value="HuggingFace">HuggingFace</option>*/}
           </select>
           {/* Space for text */}
           <button
