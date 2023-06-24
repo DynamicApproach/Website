@@ -96,15 +96,32 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           " in Markdown format, using * for list. Go deeper into the last node. Please" +
           " include as many categories as possible. Only give me responses in this format." +
           " Focus only on the last few. Act like you're continuing the list of related topics\n";
-        gpt4Prompt =
-          "Current Mindmap:" + nodePath + "\n \n ADD CONTEXT: " + prompt;
+        if (nodePath === "") {
+          gpt4Prompt =
+            "Please give me an extremely detailed mind map of " +
+            inputData +
+            " in Markdown format, using * for list. Go deep rather than wide please but please" +
+            " Only give me responses in this format.  \n";
+        } else {
+          gpt4Prompt =
+            "Current Mindmap:" + nodePath + "\n \n ADD CONTEXT: " + prompt;
+        }
       } else {
         prompt =
           "Please give me an extremely detailed mind map of  " +
           nodePath +
           " in Markdown format, using * for list. Go deep rather than wide please but please" +
           " Only give me responses in this format.  \n";
-        gpt4Prompt = "ADD CONTEXT: " + nodePath;
+        // if nodeprompt is empty
+        if (nodePath === "") {
+          gpt4Prompt =
+            "Please give me an extremely detailed mind map of " +
+            inputData +
+            " in Markdown format, using * for list. Go deep rather than wide please but please" +
+            " Only give me responses in this format.  \n";
+        } else {
+          gpt4Prompt = "ADD CONTEXT: " + nodePath;
+        }
       }
 
       let result = null;
