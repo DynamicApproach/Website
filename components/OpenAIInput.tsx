@@ -292,7 +292,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
             <option value="GPT4">GPT4</option>
             <option value="chatgpt">ChatGPT</option>
             <option value="openai">OpenAI</option>
-            <option value="HuggingFace">HuggingFace</option>
+            {/*<option value="HuggingFace">HuggingFace</option>*/}
           </select>
           {/* Space for text */}
           <button
