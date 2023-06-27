@@ -143,7 +143,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           frequency_penalty: 0.0,
           presence_penalty: 0.6,
           stop: [" Human:", " AI:", "Please note"],
-          max_tokens: 15000
+          max_tokens: 32000
         });
         text = result.data.choices[0]?.message?.content ?? "";
       } else if (selectedAPI === "HuggingFace") {
@@ -318,7 +318,8 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           )}
           {}
           <div className="text-white">
-            Note: GPT4s token limit will be upped to 32k on the 27th of June!
+            Note: Sorry for the recent errors, should be fixed! Token count
+            upped!
           </div>
         </div>
       </form>
