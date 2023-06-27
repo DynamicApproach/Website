@@ -22,11 +22,12 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
   existingMarkdown
 }) => {
   const [input, setInput] = useState("");
-  const [response, setResponse] = useState("");
+  const [responses, setResponses] = useState<Map<string, string>>(new Map());
   const [selectedAPI, setSelectedAPI] = useState("GPT4");
   const [isLoading, setIsLoading] = useState(false);
   const [newMapInput, setNewMapInput] = useState("");
   const [newMap, setNewMap] = useState("");
+  const [lastResponse, setLastResponse] = useState("");
 
   const handleApiChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedAPI(e.target.value);
@@ -70,7 +71,12 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
       const choices = result.data.choices;
       const text = choices[0].text ?? "";
       updatedResponse = appendMarkdown(existingMarkdown, inputData, text);
-      setResponse(updatedResponse);
+      setResponses((prevResponses) => {
+        const newResponses = new Map(prevResponses);
+        newResponses.set(inputData, updatedResponse);
+        return newResponses;
+      });
+      setLastResponse(updatedResponse);
       onResponse(updatedResponse);
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
@@ -78,6 +84,12 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
     setIsLoading(false);
     return updatedResponse;
   };
+  useEffect(() => {
+    // For each response, apply the modifyMarkdown function
+    responses.forEach((response, node) => {
+      modifyMarkdown(existingMarkdown, node, response);
+    });
+  }, [existingMarkdown, responses]);
 
   const fetchData = async (inputData: string) => {
     setIsLoading(true);
@@ -209,7 +221,12 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
         return "";
       }
       updatedResponse = modifyMarkdown(existingMarkdown, inputData, text);
-      setResponse(updatedResponse);
+      setResponses((prevResponses) => {
+        const newResponses = new Map(prevResponses);
+        newResponses.set(inputData, updatedResponse);
+        return newResponses;
+      });
+      setLastResponse(updatedResponse);
       onResponse(updatedResponse);
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
@@ -217,24 +234,27 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
     setIsLoading(false);
     return updatedResponse || "";
   };
-
   const handleNewMapSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    fetchAndAppendData(input).then((newMapData) => setNewMap(newMapData));
+    fetchAndAppendData(input); // Do not immediately update newMap
+  };
+  const handleNodeClick = (node: string) => {
+    const response = responses.get(node);
+    if (response) {
+      const updatedMarkdown = modifyMarkdown(existingMarkdown, node, response);
+      onResponse(updatedMarkdown);
+    }
   };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    fetchData(input).then((data) => {
-      setResponse(data);
-      onInputSubmit(input); // Call the callback function to update lastInput
-    });
+    fetchData(input); // Do not immediately update responses and do not trigger onInputSubmit
   };
 
   const clearMap = () => {
     console.log("attempt clear map");
     setInput("");
-    setResponse("");
+    setResponses(new Map());
     onResponse("");
     onClear();
   };
@@ -272,7 +292,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
             <option value="GPT4">GPT4</option>
             <option value="chatgpt">ChatGPT</option>
             <option value="openai">OpenAI</option>
-            {/*<option value="HuggingFace">HuggingFace</option>*/}
+            <option value="HuggingFace">HuggingFace</option>
           </select>
           {/* Space for text */}
           <button
@@ -313,7 +333,9 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
             </div>
           ) : (
             <pre className="mt-4 whitespace-pre-wrap text-white">
-              {response}
+              <pre className="mt-4 whitespace-pre-wrap text-white">
+                {lastResponse}
+              </pre>
             </pre>
           )}
           {}
