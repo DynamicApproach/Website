@@ -57,14 +57,14 @@ const Index: NextPage = () => {
         <title>🎆DynamicApproach</title>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
+
+      <Nav />
       <motion.div
         initial={{ opacity: 1, scale: 1.5, zIndex: 1 }}
         animate={{ opacity: 0, scale: 1, zIndex: 1 }}
         transition={{ duration: 1 }}
         className="fixed h-full w-full bg-gradient-to-br from-backgray to-albanypurp"
       />
-
-      <Nav />
       <Head>
         <meta name="ThomasLJ" content="Thomas LJ Website" />
         <link rel="icon" href="/images/melongray.png" className="border" />
