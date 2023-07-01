@@ -9,7 +9,7 @@ on:
     - cron: "30 15 * * 5"
 
 jobs:
-  eslint:
+  Eslint_QL:
     name: Run ESLint scanning
     runs-on: ubuntu-latest
     permissions:
@@ -57,7 +57,7 @@ jobs:
         with:
           sarif_file: eslint-results-fixed.sarif
           wait-for-processing: true
-  analyze:
+  Code_QL:
     needs: eslint
     name: Analyze
     runs-on: ubuntu-latest
@@ -83,7 +83,7 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
 
-  snyk:
+  Run_Snyk_Tests:
     needs: analyze
     runs-on: ubuntu-latest
     steps:
@@ -137,7 +137,7 @@ jobs:
           name: snyk_report
           path: snyk_report.json
 
-  Testing:
+  Run_App_Tests:
     needs: analyze
     runs-on: ubuntu-latest
     steps:
