@@ -1,6 +1,14 @@
 {
   "compilerOptions": {
-    "types": ["@babel/core"],
+    "types": [
+      "@babel/core",
+      "@types/node",
+      "jest",
+      "@types/react",
+      "@types/react-dom",
+      "next",
+      "next/types/global"
+    ],
     "baseUrl": ".",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -18,6 +26,11 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/api/mindmaps/mindmap.js"
+  ],
   "exclude": ["node_modules"]
 }

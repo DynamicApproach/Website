@@ -95,15 +95,17 @@ const Index: NextPage = () => {
 
         {/* Animate content based on scroll position */}
         <motion.div
-          className="h-screen place-items-center content-center justify-center "
+          className="h-screen w-screen place-content-center place-items-center justify-center text-center"
           animate={{
             opacity: scrollPosition < 50 ? 1 : 0,
-            y: scrollPosition < 50 ? 0 : 100,
+            y: scrollPosition < 50 ? 0 : (scrollPosition - 50) * 0.5, // Adjust the scale of the fading out effect
             zIndex: 1,
             transition: { duration: 0.5 },
             scale: scrollPosition < 50 ? 1 : 0.5
           }}
-          transition={{ duration: 0.5 }}
+          transition={{
+            duration: scrollPosition < 70 ? 0.5 : 0.2 // Adjust the duration of the fading out effect
+          }}
         >
           <div className="">
             <p className=" pr-4 text-nextlightblueish">
@@ -152,7 +154,7 @@ const Index: NextPage = () => {
 
         <br></br>
         <motion.div
-          className="relative flex flex-wrap  content-center justify-center "
+          className="h-screen w-screen justify-center text-center"
           animate={{
             opacity: scrollPosition > 80 ? 1 : 0,
             y: scrollPosition > 80 ? 0 : 100,

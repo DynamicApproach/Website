@@ -58,7 +58,7 @@ jobs:
           sarif_file: eslint-results-fixed.sarif
           wait-for-processing: true
   Code_QL:
-    needs: eslint
+    needs: Eslint_QL
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
@@ -84,7 +84,7 @@ jobs:
         uses: github/codeql-action/analyze@v2
 
   Run_Snyk_Tests:
-    needs: analyze
+    needs: Code_QL
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -138,7 +138,7 @@ jobs:
           path: snyk_report.json
 
   Run_App_Tests:
-    needs: analyze
+    needs: Code_QL
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

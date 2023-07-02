@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useCallback, useEffect, useRef } from "react";
-import OpenAIInput from "../../components/OpenAIInput";
-import MarkmapOutput from "../../components/MarkmapOutput";
+import OpenAIInput from "../components/OpenAIInput";
+import MarkmapOutput from "../components/MarkmapOutput";
 import Nav from "components/Nav";
 import { logEvent, logException } from "utils/ana"; // adjust the path as needed
 import Head from "next/head";
@@ -23,10 +23,11 @@ const MindMapper = () => {
     return filename.replace(/[^a-z0-9_.-]/gi, "_");
   };
   const handleInputSubmit = (input: string) => {
+    logEvent("OpenAI API Call", input);
     setLastSuccessfulInput(input);
   };
   const setLastSuccessfulInput = (inputData: string) => {
-    setLastInput(inputData); // This is the correct function to use
+    setLastInput(inputData);
   };
 
   const handleSvgContentUpdate = useCallback((newSvgContent: string) => {
@@ -34,6 +35,7 @@ const MindMapper = () => {
   }, []);
   const exportHTML = () => {
     console.log("exporting html");
+    logEvent("Export HTML", "Start");
     if (markmapRef.current) {
       const svgElem = markmapRef.current.querySelector("svg");
       if (svgElem) {
@@ -116,7 +118,7 @@ const MindMapper = () => {
 
   const handleNodeClick = useCallback((clickedNodeTitle: string) => {
     console.log("handleNodeClick called with:", clickedNodeTitle);
-    logEvent("Node Expanded", "Click");
+    logEvent("Node Expanded", clickedNodeTitle);
     setClickedNode(clickedNodeTitle);
   }, []);
 

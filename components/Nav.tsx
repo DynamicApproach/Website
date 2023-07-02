@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-//import Image from "next/image";
 import { useState } from "react";
 import Cursor from "./customCursor";
 import tw from "tailwind-styled-components";
@@ -15,6 +14,7 @@ export const Nav = () => {
   const clickOnNav = () => {
     setActive(!active);
   };
+
   return (
     <nav className="bg-green-400 flex min-w-fit max-w-none flex-wrap items-center p-3">
       <a href="https://github.com/DynamicApproach">
@@ -58,7 +58,7 @@ export const Nav = () => {
             <Link href="/" scroll={false}>
               <TailwindExitButton>Home</TailwindExitButton>
             </Link>
-            <Link href="/infoPages/mindmapper" scroll={false}>
+            <Link href="/mindmapper" scroll={false}>
               <TailwindExitButton>Mindmapper</TailwindExitButton>
             </Link>
             <Link href="/infoPages/Projects" scroll={false}>
@@ -67,23 +67,20 @@ export const Nav = () => {
             <Link href="/infoPages/threedprinting" scroll={false}>
               <TailwindExitButton>3D Printing</TailwindExitButton>
             </Link>
-            {/*<Link href="/infoPages/testpage">
-                <TailwindExitButton>testpg</TailwindExitButton>
-              </Link>*/}
             <Link href="/infoPages/threejss">
               <TailwindExitButton>Threejs</TailwindExitButton>
             </Link>
             <Link href="https://github.com/DynamicApproach/" scroll={false}>
               <TailwindExitButton>GitHub &rarr;</TailwindExitButton>
             </Link>
-            <Link href="mailto: tlloyd-jones@albany.edu" scroll={false}>
+            <a href="mailto:tlloyd-jones@albany.edu">
               <TailwindExitButton>Email Me &rarr;</TailwindExitButton>
-            </Link>
-            {/*<TailwindExitButton>Resume &rarr;</TailwindExitButton>*/}
+            </a>
           </div>
         </div>
       </div>
     </nav>
   );
 };
+
 export default Nav;
