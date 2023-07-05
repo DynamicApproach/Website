@@ -33,7 +33,7 @@
     "@google-ai/generativelanguage": "^0.2.0",
     "@huggingface/inference": "^2.5.2",
     "@react-three/cannon": "^6.5.2",
-    "@react-three/drei": "^9.77.7",
+    "@react-three/drei": "^9.78.0",
     "@react-three/fiber": "^8.9.1",
     "@types/three": "^0.152.1",
     "cors": "^2.8.5",
