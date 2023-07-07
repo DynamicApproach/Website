@@ -3,11 +3,14 @@
     "types": [
       "@babel/core",
       "@types/node",
-      "jest",
       "@types/react",
       "@types/react-dom",
       "next",
-      "next/types/global"
+      "next/types/global",
+      "next/types",
+      //jest
+      "@types/jest",
+      "jest"
     ],
     "baseUrl": ".",
     "target": "es5",

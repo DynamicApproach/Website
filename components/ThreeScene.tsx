@@ -1,29 +1,21 @@
 import * as React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Sky } from "@react-three/drei";
-import Player from "./Player";
-import Resume from "./Resume";
-import { PerspectiveCamera, OrthographicCamera } from "three";
-import WorldPhysics from "./worldphysics";
-import Cathedral from "./Cathedral";
-import ShibaModel from "./Shiba";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-//import ThreeCardComponent from "components/card";
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import Player from "./ThreeScene/Player";
+import { PerspectiveCamera } from "three";
+import Cathedral from "./ThreeScene/Cathedral";
+import ShibaModel from "./ThreeScene/Shiba";
+import ThreeCardComponent from "./ThreeScene/card";
+import Ground from "./ThreeScene/Ground";
 const data = [
   { img: "public/images/benchy.jpg", content: "This is card 1" },
   { img: "public/images/benchy.jpg", content: "Testing Rotation" }
 ];
 
 const ThreeScene = () => {
-  const [cursorRef] = useState(null);
-  const [, setCursorPos] = useState({
-    x: 0,
-    y: 0
-  });
   const [showBanner, setShowBanner] = useState(true);
+  const [, setCamera] = useState<PerspectiveCamera | null>(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -31,36 +23,10 @@ const ThreeScene = () => {
     }, 10000);
   }, []);
 
-  useEffect(() => {
-    const handlePointerLockChange = () => {
-      if (cursorRef) {
-        const { x, y } = {
-          x: window.innerWidth / 2,
-          y: window.innerHeight / 2
-        };
-        setCursorPos({
-          x,
-          y
-        });
-      }
-    };
-
-    window.addEventListener("pointerlockchange", handlePointerLockChange);
-
-    return () => {
-      window.removeEventListener("pointerlockchange", handlePointerLockChange);
-    };
+  const onCreated = useCallback((obj: { camera: PerspectiveCamera }) => {
+    setCamera(obj.camera);
   }, []);
 
-  const [camera, setCamera] = useState<PerspectiveCamera | null>(null);
-  const onCreated = useCallback(
-    (obj: { camera: PerspectiveCamera | OrthographicCamera | null }) => {
-      if (obj.camera instanceof PerspectiveCamera) {
-        setCamera(obj.camera);
-      }
-    },
-    []
-  );
   return (
     <>
       {showBanner && (
@@ -86,16 +52,19 @@ const ThreeScene = () => {
       <div className="h-screen w-screen">
         <Canvas camera={{ position: [0, 1.5, 15] }} onCreated={onCreated}>
           <Player />
-          <ambientLight />
-          <Sky sunPosition={[100, 20, 100]} />
+          <ambientLight castShadow />
+          <Sky
+            distance={450000}
+            sunPosition={[10, 10, 0]}
+            inclination={0}
+            azimuth={0.25}
+          />
           <pointLight castShadow position={[100, 100, 100]} />
-          {/*          <ThreeCardComponent data={data} />
-           */}{" "}
+          <ThreeCardComponent data={data} />
           <ambientLight />
-          <WorldPhysics receiveShadow />
           <ShibaModel />
           <Cathedral />
-          {camera && <Resume camera={camera} />}
+          <Ground />
         </Canvas>
       </div>
     </>

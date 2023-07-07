@@ -16,7 +16,7 @@ const Box = (props: MeshProps) => {
   return (
     <mesh {...props} ref={mesh} castShadow receiveShadow>
       <boxBufferGeometry />
-      <meshStandardMaterial color="orange" />
+      <meshStandardMaterial color="green" />
     </mesh>
   );
 };
