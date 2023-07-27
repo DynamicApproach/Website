@@ -48,7 +48,7 @@
     "google-auth-library": "^8.8.0",
     "locomotive-scroll": "^4.1.4",
     "markmap-lib": "^0.14.4",
-    "markmap-view": "^0.14.4",
+    "markmap-view": "^0.15.3",
     "next": "^13.4.11",
     "openai": "^3.2.1",
     "react": "^18.2.0",
