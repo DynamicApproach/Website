@@ -25,7 +25,7 @@ const schoolprojects = [
   "Capstone Project",
   "Computer Communications and Networks"
 ];
-const internship = ["an internship at NYS ITS ", "doing Drupal development."];
+const internship = ["an internship at NYS ITS", "doing Drupal development."];
 
 const Index: NextPage = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -130,7 +130,7 @@ const Index: NextPage = () => {
           <br></br>
           <p className=" pr-4 text-nextlightblueish">
             Currently, I&apos;m about to start my final semester! During this,
-            I&apos;m working at <br></br>
+            I&apos;m working at<br></br>
             <span className="text-albanyyellow">{internship.join(", ")}</span>
             <br></br>
             <br></br>

@@ -34,7 +34,9 @@
   text-align: left;
   color: inherit;
   text-decoration: none;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
   max-width: 300px;
 }
 
@@ -113,8 +115,15 @@
   border-radius: 25px;
   padding: 1.25rem;
   font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+  font-family:
+    Menlo,
+    Monaco,
+    Lucida Console,
+    Liberation Mono,
+    DejaVu Sans Mono,
+    Bitstream Vera Sans Mono,
+    Courier New,
+    monospace;
 }
 
 .grid {
@@ -135,7 +144,9 @@
   border-right: 1px solid #eaeaea79;
   border-radius: 10px;
   border-left: 1px solid #eaeaea79;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
   max-width: 300px;
 }
 
