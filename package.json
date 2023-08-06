@@ -47,7 +47,7 @@
     "framer-motion-3d": "^10.12.16",
     "google-auth-library": "^8.8.0",
     "locomotive-scroll": "^4.1.4",
-    "markmap-lib": "^0.14.4",
+    "markmap-lib": "^0.15.0",
     "markmap-view": "^0.14.4",
     "next": "^13.4.11",
     "openai": "^3.2.1",
