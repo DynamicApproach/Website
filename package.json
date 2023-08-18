@@ -49,7 +49,7 @@
     "locomotive-scroll": "^4.1.4",
     "markmap-lib": "^0.14.4",
     "markmap-view": "^0.15.4",
-    "next": "^13.4.11",
+    "next": "^13.4.18",
     "openai": "^3.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
