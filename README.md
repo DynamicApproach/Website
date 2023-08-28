@@ -4,11 +4,12 @@ I do a lot of weird things on this site and test a lot of new stuff.
 
 Currently working on:
 
-Learning ThreeJS useage with Next
-Deployment automations
+Redeploying to new host
 Learning new packages
+Adding new features - Mindmap + ThreeJS /
+Other projects - Learning Rust, 3D printing etc.
 
-### Deployed on DigitalOcean
+### Currently deployed on DigitalOcean; soon to change.
 
 Currently using Github Actions to redeploy on new pushes.
 
