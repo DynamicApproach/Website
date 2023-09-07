@@ -21,11 +21,10 @@ const addonList = [
   "Jest"
 ];
 const schoolprojects = [
-  "Artificial Intelligence",
   "Capstone Project",
   "Computer Communications and Networks"
 ];
-const internship = ["an internship at NYS ITS", "doing Drupal development."];
+const internship = ["NYS ITS in devops"];
 
 const Index: NextPage = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
