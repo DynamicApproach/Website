@@ -34,7 +34,7 @@
     ]
   },
   "dependencies": {
-    "@google-ai/generativelanguage": "^0.2.0",
+    "@google-ai/generativelanguage": "^1.0.0",
     "@huggingface/inference": "^2.5.2",
     "@react-three/cannon": "^6.5.2",
     "@react-three/drei": "^9.78.1",
