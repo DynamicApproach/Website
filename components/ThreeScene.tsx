@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState, useCallback } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, RootState } from "@react-three/fiber";
 import { Sky } from "@react-three/drei";
 import Player from "./ThreeScene/Player";
 import { PerspectiveCamera } from "three";
@@ -23,8 +23,10 @@ const ThreeScene = () => {
     }, 10000);
   }, []);
 
-  const onCreated = useCallback((obj: { camera: PerspectiveCamera }) => {
-    setCamera(obj.camera);
+  const onCreated = useCallback((state: RootState) => {
+    if (state.camera instanceof PerspectiveCamera) {
+      setCamera(state.camera);
+    }
   }, []);
 
   return (

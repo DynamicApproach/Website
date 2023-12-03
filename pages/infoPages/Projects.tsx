@@ -17,10 +17,19 @@ export const projects = () => {
         <h1 className={styles.title}>Recent Projects</h1>
         <div className={styles.grid}>
           <div className={styles.card}>
-            <Link href="https://github.com/DynamicApproach/Website">
-              <h2>Upcoming Project...&rarr;</h2>
+            <Link href="https://apps.apple.com/us/app/gaze-analysis/id6472210088">
+              <h2>Gaze Analysis Capstone App&rarr;</h2>
             </Link>
-            <p>A suprise secret! Just links to this sites repo for now. </p>
+            <p>
+              In today&apos;s digital age, the sheer volume of photos,
+              particularly those taken in live-mode, has grown significantly.
+              The GARGI iOS application is a pioneering solution that addresses
+              the challenge of selecting a representative image from these live
+              photos which is both aesthetically pleasing and considers the
+              uniformity of people&apos;s gazes.{" "}
+            </p>
+            <h1>Sponsors:</h1>
+            <p>Omkar N. Kulkarni Shashank Arora Prof. Pradeep K. Atrey</p>
           </div>
           <div className={styles.card}>
             <Link href="https://github.com/DynamicApproach/Shank-Project-311">

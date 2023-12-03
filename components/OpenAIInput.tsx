@@ -1,6 +1,7 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { SetStateAction, useState, useEffect } from "react";
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 import PropTypes from "prop-types";
 import OpenAIInputProps from "components/openai/OpenAIInputProps";
 import formatData from "components/openai/formatData";
@@ -42,42 +43,62 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
   }) => {
     setNewMapInput(e.target.value);
   };
+  const fetchFromServer = async (body: unknown) => {
+    try {
+      const response = await fetch("/api/openai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching data from server:", error);
+      throw error;
+    }
+  };
 
   const fetchAndAppendData = async (inputData: string) => {
     setIsLoading(true);
     console.log("Appending Data");
     let updatedResponse = "";
     try {
-      const configuration = new Configuration({
-        apiKey: process.env.NEXT_PUBLIC_deploymentKey
-      });
-
-      const openai = new OpenAIApi(configuration);
+      if (!inputData) {
+        console.error("Input data is null or empty");
+        return;
+      }
       const prompt =
         "Please give me an extremely detailed mind map of " +
         inputData +
         " in Markdown format, using * for list. Go deep rather than wide please but please" +
         " Only give me responses in this format.  \n";
 
-      const result = await openai.createCompletion({
-        model: "text-davinci-003",
+      const result = await fetchFromServer({
         prompt: prompt,
-        temperature: 0.5,
-        max_tokens: 4000,
-        n: 1,
-        stop: null
+        model: "text-davinci-003", // or any other model you want to use
+        max_tokens: 4000 // or any other value
       });
+
+      console.log("OpenAI API response:", result);
       console.log(result);
-      const choices = result.data.choices;
-      const text = choices[0].text ?? "";
-      updatedResponse = appendMarkdown(existingMarkdown, inputData, text);
-      setResponses((prevResponses) => {
-        const newResponses = new Map(prevResponses);
-        newResponses.set(inputData, updatedResponse);
-        return newResponses;
-      });
-      setLastResponse(updatedResponse);
-      onResponse(updatedResponse);
+      const choices = result.choices;
+      const text = choices[0].message.content ?? result.content ?? "";
+      if (text !== null) {
+        updatedResponse = appendMarkdown(existingMarkdown, inputData, text);
+        setResponses((prevResponses) => {
+          const newResponses = new Map(prevResponses);
+          newResponses.set(inputData, updatedResponse);
+          return newResponses;
+        });
+        setLastResponse(updatedResponse);
+        onResponse(updatedResponse);
+      } else {
+        console.error("Received null response text");
+      }
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
     }
@@ -94,146 +115,41 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
   const fetchData = async (inputData: string) => {
     setIsLoading(true);
     let updatedResponse = "";
+
     try {
-      const configuration = new Configuration({
-        apiKey: process.env.NEXT_PUBLIC_deploymentKey
-      });
-
-      const openai = new OpenAIApi(configuration);
       const nodePath = getNodePath(existingMarkdown, inputData);
-      let prompt = "";
-      const gpt3Prompt = "";
-      let gpt4Prompt = "";
-      if (existingMarkdown) {
-        prompt =
-          "Given the existing mind map of " +
-          nodePath +
-          " in Markdown format, using * for list. Go deeper into the last node. Please" +
-          " include as many categories as possible. Only give me responses in this format." +
-          " Focus only on the last few. Act like you're continuing the list of related topics\n";
-        gpt4Prompt =
-          "Current Mindmap:" + nodePath + "\n ADD CONTEXT: " + inputData;
-      } else {
-        prompt =
-          "Please give me an extremely detailed mind map of  " +
-          nodePath +
-          " in Markdown format, using * for list. Go deep rather than wide please but please" +
-          " Only give me responses in this format.  \n";
-        gpt4Prompt = "ADD CONTEXT: " + nodePath;
-      }
+      const promptBase = existingMarkdown
+        ? `Given the existing mind map of ${nodePath}`
+        : `Please give me an extremely detailed mind map of ${nodePath}`;
+      const prompt = `${promptBase} in Markdown format, using * for lists. Please go deep rather than wide but ONLY give me responses in this specific markdown format.\n`;
 
-      let result = null;
-      let text = "";
-      if (selectedAPI === "openai") {
-        console.log("openai");
-        result = await openai.createCompletion({
-          model: "text-davinci-003",
-          prompt: prompt,
-          temperature: 0.5,
-          max_tokens: 4000,
-          n: 1,
-          stop: null
-        });
-        text = result.data.choices[0]?.text ?? "";
-      } else if (selectedAPI === "chatgpt") {
-        console.log("chatgpt");
-        result = await openai.createChatCompletion({
-          model: "gpt-3.5-turbo-16k",
-          messages: [
-            {
-              role: "system",
-              content:
-                "You are a mindmap creator, you can and should only output mindmaps based" +
-                "on the information regarding the users prompt. Specifically, you should output only the extension to" +
-                " the current map based on the current node. The user will give you the nodepath between the  " +
-                " statement 'Given the existing mind map of' and 'in Markdown format'. You should give " +
-                "information about the current node with the context of the previous nodes. [Only output this  " +
-                "in a markdown format and do not output anything else or prompt the user.]"
-            },
-            { role: "user", content: prompt }
-          ],
-          frequency_penalty: 0.0,
-          presence_penalty: 0.6,
-          stop: [" Human:", " AI:", "Please note"],
-          max_tokens: 32000
-        });
-        text = result.data.choices[0]?.message?.content ?? "";
-      } else if (selectedAPI === "HuggingFace") {
-        let text = "";
-        for await (const output of NEXT_PUBLIC_Hf.textGenerationStream({
-          model: "OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5",
-          inputs: gpt4Prompt,
-          parameters: {
-            max_new_tokens: 200,
-            repetition_penalty: 1,
-            truncate: 1000,
-            return_full_text: false
-          }
-        })) {
-          text += output.generated_text;
-        }
-      } else if (selectedAPI === "GPT4") {
-        console.log("GPT4");
-        result = await openai.createChatCompletion(
-          {
-            model: "gpt-4",
-            messages: [
-              {
-                role: "system",
-                content:
-                  "You are a mindmap creator, you can and should only output mindmaps based" +
-                  // eslint-disable-next-line max-len
-                  "on the information regarding the users prompt. Specifically, you should output only the extension to" +
-                  " the current map based on the current node." +
-                  " Make an exhaustive list of related items as deep as possible." +
-                  " [this markdown list should be deep][use * for each item] " +
-                  " The input will be in the format of 'Current Mindmap:' follow by the current tree and" +
-                  " 'ADD CONTEXT:' " +
-                  "followed by the items context to add to the map" +
-                  // eslint-disable-next-line max-len
-                  " You should give " +
-                  "information about the itme with the context of the previous nodes. [Only output this  " +
-                  // eslint-disable-next-line max-len
-                  "in a markdown format][do not output anything else or prompt the user][do not include the prompt][do not include the current map]" +
-                  +"[include a minimum of 30 nodes in the list]" +
-                  // eslint-disable-next-line max-len
-                  "If you are given 'Java' as the current node, you should output a mindmap of Java with the context of the previous nodes in a markdown format."
-              },
-              { role: "user", content: gpt4Prompt }
-            ],
-            frequency_penalty: 0.0,
-            presence_penalty: 0.6,
-            stop: [" Human:", " AI:", "Please note"],
-            max_tokens: 7000
-          },
-          {
-            timeout: 60000,
-            headers: {
-              "Make-Mindmap": "Make-Mindmap"
-            }
-          }
-        );
-        text = result.data.choices[0]?.message?.content ?? "";
-      }
-      console.log(gpt4Prompt);
-      if (!result) {
-        console.log("no result");
-        return "";
-      }
-      updatedResponse = modifyMarkdown(existingMarkdown, inputData, text);
-      setResponses((prevResponses) => {
-        const newResponses = new Map(prevResponses);
-        newResponses.set(inputData, updatedResponse);
-        return newResponses;
+      const result = await fetchFromServer({
+        prompt: prompt,
+        model:
+          selectedAPI === "openai" ? "text-davinci-003" : "gpt-3.5-turbo-16k",
+        max_tokens: selectedAPI === "openai" ? 4000 : 16100
       });
-      setLastResponse(updatedResponse);
-      onResponse(updatedResponse);
+
+      console.log("OpenAI API response:", result);
+      const text = result.content ?? "";
+      if (text) {
+        updatedResponse = modifyMarkdown(existingMarkdown, inputData, text);
+        setResponses((prevResponses) =>
+          new Map(prevResponses).set(inputData, updatedResponse)
+        );
+        setLastResponse(updatedResponse);
+        onResponse(updatedResponse);
+      } else {
+        console.error("Received null response text");
+      }
     } catch (error) {
       console.error("Error calling OpenAI API:", error);
     }
+
     setIsLoading(false);
     return updatedResponse || "";
   };
+
   const handleNewMapSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     fetchAndAppendData(input); // Do not immediately update newMap
@@ -339,10 +255,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
             </pre>
           )}
           {}
-          <div className="text-white">
-            Note: Sorry for the recent errors, should be fixed! Token count
-            upped!
-          </div>
+          <div className="text-white"></div>
         </div>
       </form>
     </div>

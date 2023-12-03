@@ -39,6 +39,9 @@ const Privacy = () => {
         Concerns or questions about this privacy policy can be directed to our
         contact page for further clarification.
       </p>
+      <h1>
+        GAZE App does not store any information except locally on the device.
+      </h1>
     </div>
   );
 };

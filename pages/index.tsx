@@ -24,7 +24,6 @@ const schoolprojects = [
   "Capstone Project",
   "Computer Communications and Networks"
 ];
-const internship = ["NYS ITS in devops"];
 
 const Index: NextPage = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -128,11 +127,14 @@ const Index: NextPage = () => {
           <br></br>
           <br></br>
           <p className=" pr-4 text-nextlightblueish">
-            Currently, I&apos;m about to start my final semester! During this,
-            I&apos;m working at<br></br>
-            <span className="text-albanyyellow">{internship.join(", ")}</span>
-            <br></br>
-            <br></br>
+            Currently, I&apos;m at the end of my final semester! During this,
+            I&apos;m currently working at
+            <span className="text-albanyyellow">
+              {[
+                "NYS ITS in DevOps supporting" +
+                  ".NET/Angular with AKS (Azure Kubernetes Service)"
+              ].join(", ")}
+            </span>
             <br></br>
             My final classes will be: <br></br>
             <br></br>
@@ -147,7 +149,8 @@ const Index: NextPage = () => {
             <span className="text-albanyyellow">December 2023</span>!<br></br>
             <br></br>
             In my spare time, I tend to create new things, and I am currently
-            working on a new project, and this website. <br></br>
+            working on a new project, my Capstone iOS app, and this website.{" "}
+            <br></br>
           </p>
         </motion.div>
 
