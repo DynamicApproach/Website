@@ -55,7 +55,9 @@
     "react-ga4": "^2.1.0",
     "react-locomotive-scroll": "^0.2.2",
     "sharp": "^0.33.0",
-    "three": "^0.159.0"
+    "three": "^0.159.0",
+    "tailwind-styled-components": "^2.2.0",
+    "tailwindcss": "^3.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.23.5",
