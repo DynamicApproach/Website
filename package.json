@@ -45,7 +45,7 @@
     "cors": "^2.8.5",
     "d3": "^7.8.5",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "framer-motion": "^10.16.12",
     "framer-motion-3d": "^10.16.12",
     "google-auth-library": "^9.4.1",
