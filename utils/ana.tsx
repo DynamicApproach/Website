@@ -11,9 +11,14 @@ export const logPageView = () => {
   ReactGA.send({ hitType: "pageview", page: window.location.pathname });
 };
 
-export const logEvent = (category = "", action = "") => {
+export const logEvent = (category = "", action = "", label = "", value = 0) => {
   if (category && action) {
-    ReactGA.event({ category, action });
+    ReactGA.event({
+      category,
+      action,
+      label,
+      value
+    });
   }
 };
 

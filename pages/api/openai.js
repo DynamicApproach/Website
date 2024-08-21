@@ -1,9 +1,16 @@
 import OpenAI from "openai";
+import ReactGA from "react-ga4";
+import { logEvent } from "utils/ana";
+export const initGA = () => {
+  console.log("GA init");
+  ReactGA.initialize("G-TGX1KE5CE0");
+};
 
+// Ensure that GA is initialized
+initGA();
 const systemInstruction =
-  "Markdown format, using * for list. Go deep rather than wide." +
-  " DO NOT respond with anything except the list itself. Treat the first node as the root node." +
-  " Do NOT include the root in ANY response past the first one.";
+  "Markdown format, using * for list. Go deep with many branches." +
+  " DO NOT respond with anything except the list itself.";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
@@ -56,6 +63,12 @@ export default async function handler(req, res) {
         : response.choices[0].text;
 
       console.log("Response from OpenAI:", content);
+      logEvent(
+        "OpenAI Query",
+        "Query Sent",
+        `Model: ${model}, Prompt: ${prompt.substring(0, 50)}`,
+        content.length
+      );
       res.status(200).json({ content: content });
     } catch (error) {
       console.error("Error with OpenAI API:", error);
