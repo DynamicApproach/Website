@@ -20,10 +20,6 @@ const addonList = [
   "LintStaged",
   "Jest"
 ];
-const schoolprojects = [
-  "Capstone Project",
-  "Computer Communications and Networks"
-];
 
 const Index: NextPage = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -55,19 +51,14 @@ const Index: NextPage = () => {
         <title>🎆DynamicApproach</title>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
-
-      <Nav />
       <motion.div
         initial={{ opacity: 1, scale: 1.5, zIndex: 1 }}
         animate={{ opacity: 0, scale: 1, zIndex: 1 }}
         transition={{ duration: 1 }}
         className="fixed h-full w-full bg-gradient-to-br from-backgray to-albanypurp"
       />
-      <Head>
-        <meta name="ThomasLJ" content="Thomas LJ Website" />
-        <link rel="icon" href="/images/melongray.png" className="border" />
-      </Head>
 
+      <Nav />
       {/* Use Framer Motion for page transitions */}
       <motion.main
         className={styles.main}
@@ -76,35 +67,36 @@ const Index: NextPage = () => {
         exit="exit"
         variants={variants}
       >
-        <div className={styles.mainImage}>
-          <h2 className="text-3xl text-white">
-            <div className="flex min-h-fit min-w-fit content-center justify-center pr-2">
-              <Image
-                src={mainimg}
-                alt="Tiny avatar that looks like a watermelon"
-                width={75}
-                height={75}
-                className="flex rounded-full pb-7 pt-7 "
-              />
-              Thomas Lloyd-Jones
-            </div>
-          </h2>
-        </div>
-
-        {/* Animate content based on scroll position */}
+        <h1 className="text-2xl">Thomas Lloyd-Jones</h1>
         <motion.div
-          className="h-screen w-screen place-content-center place-items-center justify-center text-center"
+          className="h-screen w-screen  place-items-center justify-center text-center"
           animate={{
-            opacity: scrollPosition < 50 ? 1 : 0,
-            y: scrollPosition < 50 ? 0 : (scrollPosition - 50) * 0.5, // Adjust the scale of the fading out effect
+            opacity: scrollPosition < 400 ? 1 : 0,
+            y: scrollPosition < 400 ? 0 : (scrollPosition - 50) * 0.5,
             zIndex: 1,
             transition: { duration: 0.5 },
-            scale: scrollPosition < 50 ? 1 : 0.5
+            scale: scrollPosition < 400 ? 1 : 0.5
           }}
           transition={{
-            duration: scrollPosition < 70 ? 0.5 : 0.2 // Adjust the duration of the fading out effect
+            duration: scrollPosition < 400 ? 0.5 : 0.2 // Adjust the duration of the fading out effect
           }}
         >
+          <div className={styles.mainImage}>
+            <h2 className="text-3xl text-white">
+              <div className="flex min-h-fit min-w-fit content-center justify-center pr-2">
+                <Image
+                  src={mainimg}
+                  alt="Tiny avatar that looks like a watermelon"
+                  width={75}
+                  height={75}
+                  className="flex rounded-full pb-7 pt-7 "
+                />
+              </div>
+            </h2>
+          </div>
+
+          {/* Animate content based on scroll position */}
+
           <div className="">
             <p className=" pr-4 text-nextlightblueish">
               My favourite things are
@@ -116,8 +108,11 @@ const Index: NextPage = () => {
               <span className=" text-albanyyellow">
                 playing video games.
               </span>{" "}
-              While currently studying Computer Science at SUNY at Albany, I am
-              also working on my skills, website and side projects.
+              <br></br>I graduated from SUNY at Albany, with a bachelors in
+              Computer Science in Dec 2023.
+              <br></br>
+              <br></br>I am currently working on a few projects, including a new
+              iOS app, and this website.
             </p>
             <br></br>
             <p className=" pr-4 text-nextlightblueish">
@@ -127,34 +122,24 @@ const Index: NextPage = () => {
           <br></br>
           <br></br>
           <p className=" pr-4 text-nextlightblueish">
-            Currently, I&apos;m at the end of my final semester! During this,
-            I&apos;m currently working at
+            During this, I&apos;m currently working at
+            <br />
             <span className="text-albanyyellow">
-              {[
-                "NYS ITS in DevOps supporting" +
-                  ".NET/Angular with AKS (Azure Kubernetes Service)"
-              ].join(", ")}
+              {"Kodak as a System Admin, in reality,"}
+              <br />
+              {"I'm involved in system administration, developing, and DevOps."}
             </span>
-            <br></br>
-            My final classes will be: <br></br>
-            <br></br>
-            <span className="text-albanyyellow">
-              {schoolprojects.join(", ")}
-            </span>
+            <br />
           </p>
-          <p className=" pr-4 text-nextlightblueish">
-            I am almost finished with my Bachelors of Science in{" "}
-            <span className=" text-albanyyellow">Computer Science</span>, with a
-            planned graduation date of{" "}
-            <span className="text-albanyyellow">December 2023</span>!<br></br>
-            <br></br>
-            In my spare time, I tend to create new things, and I am currently
-            working on a new project, my Capstone iOS app, and this website.{" "}
-            <br></br>
+          <p className=" pr-4 text-nextlightblueish"></p>
+          <br></br>
+
+          <p className="relative pl-4 pr-4 pt-14 text-nextlightblueish">
+            Take a look at my Github to get an idea of what my current projects
+            are.
           </p>
         </motion.div>
 
-        <br></br>
         <motion.div
           className="h-screen w-screen justify-center text-center"
           animate={{
@@ -166,10 +151,6 @@ const Index: NextPage = () => {
           }}
           transition={{ duration: 0.5 }}
         >
-          <p className="relative pl-4 pr-4 pt-14 text-nextlightblueish">
-            Take a look at my Github to get an idea of what my current projects
-            are.
-          </p>
           <div
             className="bg-transparent  
       content-center justify-center border-t-4 border-albanylightpurp p-8 "

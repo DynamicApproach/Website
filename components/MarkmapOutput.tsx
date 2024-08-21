@@ -49,6 +49,7 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
       root = transformer.transform(
         uploadedContent ? uploadedContent : content
       ).root;
+      console.error("Error parsing JSON:", error);
     }
 
     let svgElement = markmapRef.current.querySelector("svg");

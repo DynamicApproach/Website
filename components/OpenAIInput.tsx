@@ -72,15 +72,16 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
         return;
       }
       const prompt =
-        "Please give me an extremely detailed mind map of " +
+        "Please give me an extremely detailed text based mind map of " +
         inputData +
         " in Markdown format, using * for list. Go deep rather than wide please but please" +
         " Only give me responses in this format.  \n";
 
       const result = await fetchFromServer({
         prompt: prompt,
-        model: "text-davinci-003", // or any other model you want to use
-        max_tokens: 4000 // or any other value
+        model: "gpt-4", // or any other model you want to use
+        max_tokens: 10000 // or any other value
+        // CHANGE THESE IF YOU WANT TO USE THIS LOCAL
       });
 
       console.log("OpenAI API response:", result);
@@ -119,15 +120,15 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
     try {
       const nodePath = getNodePath(existingMarkdown, inputData);
       const promptBase = existingMarkdown
-        ? `Given the existing mind map of ${nodePath}`
-        : `Please give me an extremely detailed mind map of ${nodePath}`;
-      const prompt = `${promptBase} in Markdown format, using * for lists. Please go deep rather than wide but ONLY give me responses in this specific markdown format.\n`;
+        ? `Please give me an extremely detailed text based mind map of the last item in this list ${nodePath}`
+        : `Please give me an extremely detailed text based mind map of the last item in this list ${nodePath}`;
+      const prompt = `${promptBase} in Markdown format, using * for lists.
+       Please go deep rather than wide but ONLY give me responses in this specific markdown format. Supply at least 6 top level nodes and 20 sub-nodes each.\n`;
 
       const result = await fetchFromServer({
         prompt: prompt,
-        model:
-          selectedAPI === "openai" ? "text-davinci-003" : "gpt-3.5-turbo-16k",
-        max_tokens: selectedAPI === "openai" ? 4000 : 16100
+        model: selectedAPI === "openai" ? "chatgpt-4o-latest" : "gpt-4o",
+        max_tokens: selectedAPI === "openai" ? 16000 : 4096
       });
 
       console.log("OpenAI API response:", result);
@@ -202,14 +203,16 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           <label htmlFor="api" className="block text-white">
             Choose API:
             <br />
-            (Time / Quality tradeoff - GPT4 is best)
           </label>
           <select id="api" value={selectedAPI} onChange={handleApiChange}>
-            <option value="GPT4">GPT4</option>
-            <option value="chatgpt">ChatGPT</option>
-            <option value="openai">OpenAI</option>
+            <title>Choose API</title>
+            {/* if selectedAPI is openai, use chatgpt-4o-latest, otherwise use gpt-4o */}
+            <option value="GPT4">gpt-4o</option>
+            <option value="openai">chatgpt-4o-latest</option>
             {/*<option value="HuggingFace">HuggingFace</option>*/}
           </select>
+          <p>(Time / Quality tradeoff - latest is best)</p>
+
           {/* Space for text */}
           <button
             type="submit"
@@ -233,6 +236,8 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
           </button>
           <div className="text-ellipsis text-xs text-nextlightblueish">
             HINT: YOU CAN CLICK NODES!
+            <br />
+            Updated 8.20.24
             <br />
             If another node is clicked, that request will be made in parallel
             and added to the map when complete.

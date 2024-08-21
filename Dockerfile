@@ -6,11 +6,11 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy the rest of your app's source code
+# Copy the rest of source code
 COPY . .
 
-# Build your Next.js application
+# Build Next.js application
 RUN npm run build
 
-# The command to run your application
-CMD ["npm", "start"]
+# The command to run
+CMD ["npm", "run", "next"]

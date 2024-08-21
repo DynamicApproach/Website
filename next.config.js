@@ -2,10 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    forceSwcTransforms: true,
   },
   images: {
-    domains: ["readme-typing-svg.demolab.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.dynamicapproach.dev",
+        port: "",
+      },
+    ],
   },
 };
 

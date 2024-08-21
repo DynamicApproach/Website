@@ -11,9 +11,10 @@
 # next.js
 /.next/
 /out/
-
+.env
 # production
 /build
+terraform/
 
 # misc
 .DS_Store
@@ -34,3 +35,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 examples/styledcomponents.md
+terraform/terraform.tfvars
+manifest.yaml
+settings.json
+*.tfstate

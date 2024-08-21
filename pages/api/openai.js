@@ -1,5 +1,9 @@
 import OpenAI from "openai";
 
+const systemInstruction =
+  "Markdown format, using * for list. Go deep rather than wide." +
+  " DO NOT respond with anything except the list itself. Treat the first node as the root node." +
+  " Do NOT include the root in ANY response past the first one.";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
@@ -17,20 +21,31 @@ export default async function handler(req, res) {
       let response;
 
       // Check if the model is a chat model
-      const isChatModel = model.includes("turbo") || model.startsWith("gpt-4");
-      console.log(openai);
+      const isChatModel =
+        model.includes("chatgpt-4") || model.startsWith("gpt-4");
+
       if (isChatModel) {
         // Use chat completions for chat models
         response = await openai.chat.completions.create({
           model: model,
-          messages: [{ role: "user", content: prompt }],
+          messages: [
+            {
+              role: "system",
+              content: systemInstruction
+            },
+            {
+              role: "user",
+              content: prompt
+            }
+          ],
           max_tokens: max_tokens
         });
       } else {
+        const fullPrompt = `${systemInstruction}\n\n${prompt}`;
         // Use standard completions for non-chat models
-        response = await openai.Completions.create({
+        response = await openai.completions.create({
           model: model,
-          prompt: prompt,
+          prompt: fullPrompt,
           max_tokens: max_tokens
         });
       }
