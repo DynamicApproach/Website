@@ -51,6 +51,7 @@ const Index: NextPage = () => {
         <title>🎆DynamicApproach</title>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
+      <Nav />
       <motion.div
         initial={{ opacity: 1, scale: 1.5, zIndex: 1 }}
         animate={{ opacity: 0, scale: 1, zIndex: 1 }}
@@ -58,7 +59,6 @@ const Index: NextPage = () => {
         className="fixed h-full w-full bg-gradient-to-br from-backgray to-albanypurp"
       />
 
-      <Nav />
       {/* Use Framer Motion for page transitions */}
       <motion.main
         className={styles.main}
