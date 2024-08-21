@@ -28,10 +28,9 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (event: { target: any }) => {
       if (event.target) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const targetData = (event.target as any).__data__;
+        const targetData = event.target.__data__;
         if (targetData && targetData.data) {
-          onNodeClick(targetData.data); // sending the whole data object instead of just the title
+          onNodeClick(targetData.data);
         }
       }
     },
@@ -67,6 +66,7 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
       svgElement.setAttribute("height", "100%");
       svgElement.setAttribute("preserveAspectRatio", "xMinYMin meet");
       svgElement.setAttribute("viewBox", "0 0 1000 1000");
+      svgElement.style.display = "block"; // Ensure SVG is block level
     }
 
     const style = document.createElement("style");
@@ -127,7 +127,7 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
   };
 
   return (
-    <div className="backdrop-opacity-100">
+    <div className="backdrop-opacity-100 h-full w-full flex flex-col">
       <div style={{ display: "inline-block" }}>
         <div>
           <label
@@ -155,8 +155,8 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
       </div>
       <div
         ref={markmapRef}
-        className="relative z-0 mt-4 flex h-full w-full 
-        flex-col items-center justify-start space-x-2 backdrop-opacity-100"
+        className="relative z-0 mt-4 flex-grow h-full w-full 
+        flex flex-col items-center justify-start space-x-2 backdrop-opacity-100"
       ></div>
     </div>
   );

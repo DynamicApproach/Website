@@ -125,31 +125,27 @@ const MindMapper = () => {
   return (
     <div
       className="min-w-screen bg-grad min-h-screen bg-gradient-to-br 
-      from-backgray to-albanypurp bg-cover bg-scroll bg-blend-difference"
+        from-backgray to-albanypurp bg-cover bg-scroll bg-blend-difference"
     >
-      {" "}
       <Head>
         <title>🎆DynamicApproach-MindMap</title>
       </Head>
       <Nav />
-      <div
-        className="flex 
-      min-h-screen flex-col bg-gradient-to-br from-backgray to-albanypurp bg-cover bg-scroll md:flex-row"
-      >
+      <div className="flex flex-col-reverse md:flex-row min-h-screen">
         <div
           className="border-gray-300 m-4 rounded-lg 
-    border-l border-r border-t p-6 text-left transition-colors duration-150 ease-in-out 
-    sm:w-full md:w-1/2 lg:w-1/3"
+            border-l border-r border-t p-6 text-left transition-colors duration-150 ease-in-out 
+            w-full md:w-1/2"
         >
           <h1
             className="text-green-600 mb-4 text-center font-semibold
-   text-nextblue sm:text-base md:text-lg lg:text-xl"
+              text-nextblue sm:text-base md:text-lg lg:text-xl"
           >
             Welcome To The Mindmap Creator.
           </h1>
           <h1
             className="text-l text-gray-500 mb-4 text-center 
-     font-semibold leading-relaxed text-nextlightblueish sm:text-base md:text-lg lg:text-xl"
+                font-semibold leading-relaxed text-nextlightblueish sm:text-base md:text-lg lg:text-xl"
           >
             Enter any subject you would like a map of in the box below. It can
             take a second to load!
@@ -177,9 +173,9 @@ const MindMapper = () => {
         {hasResponse && (
           <div
             ref={markmapRef}
-            className="relative h-full min-h-screen w-full
+            className="relative h-full min-h-screen w-full flex-grow
     bg-gradient-to-br from-backgray to-albanypurp bg-cover
-    bg-scroll text-sm sm:w-full md:w-1/2 lg:w-2/3"
+    bg-scroll text-sm w-full md:w-1/2"
           >
             <div className="absolute left-0 top-0 h-full w-full">
               <MarkmapOutput
@@ -192,7 +188,7 @@ const MindMapper = () => {
             </div>
             <div
               className="bg-black absolute right-4 top-4 
-            flex flex-col items-start rounded bg-opacity-50 p-2 backdrop-opacity-75"
+                  flex flex-col items-start rounded bg-opacity-50 p-2 backdrop-opacity-75"
             >
               {showMessage && (
                 <div className="mb-2 h-fit w-fit text-sm text-albanypurp backdrop-opacity-100 sm:text-base md:text-lg">
@@ -201,7 +197,7 @@ const MindMapper = () => {
               )}
               <button
                 className="bg-blue-500 hover:bg-blue-700 mt-2 
-        cursor-pointer rounded px-4 py-2 font-bold text-white backdrop-opacity-100"
+                  cursor-pointer rounded px-4 py-2 font-bold text-white backdrop-opacity-100"
                 onClick={exportHTML}
               >
                 Download HTML Version
