@@ -9,10 +9,14 @@ import getNodePath from "components/openai/getNodePath";
 import appendMarkdown from "components/openai/appendMarkdown";
 import modifyMarkdown from "./openai/modifyMarkdown";
 import { HfInference } from "@huggingface/inference";
-
+import { initGA } from "utils/ana";
+import { logEvent } from "utils/ana";
 const NEXT_PUBLIC_Hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
+const MAX_TOKENS_ALLOWED = 8092; // or any other value
 
 const NEXT_PUBLIC_deploymentKey = process.env.DEPLOYMENT_KEY;
+
+initGA();
 const OpenAIInput: React.FC<OpenAIInputProps> = ({
   onResponse,
   nodeData,
@@ -76,14 +80,13 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
         inputData +
         " in Markdown format, using * for list. Go deep rather than wide please but please" +
         " Only give me responses in this format.  \n";
-
+      logEvent("Query-Sent", "gpt-4o", prompt, prompt.length);
       const result = await fetchFromServer({
         prompt: prompt,
-        model: "gpt-4", // or any other model you want to use
-        max_tokens: 10000 // or any other value
-        // CHANGE THESE IF YOU WANT TO USE THIS LOCAL
+        model: "gpt-4o",
+        max_tokens: MAX_TOKENS_ALLOWED
       });
-
+      logEvent("Query-Sent", "gpt-4o", prompt, prompt.length);
       console.log("OpenAI API response:", result);
       console.log(result);
       const choices = result.choices;
@@ -108,6 +111,16 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
   };
   useEffect(() => {
     // For each response, apply the modifyMarkdown function
+    // log each response
+
+    responses.forEach((response) => {
+      logEvent(
+        "Query-Back",
+        "gpt-4o",
+        `${response.substring(0, 50)}`,
+        prompt.length
+      );
+    });
     responses.forEach((response, node) => {
       modifyMarkdown(existingMarkdown, node, response);
     });

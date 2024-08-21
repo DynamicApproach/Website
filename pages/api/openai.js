@@ -6,8 +6,6 @@ export const initGA = () => {
   ReactGA.initialize("G-TGX1KE5CE0");
 };
 
-// Ensure that GA is initialized
-initGA();
 const systemInstruction =
   "Markdown format, using * for list. Go deep with many branches." +
   " DO NOT respond with anything except the list itself.";
@@ -31,6 +29,7 @@ export default async function handler(req, res) {
       const isChatModel =
         model.includes("chatgpt-4") || model.startsWith("gpt-4");
 
+      logEvent("Query-Sent", model, prompt, prompt.length);
       if (isChatModel) {
         // Use chat completions for chat models
         response = await openai.chat.completions.create({
@@ -62,11 +61,10 @@ export default async function handler(req, res) {
         ? response.choices[0].message.content
         : response.choices[0].text;
 
-      console.log("Response from OpenAI:", content);
       logEvent(
-        "OpenAI Query",
-        "Query Sent",
-        `Model: ${model}, Prompt: ${prompt.substring(0, 50)}`,
+        "Query-Back",
+        model,
+        `${prompt.substring(0, 50)}`,
         content.length
       );
       res.status(200).json({ content: content });
