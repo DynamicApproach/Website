@@ -122,7 +122,7 @@ jobs:
       - name: Ensure Snyk report exists
         run: |
           if [ ! -f snyk_report.json ]; then
-          echo "{}" > snyk_report.json
+          echo "{}" > snyk_report.json && echo "Snyk report was not generated" && exit 1
           fi
 
       - name: Run Snyk to check for vulnerabilities
