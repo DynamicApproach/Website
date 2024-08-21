@@ -47,7 +47,7 @@
     "cors": "^2.8.5",
     "d3": "^7.9.0",
     "dotenv": "^16.4.5",
-    "eslint": "^8.57.0",
+    "eslint": "^9.9.0",
     "express": "^4.19.2",
     "framer-motion": "^11.3.28",
     "framer-motion-3d": "^11.3.28",
