@@ -11,6 +11,6 @@ COPY . .
 
 # Build Next.js application
 RUN npm run build
-
+EXPOSE 3000
 # The command to run
 CMD ["npm", "run", "next"]
