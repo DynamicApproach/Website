@@ -12,7 +12,7 @@ import { HfInference } from "@huggingface/inference";
 import { initGA } from "utils/ana";
 import { logEvent } from "utils/ana";
 const NEXT_PUBLIC_Hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
-const MAX_TOKENS_ALLOWED = 8092; // or any other value
+const MAX_TOKENS_ALLOWED = 4096;
 
 const NEXT_PUBLIC_deploymentKey = process.env.DEPLOYMENT_KEY;
 
