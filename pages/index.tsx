@@ -78,7 +78,7 @@ const Index: NextPage = () => {
             scale: scrollPosition < 400 ? 1 : 0.5
           }}
           transition={{
-            duration: scrollPosition < 400 ? 0.5 : 0.2 // Adjust the duration of the fading out effect
+            duration: scrollPosition < 400 ? 0.5 : 0.2
           }}
         >
           <div className={styles.mainImage}>

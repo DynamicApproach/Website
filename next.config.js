@@ -11,6 +11,14 @@ const nextConfig = {
         port: "",
       },
     ],
+  }, async redirects() {
+    return [
+      {
+        source: "/infoPages/mindmapper",
+        destination: "/mindmapper",
+        permanent: true,
+      },
+    ];
   },
 };
 
