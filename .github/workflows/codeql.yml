@@ -42,26 +42,11 @@ jobs:
           npx eslint . --config eslint.config.js --output-file eslint-results.sarif
         continue-on-error: true
 
-      - name: Fix SARIF file
-        run: |
-          node -e "
-            const fs = require('fs');
-            const sarif = JSON.parse(fs.readFileSync('eslint-results.sarif', 'utf8'));
-            sarif.runs[0].results.forEach(result => {
-              if (result.suppressions) {
-                result.suppressions = Array.from(new Set(result.suppressions.map(JSON.stringify))).map(JSON.parse);
-              }
-            });
-            fs.writeFileSync('eslint-results-fixed.sarif', JSON.stringify(sarif));
-          "
-        continue-on-error: true
-
       - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: eslint-results-fixed.sarif
+          sarif_file: eslint-results.sarif
           wait-for-processing: true
-        continue-on-error: true
 
   Code_QL:
     needs: Eslint_QL
