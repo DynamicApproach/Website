@@ -5,24 +5,18 @@ function modifyMarkdown(
   node: string,
   newData: string
 ): string {
-  // If no existing markdown, return the new data
   if (!markdown) {
     console.log("No existing markdown. Returning new data.");
     return newData;
   }
 
-  // Remove the first line starting with "# " (the title)
-  newData = newData.replace(/^\s*# .*\n?/, "");
-  // Convert all - to * (for markdown lists)
-  newData = newData.replace(/-/g, "*");
+  // Clean up and format the new data
+  newData = newData.replace(/^\s*# .*\n?/, "").replace(/-/g, "*");
+  newData = formatData(newData); // Ensures consistent formatting
 
-  // Format new data
-  newData = formatData(newData);
-  console.log("New data:", newData);
   const lines = markdown.split("\n");
-  const nodeLineIndex = lines.findIndex((line) => line.includes(node));
+  const nodeLineIndex = lines.findIndex((line) => line.trim() === node.trim());
 
-  // If the node was not found, return existing markdown
   if (nodeLineIndex < 0) {
     console.warn(
       "Node not found in existing markdown. Returning existing markdown."
@@ -30,46 +24,45 @@ function modifyMarkdown(
     return markdown;
   }
 
-  // Get the indentation of the current line (number of leading spaces)
+  // Get the current line's indentation level
   const match = lines[nodeLineIndex].match(/^ */);
   const currentIndentation = match ? match[0].length : 0;
-  // Define the indentation for the new lines (current indentation + 2 spaces)
   const newIndentation = " ".repeat(currentIndentation + 2);
 
-  // Check if node has existing children
-  let hasChildren = false;
-  let insertIndex = nodeLineIndex + 1; // default insert index if no children
+  // Prepare formatted new data
+  const formattedNewData = newData
+    .split("\n")
+    .map((line) => (line.trim() ? newIndentation + line.trim() : line))
+    .join("\n");
+
+  // Insert the new data after existing children or as the first child
+  let insertIndex = nodeLineIndex + 1;
   while (
     insertIndex < lines.length &&
     lines[insertIndex].startsWith(newIndentation)
   ) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    hasChildren = true; // node has at least one child
     insertIndex++;
   }
 
-  // Prepare new data for insertion
-  const newNodeData = newData
-    .split("\n")
-    .map((line) =>
-      line.trim() ? newIndentation + line.trim().replace(/\s+/g, " ") : line
-    )
-    .join("\n")
-    .split("\n"); // split the new data into separate lines for checking duplication
-
-  // Check if a child with the same name already exists and remove duplicates
-  for (let i = 0; i < newNodeData.length; i++) {
-    const child = newNodeData[i].trim();
-    if (lines.some((line) => line.trim() === child)) {
-      newNodeData.splice(i, 1);
-      i--; // adjust index due to removal
-    }
-  }
-
   // Insert the new data at the correct position
-  lines.splice(insertIndex, 0, ...newNodeData);
+  lines.splice(insertIndex, 0, ...formattedNewData.split("\n"));
 
   return lines.join("\n");
+}
+function formatData(data: string): string {
+  return data
+    .split("\n")
+    .map((line) => {
+      const match = line.match(/^\**/);
+      const numAsterisks = match ? match[0].length : 0;
+
+      // Ensure the indentation level is not negative
+      const indentationLevel = Math.max(0, numAsterisks - 1);
+      const indentation = "  ".repeat(indentationLevel);
+
+      return indentation + line.trim();
+    })
+    .join("\n");
 }
 
 export default modifyMarkdown;

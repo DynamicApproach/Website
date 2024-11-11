@@ -23,7 +23,6 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
   const markmapRef = useRef<HTMLDivElement>(null);
   const markmapInstanceRef = useRef<Markmap>();
   const [uploadedContent, setUploadedContent] = useState<string | null>(null);
-
   const handleClick = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (event: { target: any }) => {
@@ -39,11 +38,20 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
 
   useEffect(() => {
     if (!markmapRef.current) return;
+
     const transformer = new Transformer();
     let root;
 
     try {
-      root = JSON.parse(uploadedContent ? uploadedContent : content);
+      const rawContent = uploadedContent || content;
+      const lines = rawContent
+        .split(/\r?\n/)
+        .filter((line) => line.trim() !== "");
+      if (lines.length === 0) throw new Error("Content is empty or invalid.");
+
+      const rootTitle = lines.shift()?.trim() || "Root Node";
+      const formattedContent = `${rootTitle}\n${lines.join("\n")}`;
+      root = transformer.transform(formattedContent).root;
     } catch (error) {
       root = transformer.transform(
         uploadedContent ? uploadedContent : content
@@ -58,15 +66,12 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
         "http://www.w3.org/2000/svg",
         "svg"
       );
-      if (markmapRef.current) {
-        markmapRef.current.appendChild(svgElement);
-      }
-
+      markmapRef.current.appendChild(svgElement);
       svgElement.setAttribute("width", "100%");
       svgElement.setAttribute("height", "100%");
       svgElement.setAttribute("preserveAspectRatio", "xMinYMin meet");
       svgElement.setAttribute("viewBox", "0 0 1000 1000");
-      svgElement.style.display = "block"; // Ensure SVG is block level
+      svgElement.style.display = "block";
     }
 
     const style = document.createElement("style");
@@ -74,12 +79,14 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
     document.head.appendChild(style);
 
     if (svgElement) {
-      if (!content && !uploadedContent && markmapInstanceRef.current) {
+      if (markmapInstanceRef.current) {
         markmapInstanceRef.current.destroy();
       } else {
         markmapInstanceRef.current = Markmap.create(svgElement, {}, root);
       }
+      markmapInstanceRef.current = Markmap.create(svgElement, {}, root);
 
+      // Reattach the click listener
       svgElement.addEventListener("click", handleClick, false);
 
       const svgString = new XMLSerializer().serializeToString(svgElement);
@@ -88,10 +95,10 @@ const MarkmapOutput: React.FC<MarkmapOutputProps> = ({
 
     return () => {
       if (svgElement) {
+        svgElement.removeEventListener("click", handleClick, false);
         if (markmapInstanceRef.current) {
           markmapInstanceRef.current.destroy();
         }
-        svgElement.removeEventListener("click", handleClick, false);
       }
     };
   }, [content, uploadedContent, handleClick, onSvgContentUpdate]);

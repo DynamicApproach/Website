@@ -79,7 +79,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
         "Please give me an extremely detailed text based mind map of " +
         inputData +
         " in Markdown format, using * for list. Go deep rather than wide please but please" +
-        " Only give me responses in this format.  \n";
+        " Only give me responses in this format. Do NOT include ticks.  \n";
       logEvent("Query-Sent", "gpt-4o", prompt, prompt.length);
       const result = await fetchFromServer({
         prompt: prompt,
@@ -136,7 +136,7 @@ const OpenAIInput: React.FC<OpenAIInputProps> = ({
         ? `Please give me an extremely detailed text based mind map of the last item in this list ${nodePath}`
         : `Please give me an extremely detailed text based mind map of the last item in this list ${nodePath}`;
       const prompt = `${promptBase} in Markdown format, using * for lists.
-       Please go deep rather than wide but ONLY give me responses in this specific markdown format. Supply at least 6 top level nodes and 20 sub-nodes each.\n`;
+       Please go deep rather than wide but ONLY give me responses in this specific markdown format. Supply at least 6 top level nodes and 20 sub-nodes each.\n Do NOT include ticks.`;
 
       const result = await fetchFromServer({
         prompt: prompt,

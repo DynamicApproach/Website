@@ -1,23 +1,11 @@
 function formatData(data: string): string {
-  let currentIndentationLevel = 0;
-
   return data
     .split("\n")
-    .map((line) => {
-      // Count the number of asterisks at the beginning of the line
+    .map((line, index, lines) => {
       const match = line.match(/^\**/);
       const numAsterisks = match ? match[0].length : 0;
-
-      if (numAsterisks > currentIndentationLevel) {
-        // If this line is more indented than the previous line, increase the indentation level
-        currentIndentationLevel++;
-      } else if (numAsterisks < currentIndentationLevel) {
-        // If this line is less indented than the previous line, decrease the indentation level
-        currentIndentationLevel--;
-      }
-
-      // Add two spaces of indentation for each indentation level
-      return "  ".repeat(currentIndentationLevel) + line.trim();
+      const indentation = "  ".repeat(numAsterisks - 1); // -1 because root node has 0 extra indentation
+      return indentation + line.trim();
     })
     .join("\n");
 }
