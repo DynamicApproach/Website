@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
   if (!topic || typeof topic !== "string") {
     res.status(400).json({
-      error: 'The "topic" query parameter is required and must be a string.'
+      error: "The \"topic\" query parameter is required and must be a string."
     });
     return;
   }
