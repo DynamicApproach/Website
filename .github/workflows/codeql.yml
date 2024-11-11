@@ -39,6 +39,7 @@ jobs:
         run: |
           npx eslint . --config .eslintrc.json --ext .js,.jsx,.ts,.tsx --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif
         continue-on-error: true
+
       - name: Fix SARIF file
         run: |
           node -e "
@@ -51,12 +52,15 @@ jobs:
             });
             fs.writeFileSync('eslint-results-fixed.sarif', JSON.stringify(sarif));
           "
+        continue-on-error: true
 
       - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: eslint-results-fixed.sarif
           wait-for-processing: true
+        continue-on-error: true
+
   Code_QL:
     needs: Eslint_QL
     name: Analyze
