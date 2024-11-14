@@ -3,6 +3,7 @@ import Nav from "components/Nav";
 import styles from "styles/Projects.module.css";
 import Image from "next/image";
 import Head from "next/head";
+import Script from "next/script";
 export const threedprinting = () => {
   return (
     <div
@@ -11,18 +12,6 @@ export const threedprinting = () => {
     >
       <Head>
         <title>🎆DynamicApproach-Printing</title>{" "}
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: `
-                (function(c,l,a,r,i,t,y){
-                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-                })(window, document, "clarity", "script", "ouiiyeyuum");
-              `
-          }}
-        />
       </Head>
       <Nav />
 
@@ -76,6 +65,18 @@ export const threedprinting = () => {
           <h2 className="float-right text-nextgreen">Back&rarr;</h2>
         </Link>
       </main>
+      <Script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: `
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "ouiiyeyuum");
+            `
+        }}
+      />
     </div>
   );
 };

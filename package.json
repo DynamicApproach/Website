@@ -45,6 +45,7 @@
     "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^9.115.0",
     "@react-three/fiber": "^8.17.10",
+    "clarity-js": "^0.7.56",
     "cors": "^2.8.5",
     "d3": "^7.9.0",
     "dotenv": "^16.4.5",

@@ -7,6 +7,8 @@ import Document, {
   DocumentContext
 } from "next/document";
 import withServerStyleSheet from "../utils/withServerStyleSheet";
+import Script from "next/script";
+
 // https://nextjs.org/docs/advanced-features/custom-document -- TypeScript example + documentation
 
 export default class MyDocument extends Document {
@@ -44,7 +46,11 @@ export default class MyDocument extends Document {
             property="twitter:image"
             content="https://metatags.io/images/meta-tags.png"
           />
-          <script
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+          <Script
             type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: `
@@ -56,10 +62,6 @@ export default class MyDocument extends Document {
             `
             }}
           />
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
         </body>
       </Html>
     );

@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { useState, useCallback, useEffect, useRef } from "react";
 import OpenAIInput from "../components/OpenAIInput";
 import MarkmapOutput from "../components/MarkmapOutput";
 import Nav from "components/Nav";
 import { logEvent, logException } from "utils/ana"; // adjust the path as needed
 import Head from "next/head";
-
+import Script from "next/script";
 const MindMapper = () => {
   const [openAIResponse, setOpenAIResponse] = useState<any | null>(null);
   const [hasResponse, setHasResponse] = useState(false);
@@ -16,7 +16,7 @@ const MindMapper = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [svgContent, setSvgContent] = useState<string | null>(null);
   const markmapRef = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   const [lastInput, setLastInput] = useState("");
 
   const sanitizeFilename = (filename: string) => {
@@ -58,7 +58,7 @@ const MindMapper = () => {
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mindmap</title>
+  <title>🎆DynamicApproach-MindMap</title>
   <style>
     html, body, div.markmap svg.markmap {
       position: absolute;
@@ -129,18 +129,6 @@ const MindMapper = () => {
     >
       <Head>
         <title>🎆DynamicApproach-MindMap</title>
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: `
-                (function(c,l,a,r,i,t,y){
-                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-                })(window, document, "clarity", "script", "ouiiyeyuum");
-              `
-          }}
-        />
       </Head>
       <Nav />
       <div className="flex flex-col-reverse md:flex-row min-h-screen">
@@ -218,6 +206,18 @@ const MindMapper = () => {
           </div>
         )}
       </div>
+      <Script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: `
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "ouiiyeyuum");
+            `
+        }}
+      />
     </div>
   );
 };
