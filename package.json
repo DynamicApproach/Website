@@ -43,7 +43,7 @@
     "@huggingface/inference": "^2.8.1",
     "@microsoft/clarity": "^1.0.0",
     "@react-three/cannon": "^6.6.0",
-    "@react-three/drei": "^9.115.0",
+    "@react-three/drei": "^9.116.1",
     "@react-three/fiber": "^8.17.10",
     "clarity-js": "^0.7.56",
     "cors": "^2.8.5",
