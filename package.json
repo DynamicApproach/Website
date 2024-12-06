@@ -51,7 +51,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "framer-motion": "^11.11.11",
-    "framer-motion-3d": "^11.11.11",
+    "framer-motion-3d": "^11.11.17",
     "google-auth-library": "^9.14.2",
     "locomotive-scroll": "^4.1.4",
     "markmap-lib": "^0.17.2",
